@@ -18,3 +18,6 @@ The project allows teachers to upload their own study materials for the sole pur
 ### Libraries 
 - Tailwind CSS
 - Drogon
+
+## Design Plans
+[Figma](https://www.figma.com/design/QOARURPbaP3zJIFnaxoRyH/Untitled?node-id=0-1&node-type=canvas&t=OIy7NBtP3mwb62ty-0)
