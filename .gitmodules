@@ -1,0 +1,3 @@
+[submodule "EduCloud-Backend"]
+	path = EduCloud-Backend
+	url = https://github.com/Pollak-Projects/EduCloud-Backend
