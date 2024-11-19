@@ -1,6 +1,5 @@
 # EduCloud
 
-## The second version of the CourseController
 ### Team members
 - Jani Patrik
 - Tamáskovits Gyula Ákos
