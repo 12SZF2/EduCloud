@@ -8,11 +8,498 @@ info:
 servers:
   - url: http://localhost:3300
     description: Local server
+tags:
+  - name: Module
+    description: Module part of admin
+  - name: Assignment
+    description: Assignment part of admin (not yet implemented)
+  - name: User
+    description: User part of admin (not yet implemented)
 
 security:
   - ApiKeyAuth: []
 
 paths:
+  /module/getAll:
+    get:
+      tags:
+        - Module
+      summary: Get all modules
+      operationId: getAllModules
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+  /module/getByModuleId:
+    get:
+      tags:
+        - Module
+      summary: Get modules by id
+      operationId: getModulesById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+  /module/getByModuleName:
+    get:
+      tags:
+        - Module
+      summary: Get modules by name
+      operationId: getModulesByName
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleNameResponse'
+  /module/getByProfession:
+    get:
+      tags:
+        - Module
+      summary: Get items by profession
+      operationId: getItemsByProfession
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleProfessionResponse'
+
+  /module/getByProfessionAndCategory:
+    get:
+      tags:
+        - Module
+      summary: Get items by profession and category
+      operationId: getItemsByProfessionAndCategory
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response for Profession and Category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleProfessionCategoryResponse'
+
+  /module/getByProfessionAndGrade:
+    get:
+      tags:
+        - Module
+      summary: Get items by profession and grade
+      operationId: getItemsByProfessionAndGrade
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response for Profession and Grade
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleProfessionGradeResponse'
+  /module/getByCategoryAndGrade:
+    get:
+      tags:
+        - Module
+      summary: Get items by category and grade
+      operationId: getItemsByCategoryAndGrade
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response for Category and Grade
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleCategoryGradeResponse'
+
+  /module/getByCategory:
+    get:
+      tags:
+        - Module
+      summary: Get items by category
+      operationId: getItemsByCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response for Category
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleCategoryResponse'
+  /module/getByGrade:
+    get:
+      tags:
+        - Module
+      summary: Get items by grade
+      operationId: getItemsByGrade
+      parameters:
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response for Grade
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ModuleGradeResponse'
+  /module/create:
+    post:
+      tags:
+        - Module
+      summary: Create a new module
+      operationId: createModule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        '200':
+          description: Module created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+  /module/updateById:
+    put:
+      tags:
+        - Module
+      summary: Update a module
+      operationId: updateModule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Module'
+      responses:
+        '200':
+          description: Module updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Module'
+  /module/deleteById:
+    delete:
+      tags:
+        - Module
+      summary: Delete a module
+      operationId: deleteModule
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Module deleted successfully
+  /module/deleteAllByProfession:
+    delete:
+      tags:
+        - Module
+      summary: Delete a module
+      operationId: deleteAllModuleByProfession
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Module deleted successfully
+  /module/deleteAllByGrade:
+    delete:
+      tags:
+        - Module
+      summary: Delete a module
+      operationId: deleteAllModuleByGrade
+      parameters:
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Module deleted successfully
+  /module/deleteAllByCategory:
+    delete:
+      tags:
+        - Module
+      summary: Delete a module
+      operationId: deleteAllModuleByCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Module deleted successfully
+
+  /assignment/getAll:
+    get:
+      tags:
+        - Assignment
+      summary: Get all assignments
+      operationId: getAllAssignments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assignment'
+  /assignment/getById:
+    get:
+      tags:
+        - Assignment
+      summary: Get assignments by id
+      operationId: getAssignmentsById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assignment'
+  /assignment/create:
+    post:
+      tags:
+        - Assignment
+      summary: Create a new assignment
+      operationId: createAssignment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Assignment'
+      responses:
+        '200':
+          description: Assignment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+  /assignment/updateById:
+    put:
+      tags:
+        - Assignment
+      summary: Update an assignment
+      operationId: updateAssignment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Assignment'
+      responses:
+        '200':
+          description: Assignment updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assignment'
+  /assignment/deleteById:
+    delete:
+      tags:
+        - Assignment
+      summary: Delete an assignment
+      operationId: deleteAssignment
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Assignment deleted successfully
+
+  /user/getAll:
+    get:
+      tags:
+        - User
+      summary: Get all users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /user/getById:
+    get:
+      tags:
+        - User
+      summary: Get user by id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                allOf:
+                  - $ref: '#/components/schemas/User'
+  /user/create:
+    post:
+      tags:
+        - User
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/updateById:
+    put:
+      tags:
+        - User
+      summary: Update a user
+      operationId: updateUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /user/deleteById:
+    delete:
+      tags:
+        - User
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: User deleted successfully
+
   /login:
     post:
       summary: User login
@@ -144,7 +631,160 @@ paths:
                   error: Not Acceptable
                 additionalProperties: false
                 
-components: 
+components:
+  schemas:
+    Module:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        name:
+          type: string
+          example: name
+        description:
+          type: string
+          example: description
+        grade:
+          type: string
+          example: '13/A'
+        profession:
+          type: string
+          example: profession
+        category:
+          type: string
+          example: category
+    ModuleNameResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        description:
+          type: string
+          example: description
+        grade:
+          type: string
+          example: '13/A'
+        profession:
+          type: string
+          example: profession
+        category:
+          type: string
+          example: category
+    ModuleGradeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        profession:
+          type: string
+          example: profession
+        category:
+          type: string
+          example: category
+    ModuleProfessionGradeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        category:
+          type: string
+          example: category
+    ModuleProfessionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        grade:
+          type: string
+          example: '13/A'
+        category:
+          type: string
+          example: category
+    ModuleProfessionCategoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        grade:
+          type: string
+          example: '13/A'
+    ModuleCategoryResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        grade:
+          type: string
+          example: '13/A'
+        profession:
+          type: string
+          example: profession
+    ModuleCategoryGradeResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        profession:
+          type: string
+          example: profession
+    Assignment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        name:
+          type: string
+          example: name
+        description:
+          type: string
+          example: description
+        grade:
+          type: string
+          example: '13/A'
+        profession:
+          type: string
+          example: profession
+        category:
+          type: string
+          example: category
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 8ead7f47-0ce5-4d1e-aec7-12a0bbee464e
+        username:
+          type: string
+          example: username
+        password:
+          type: string
+          example: password
+        email:
+          type: string
+          format: email
+          example: email@gmail.com
+        role:
+          type: string
+          example: role
     securitySchemes:
       ApiKeyAuth:
         type: ApiKey
