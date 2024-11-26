@@ -240,7 +240,7 @@ const cleanupCanvas = () => {
 watch(isRain, (newVal) => {
   if (newVal) {
     // Trigger rain when isRain is true
-    controls.rain = 22;  // Adjust intensity as needed
+    controls.rain = 12;  // Adjust intensity as needed
   } else {
     controls.rain = 0;  // Stop rain when isRain is false
   }
