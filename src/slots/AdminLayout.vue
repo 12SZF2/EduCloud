@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class=" flex h-[100dvh] w-[100dvw]">
+  <div class="flex h-[100dvh] w-[100dvw] bg-creamy_white">
 
     <div class="w-[22dvw]">
       <slot name="left"/>

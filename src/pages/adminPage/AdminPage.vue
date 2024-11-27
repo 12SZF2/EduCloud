@@ -3,6 +3,7 @@
 
 import AdminLayout from "../../slots/AdminLayout.vue";
 import {provide, ref} from "vue";
+import AdminNavbar from "../../components/adminComponents/AdminNavbar.vue";
 
 const isAdmin = ref(false)
 
@@ -18,13 +19,14 @@ const toggleAdmin = () => {
 <template>
   <AdminLayout>
     <template #left>
-      <section class="bg-purple-800 w-full h-full">
+      <section class=" w-full h-full">
         <button @click="toggleAdmin" >Switch Admin</button>
+        <AdminNavbar/>
       </section>
     </template>
     <template #right>
       <section class="bg-purple-100 w-full h-full">
-
+        <router-view/>
       </section>
     </template>
   </AdminLayout>
