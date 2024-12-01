@@ -15,12 +15,16 @@ tags:
     description: Assignment part of admin (not yet implemented)
   - name: User
     description: User part of admin (not yet implemented)
+  - name: AssignmentForViewPage
+    description: Assignment part of ViewPage (not yet implemented)
+  - name: ModuleForViewPage
+    description: Module part of ViewPage (not yet implemented)
 
 security:
   - ApiKeyAuth: []
 
 paths:
-  /module/getAll:
+  admin/module/getAll:
     get:
       tags:
         - Module
@@ -106,7 +110,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/getById:
+  admin/module/getById:
     get:
       tags:
         - Module
@@ -195,7 +199,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/getByName:
+  admin/module/getByName:
     get:
       tags:
         - Module
@@ -285,7 +289,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/getByProfession:
+  admin/module/getByProfession:
     get:
       tags:
         - Module
@@ -375,7 +379,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/getByProfessionAndCategory:
+  admin/module/getByProfessionAndCategory:
     get:
       tags:
         - Module
@@ -470,7 +474,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/getByProfessionAndGrade:
+  admin/module/getByProfessionAndGrade:
     get:
       tags:
         - Module
@@ -564,7 +568,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/getByCategoryAndGrade:
+  admin/module/getByCategoryAndGrade:
     get:
       tags:
         - Module
@@ -659,7 +663,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/getByCategory:
+  admin/module/getByCategory:
     get:
       tags:
         - Module
@@ -748,7 +752,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/getByGrade:
+  admin/module/getByGrade:
     get:
       tags:
         - Module
@@ -837,7 +841,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/create:
+  admin/module/create:
     post:
       tags:
         - Module
@@ -917,7 +921,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/updateById:
+  admin/module/updateById:
     put:
       tags:
         - Module
@@ -1007,7 +1011,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/deleteById:
+  admin/module/deleteById:
     delete:
       tags:
         - Module
@@ -1093,7 +1097,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /module/deleteAllByProfession:
+  admin/module/deleteAllByProfession:
     delete:
       tags:
         - Module
@@ -1178,7 +1182,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/deleteAllByGrade:
+  admin/module/deleteAllByGrade:
     delete:
       tags:
         - Module
@@ -1263,7 +1267,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /module/deleteAllByCategory:
+  admin/module/deleteAllByCategory:
     delete:
       tags:
         - Module
@@ -1348,94 +1352,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-
-  /assignment/getAll:
-    get:
-      tags:
-        - assignment
-      summary: Get all modules
-      operationId: getAllAssignments
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Assignment'
-        '400':
-          description: Bad Request - Invalid input
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Invalid request parameters
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Unauthorized access
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: You do not have permission to access this resource
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Resource not found
-        '429':
-          description: Too Many Requests
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: Too many requests, please try again later
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: An unexpected error occurred
-        '503':
-          description: Service Unavailable
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: The service is temporarily unavailable
-
-  /assignment/getById:
+  admin/assignment/getById:
     get:
       tags:
         - Assignment
@@ -1524,7 +1441,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/getByName:
+  admin/assignment/getByName:
     get:
       tags:
         - Assignment
@@ -1614,7 +1531,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/getByProfession:
+  admin/assignment/getByProfession:
     get:
       tags:
         - Assignment
@@ -1704,7 +1621,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/getByProfessionAndCategory:
+  admin/assignment/getByProfessionAndCategory:
     get:
       tags:
         - Assignment
@@ -1799,7 +1716,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/getByProfessionAndGrade:
+  admin/assignment/getByProfessionAndGrade:
     get:
       tags:
         - Assignment
@@ -1893,7 +1810,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/getByCategoryAndGrade:
+  admin/assignment/getByCategoryAndGrade:
     get:
       tags:
         - Assignment
@@ -1988,7 +1905,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/getByCategory:
+  admin/assignment/getByCategory:
     get:
       tags:
         - Assignment
@@ -2077,7 +1994,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/getByGrade:
+  admin/assignment/getByGrade:
     get:
       tags:
         - Assignment
@@ -2166,7 +2083,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/create:
+  admin/assignment/create:
     post:
       tags:
         - Assignment
@@ -2246,7 +2163,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/updateById:
+  admin/assignment/updateById:
     put:
       tags:
         - Assignment
@@ -2336,7 +2253,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/deleteById:
+  admin/assignment/deleteById:
     delete:
       tags:
         - Assignment
@@ -2422,7 +2339,7 @@ paths:
                     type: string
                     example: The service is temporarily unavailable
 
-  /assignment/deleteAllByProfession:
+  admin/assignment/deleteAllByProfession:
     delete:
       tags:
         - Assignment
@@ -2507,7 +2424,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/deleteAllByGrade:
+  admin/assignment/deleteAllByGrade:
     delete:
       tags:
         - Assignment
@@ -2592,7 +2509,7 @@ paths:
                   error:
                     type: string
                     example: The service is temporarily unavailable
-  /assignment/deleteAllByCategory:
+  admin/assignment/deleteAllByCategory:
     delete:
       tags:
         - Assignment
@@ -2766,7 +2683,1460 @@ paths:
       responses:
         '204':
           description: User deleted successfully
+  assignment/getAll:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get all modules
+      operationId: getAllAssignments
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Assignment'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  assignment/getByName:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get modules by name
+      operationId: getAssignmentsByName
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentNameResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
 
+  assignment/getByProfession:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by profession
+      operationId: getAssignmentItemsByProfession
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentProfessionResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  assignment/getByProfessionAndCategory:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by profession and category
+      operationId: getAssignmentItemsByProfessionAndCategory
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentProfessionCategoryResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  assignment/getByProfessionAndGrade:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by profession and grade
+      operationId: getAssignmentItemsByProfessionGrade
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentProfessionGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  assignment/getByCategoryAndGrade:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by category and grade
+      operationId: getAssignmentItemsByCategoryGrade
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentCategoryGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  assignment/getByCategory:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by category
+      operationId: getAssignmentItemsByCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentCategoryResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  assignment/getByGrade:
+    get:
+      tags:
+        - AssignmentForViewPage
+      summary: Get items by grade
+      operationId: getAssignmentItemsByGrade
+      parameters:
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssignmentGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Assignment with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  module/getAll:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get all modules
+      operationId: getAllModules
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Module'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Resource not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  module/getByName:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get modules by name
+      operationId: getModulesByName
+      parameters:
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleNameResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  module/getByProfession:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by profession
+      operationId: getModuleItemsByProfession
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleProfessionResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  module/getByProfessionAndCategory:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by profession and category
+      operationId: getModuleItemsByProfessionAndCategory
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleProfessionCategoryResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  module/getByProfessionAndGrade:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by profession and grade
+      operationId: getModuleItemsByProfessionAndGrade
+      parameters:
+        - name: profession
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleProfessionGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  module/getByCategoryAndGrade:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by category and grade
+      operationId: getModuleItemsByCategoryAndGrade
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleCategoryGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+
+  module/getByCategory:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by category
+      operationId: getModuleItemsByCategory
+      parameters:
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleCategoryResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
+  module/getByGrade:
+    get:
+      tags:
+        - ModuleForViewPage
+      summary: Get items by grade
+      operationId: getModuleItemsByGrade
+      parameters:
+        - name: grade
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleGradeResponse'
+        '400':
+          description: Bad Request - Invalid input
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid request parameters
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Unauthorized access
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: You do not have permission to access this resource
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Module with the specified ID not found
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Too many requests, please try again later
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: The service is temporarily unavailable
   /login:
     post:
       summary: User login
