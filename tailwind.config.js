@@ -8,10 +8,10 @@ export default {
   ],
   theme: {
     extend: {
-    },
+    },/*
     colors:{
       'creamy_white': 'rgba(255,255,255,0.75)'
-    },
+    },*/
   },
   plugins: [],
 }

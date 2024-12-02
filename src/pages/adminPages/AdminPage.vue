@@ -36,7 +36,7 @@ const goBack = () => {
       </section>
     </template>
     <template #right>
-      <section class="bg-purple-100 w-full h-full">
+      <section class="w-full h-full">
         <router-view/>
       </section>
     </template>
