@@ -12,7 +12,7 @@ const showUsersDropdown = ref(false);
 <template>
 
   <section>
-    <div class="flex flex-col border-t text-black sm:text-xl md:text-1xl">
+    <div class="flex flex-col border-t-[1px] border-t-gray-800 text-black sm:text-xl md:text-1xl">
       <!-- Modules Dropdown -->
       <div class="ml-1">
         <div class="py-2 mt-2">

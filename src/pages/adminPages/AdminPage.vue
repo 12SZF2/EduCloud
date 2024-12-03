@@ -26,11 +26,11 @@ const goBack = () => {
 <template>
   <AdminLayout>
     <template #left>
-      <section class=" w-full h-full">
-        <div class="px-7 py-3 flex justify-between">
+      <section class=" w-full h-full border-r-[1px] border-r-gray-800">
+        <div class="w-full h-[7dvh] flex justify-center flex-nowrap gap-[7rem]">
           <button class="text-4xl" @click="goBack">←</button>
           <button @click="toggleAdmin" >Switch Admin</button>
-          <img src="/src/public/images/User.png" alt="fekete" class="size-10">
+          <img src="/src/public/images/User.png" alt="fekete" class="size-12 my-3">
         </div>
         <AdminNavbar/>
       </section>

@@ -12,91 +12,99 @@ textarea{
 <template>
 
   <section class="w-full h-full">
-    <div class="flex justify-center align-middle text-2xl py-4 font-bold border-b">
+    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-gray-800">
       <span>Modul létrehozása</span>
     </div>
-    <div class="flex flex-col justify-center align-middle mt-[26vh] w-full">
+
+    <div class="flex flex-col justify-center align-middle mt-[23vh] w-full">
       <div class="flex gap-44 justify-center align-middle py-8">
         <div class="relative">
           <input
               type="text"
               placeholder="Modul címe"
-              class="w-[12dvw] py-2 px-2 text-gray-800 border-none outline-none focus:ring-0 text-center "
+              class="w-[12dvw] py-2 px-2 text-gray-800 border-none outline-none focus:ring-0 text-center bg-transparent"
           />
           <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
         </div>
+
         <div class="relative">
           <!-- textarea because if the description  is too long it needs to be split into separate lines-->
           <textarea
-
               placeholder="Modul leírása"
-              class="w-[12dvw] px-2 py-2 text-gray-800 resize-none border-none outline-none text-center overflow-auto"
+              class="w-[12dvw] px-2 py-2 text-gray-800 resize-none border-none outline-none text-center overflow-auto bg-transparent"
           />
           <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
         </div>
       </div>
-      <div class="p-6 space-y-4">
+
+      <div class="flex flex-row justify-center align-middle gap-44 w-full py-4">
         <!-- Grade Select -->
-        <div>
-          <label for="grade" class="block font-medium text-gray-700">Grade</label>
+        <div class="min-w-[14dvw]">
+
           <select
               id="grade"
               v-model="selectedGrade"
               @change="filterBasedOnSelection('grade')"
-              class="block w-full mt-2 p-2 border border-gray-300 rounded-lg"
+              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-300 rounded-lg text-center"
           >
-            <option value="">Select Grade</option>
+            <!-- before anyone tries, you cannot center options, I tried for 30 minutes straight -->
+            <option value="" disabled hidden>Osztály</option>
+            <option value="" disabled >Válasszon egy osztályt</option>
+
             <option v-for="grade in filteredGrades" :key="grade" :value="grade">{{ grade }}</option>
           </select>
         </div>
 
         <!-- Category Select -->
-        <div>
-          <label for="category" class="block font-medium text-gray-700">Category</label>
+        <div class="min-w-[14dvw]">
           <select
               id="category"
               v-model="selectedCategory"
               @change="filterBasedOnSelection('category')"
-              class="block w-full mt-2 p-2 border border-gray-300 rounded-lg"
+              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-300 rounded-lg text-center"
           >
-            <option value="">Select Category</option>
+            <option value="" disabled hidden>Kategória</option>
+            <option value="" disabled >Válasszon egy kategóriát</option>
             <option v-for="category in filteredCategories" :key="category" :value="category">{{ category }}</option>
           </select>
         </div>
 
         <!-- Profession Select -->
-        <div>
-          <label for="profession" class="block font-medium text-gray-700">Profession</label>
+        <div class="min-w-[14dvw]">
           <select
               id="profession"
               v-model="selectedProfession"
               @change="filterBasedOnSelection('profession')"
-              class="block w-full mt-2 p-2 border border-gray-300 rounded-lg"
+              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:bg-gray-100 active:bg-gray-300 rounded-lg text-center"
           >
-            <option value="">Select Profession</option>
+            <option value="" disabled hidden>Szakma</option>
+            <option value="" disabled >Válasszon egy szakmát</option>
             <option v-for="profession in filteredProfessions" :key="profession" :value="profession">{{ profession }}</option>
           </select>
         </div>
+      </div>
 
-        <!-- Clear Button -->
-        <div>
-          <button
-              @click="clearSelections"
-              class="w-full mt-4 py-2 px-4 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600"
-          >
-            Clear Selections
-          </button>
-        </div>
+      <!-- Clear Button -->
+      <div class="w-full flex justify-center align-middle">
+        <button
+            @click="clearSelections"
+            class="max-w-[14dvw] mt-4 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-800 active:bg-gray-600"
+        >
+          Választások törlése
+        </button>
       </div>
-      <div class="flex gap-44  justify-center align-middle py-8 ">
-        <input class="border-b text-center drop-shadow-lg focus:outline-none" placeholder="Modul címe" type="file">
-        <button class="border rounded-md py-1 px-12 text-center drop-shadow-lg focus:outline-none hover:bg-gray-100" >Fájl szerkesztése</button>
+
+      <div class="flex gap-44 justify-center align-middle py-8 ">
+        <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file">
+        <button class="border rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100" >Fájl szerkesztése</button>
       </div>
+
       <div class="flex gap-44  justify-center align-middle py-8" >
         <button
-              class="border rounded-md py-1 px-12 text-center drop-shadow-lg focus:outline-none hover:bg-gray-100"
+              class="border rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100"
         >Mentés</button>
       </div>
+
     </div>
   </section>
 

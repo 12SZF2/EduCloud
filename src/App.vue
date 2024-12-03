@@ -2,6 +2,8 @@
 </script>
 
 <template>
-  <RouterView/>
+  <div class="bg-[url('../imgs/bg-cloud.jpg')] w-full h-full">
+    <RouterView/>
+  </div>
 </template>
 
