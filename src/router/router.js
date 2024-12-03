@@ -1,16 +1,23 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import AdminPage from "../pages/adminPages/AdminPage.vue";
+import LandingPage from '../pages/landingPage/LandingPage.vue';
 // TODO someday replace this with an auto generated router
 // pain in the butt to batch add new routes
 const routes = [
 
-
+    { path: '/', component: () => import("../pages/landingPage/LandingPage.vue") },
+    { path: '/login', component: () => import("../pages/loginPage/Login.vue") },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import("../pages/NotFound.vue") },
     {
         path: '/admin',
         name:'AdminPage',
         component: () => import("../pages/adminPages/AdminPage.vue/"),
         children: [
+            {
+                path: 'landing',
+                name: 'LandingPage',
+                component: () => import("../pages/landingPage/LandingPage.vue"),
+            },
             {
                 path: 'module-create',
                 name: 'CreateModule',
