@@ -24,6 +24,11 @@ const routes = [
                 component: () => import("../pages/adminPages/module/CreateModule.vue"),
             },
             {
+                path:'module-category-create',
+                name: 'CreateModuleCategory',
+                component: () => import("../pages/adminPages/module/CreateModuleCategory.vue"),
+            },
+            {
                 path: 'module-list',
                 name: 'ListModule',
                 component: () => import("../pages/adminPages/module/ListModule.vue"),

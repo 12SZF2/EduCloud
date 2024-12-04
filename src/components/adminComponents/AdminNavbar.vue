@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import {inject, ref} from "vue";
 
-const isAdmin = inject("isAdmin")
-
 const showModulesDropdown = ref(false);
 const showAssignmentsDropdown = ref(false);
 const showUsersDropdown = ref(false);
@@ -27,6 +25,7 @@ const showUsersDropdown = ref(false);
               class=""
           >
             <ul class="list-disc list-inside">
+              <!--add another RouterLink to add new path-->
               <RouterLink
                   to="/admin/module-create"
                   class="block px-4 text-lg"
@@ -40,6 +39,13 @@ const showUsersDropdown = ref(false);
                   @click.native="showModulesDropdown = false"
               >
                 <li>Listázás</li>
+              </RouterLink>
+              <RouterLink
+                  to="/admin/module-category-create"
+                  class="block px-4 text-lg"
+                  @click.native="showModulesDropdown = false"
+              >
+                <li>Kategória létrehozása</li>
               </RouterLink>
             </ul>
           </div>

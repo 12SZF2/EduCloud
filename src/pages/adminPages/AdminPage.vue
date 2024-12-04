@@ -2,17 +2,8 @@
 
 
 import AdminLayout from "../../slots/AdminLayout.vue";
-import {provide, ref} from "vue";
 import AdminNavbar from "../../components/adminComponents/AdminNavbar.vue";
 import {useRouter} from "vue-router";
-
-const isAdmin = ref(false)
-
-provide("isAdmin", isAdmin)
-
-const toggleAdmin = () => {
-  isAdmin.value = !isAdmin.value
-}
 
 const router = useRouter()
 
@@ -27,9 +18,8 @@ const goBack = () => {
   <AdminLayout>
     <template #left>
       <section class=" w-full h-full border-r-[1px] border-r-gray-800">
-        <div class="w-full h-[7dvh] flex justify-center flex-nowrap gap-[7rem]">
+        <div class="w-full h-[7dvh] flex justify-between px-4 flex-nowrap gap-[7rem]">
           <button class="text-4xl" @click="goBack">←</button>
-          <button @click="toggleAdmin" >Switch Admin</button>
           <img src="/src/public/images/User.png" alt="fekete" class="size-12 my-3">
         </div>
         <AdminNavbar/>

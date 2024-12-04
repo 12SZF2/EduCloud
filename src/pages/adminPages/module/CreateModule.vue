@@ -96,12 +96,12 @@ textarea{
 
       <div class="flex gap-44 justify-center align-middle py-8 ">
         <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file">
-        <button class="border rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100" >Fájl szerkesztése</button>
+        <button class="rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100" >Fájl szerkesztése</button>
       </div>
 
       <div class="flex gap-44  justify-center align-middle py-8" >
         <button
-              class="border rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100"
+              class="rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100"
         >Mentés</button>
       </div>
 
