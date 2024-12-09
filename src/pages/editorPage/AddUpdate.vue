@@ -1,5 +1,10 @@
 <template>
-  <div class="editor-container" :style="{ backgroundImage: `url(${currentBackground})` }">
+  <div
+    class="editor-container"
+    :style="{ backgroundImage: `url(${currentBackground})` }"
+  >
+    <div class="back-arrow" @click="goBack">←</div>
+  
     <div class="editor-wrapper">
       <!-- Top Title -->
       <div class="editor-title">Szerkesztés</div>
@@ -15,7 +20,11 @@
       <!-- Background Selector -->
       <div class="background-controls">
         <select class="bg-dropdown" v-model="currentBackground">
-          <option v-for="(image, index) in backgrounds" :key="index" :value="image">
+          <option
+            v-for="(image, index) in backgrounds"
+            :key="index"
+            :value="image"
+          >
             Background {{ index + 1 }}
           </option>
         </select>
@@ -38,16 +47,16 @@ const imgupload = (e) => {
 };
 
 // Background images
-const backgrounds = [
-  "imgs/day.jpg",
-  "imgs/nightWest.jpg",
-
-];
+const backgrounds = ["imgs/day.jpg", "imgs/nightWest.jpg"];
 const currentBackground = ref(backgrounds[0]);
 
 // Function to change background
 const changeBackground = (image: string) => {
   currentBackground.value = image;
+};
+
+const goBack = () => {
+  window.history.back();
 };
 </script>
 
@@ -81,9 +90,8 @@ const changeBackground = (image: string) => {
   top: -55px; /* Adjust position based on layout */
   font-size: 24px;
   font-weight: bold;
-  color: #ffffff;
+  color: #000000;
   z-index: 2; /* Ensure it stays above the editor */
-
 }
 
 /* Editor component styling with frosted-glass effect */
@@ -135,5 +143,15 @@ const changeBackground = (image: string) => {
 .bg-dropdown:hover {
   border-color: #888;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.back-arrow {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 45px;
+  color: #000000;
+  cursor: pointer;
+  z-index: 3;
+  transition: color 0.3s ease;
 }
 </style>
