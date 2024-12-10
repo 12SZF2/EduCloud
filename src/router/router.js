@@ -42,6 +42,11 @@ const routes = [
                 path: 'assignment-list',
                 name: 'ListAssignment',
                 component: () => import("../pages/adminPages/assignment/ListAssignment.vue"),
+                children:{
+                    path:'show',
+                    name:'AssignmentListShow',
+                    component: () => import("../pages/adminPages/assignment/list/ListShow.vue"),
+                }
             },
             {
                 path: 'user-create',

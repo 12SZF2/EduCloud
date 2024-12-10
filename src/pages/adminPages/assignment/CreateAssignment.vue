@@ -12,11 +12,11 @@
     <!-- Main part of the page -->
     <div class="flex flex-col justify-center align-middle mt-[23vh] w-full">
 
-
-
-
+      <div class="flex justify-center items-center">
+        <p>Töltsön fel egy markdown file-t, vagy hozzon létre itt helyben.</p>
+      </div>
       <div class="flex gap-44 justify-center align-middle py-8 ">
-        <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file">
+        <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file" accept=".md,.anyad">
         <button class="rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-100 hover:bg-gray-300 active:bg-gray-100" >Fájl szerkesztése</button>
       </div>
 

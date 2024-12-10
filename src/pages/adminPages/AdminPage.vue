@@ -39,7 +39,9 @@ const goBack = () => {
             <p>Válasszon egy felületet a navigációból.</p>
           </div>
         </section>
+        <section v-else class="w-full h-full">
           <router-view/>
+        </section>
       </section>
     </template>
   </AdminLayout>
