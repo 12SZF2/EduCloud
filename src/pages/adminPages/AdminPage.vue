@@ -3,17 +3,13 @@
 
 import AdminLayout from "../../slots/AdminLayout.vue";
 import AdminNavbar from "../../components/adminComponents/AdminNavbar.vue";
-import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
+import {useRouter} from "vue-router";
 
 const router = useRouter()
-
 
 const goBack = () => {
   router.go(-1)
 }
-
-
 
 
 </script>
@@ -31,15 +27,7 @@ const goBack = () => {
     </template>
     <template #right>
       <section class="w-full h-full">
-        <section v-if="useRoute().path === '/admin'" class="h-full">
-          <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-gray-800">
-            <span>Admin felület</span>
-          </div>
-          <div class="h-full w-full pb-56 flex justify-center items-center">
-            <p>Válasszon egy felületet a navigációból.</p>
-          </div>
-        </section>
-          <router-view/>
+        <router-view/>
       </section>
     </template>
   </AdminLayout>
