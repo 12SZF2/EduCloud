@@ -82,8 +82,8 @@ const showUsersDropdown = ref(false);
           </div>
         </div>
 
-        <!-- Users Dropdown -->
-        <div class="py-2" >
+        <!-- Users Dropdown (only if isAdmin is true) -->
+        <div v-if="isAdmin" class="py-2" >
           <button
               @click="showUsersDropdown = !showUsersDropdown"
               class="w-full px-4 text-left text-black underline flex items-center"

@@ -3,17 +3,13 @@
 
 import AdminLayout from "../../slots/AdminLayout.vue";
 import AdminNavbar from "../../components/adminComponents/AdminNavbar.vue";
-import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
+import {useRouter} from "vue-router";
 
 const router = useRouter()
-
 
 const goBack = () => {
   router.go(-1)
 }
-
-
 
 
 </script>

@@ -7,6 +7,7 @@ const routes = [
 
     { path: '/', component: () => import("../pages/landingPage/LandingPage.vue") },
     { path: '/login', component: () => import("../pages/loginPage/Login.vue") },
+    { path: '/listing', component: () => import("../pages/listingPage/ListingPage.vue") },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import("../pages/NotFound.vue") },
     {
         path: '/admin',
