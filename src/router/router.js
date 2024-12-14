@@ -9,6 +9,7 @@ const routes = [
     { path: '/login', component: () => import("../pages/loginPage/Login.vue") },
     { path: '/listing', component: () => import("../pages/listingPage/ListingPage.vue") },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import("../pages/NotFound.vue") },
+    {path: '/view',component: () => import("../pages/viewPage/ViewPageLayout.vue")},
     {
         path: '/admin',
         name:'AdminPage',
