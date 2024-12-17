@@ -127,7 +127,7 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
 
   <section class="w-full h-full flex flex-col  items-center">
 
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-gray-800">
+    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
       <span>Modulok</span>
     </div>
 
@@ -144,20 +144,20 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
       </div>
       <div v-if="assignments.length > 0" class="my-8 relative">
         <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent text-center focus:outline-none" />🔍
-        <hr class="absolute w-full h-[2px] bg-black shadow-2xl top-full" />
+        <hr class="absolute w-full h-[2px] bg-white shadow-2xl top-full" />
       </div>
 
-      <div v-if="assignments.length > 0" class=" border rounded-md bg-gray-400">
-        <table class="min-w-[60dvw] text-center">
+      <div v-if="assignments.length > 0" class="rounded-md bg-gray-800">
+        <table class="min-w-[60dvw] border-black text-center">
           <thead>
-          <tr class="">
+          <tr class="border-black">
             <th v-for="content in tableCols" :key="content" class="px-4">{{content}}</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-gray-200 even:bg-gray-300">
+          <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-gray-500 even:bg-gray-600">
             <td>
-              <button @click="handleItemClick(assignment)" class="text-gray-700 hover:text-gray-500 active:text-gray-700">{{ assignment.name }}</button>
+              <button @click="handleItemClick(assignment)" class="text-black hover:text-gray-600 active:text-gray-800">{{ assignment.name }}</button>
             </td>
             <td>
               {{ assignment.grade }}

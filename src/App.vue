@@ -15,8 +15,7 @@
   background-position: center center;
   background-size: cover;
   width: 100%;
-  height: 100vh; 
-  mix-blend-mode: var(--_mesh-gradient-blend-mode);
+  height: 100vh;
 }
 
 @media (max-width: 768px) {

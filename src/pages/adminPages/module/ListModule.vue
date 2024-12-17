@@ -40,9 +40,9 @@ const nameSearchQuery = ref('');
 
 <template>
 
-  <section class="w-full h-full flex flex-col  items-center">
+  <section class="w-full h-full flex flex-col items-center">
 
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-gray-800">
+    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
       <span>Modulok</span>
     </div>
 
@@ -53,10 +53,10 @@ const nameSearchQuery = ref('');
       </div>
       <div v-if="modules.length > 0" class="my-8 relative">
         <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent text-center focus:outline-none" />🔍
-        <hr class="absolute w-full h-[2px] bg-black shadow-2xl top-full" />
+        <hr class="absolute w-full h-[2px] bg-white shadow-2xl top-full" />
       </div>
 
-      <div v-if="modules.length > 0" class=" border rounded-md bg-gray-400">
+      <div v-if="modules.length > 0" class=" rounded-md bg-gray-800 border-r-gray-800">
         <table class="min-w-[60dvw] text-center">
           <thead>
           <tr class="">
@@ -64,7 +64,7 @@ const nameSearchQuery = ref('');
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(module, index) in filteredModulesByName" :key="index" class="odd:bg-gray-200 even:bg-gray-300">
+          <tr v-for="(module, index) in filteredModulesByName" :key="index" class="odd:bg-gray-600 even:bg-gray-500">
             <td>{{ module.id }}</td>
             <td>{{ module.name }}</td>
             <td>{{ module.grade }}</td>
