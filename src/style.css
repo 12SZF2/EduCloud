@@ -1,20 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Anta&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body{
-  user-select: none;
+[data-theme="Light"] {
+  --background-color: white;
+  --text-color: black;
+  --border-color: black;
+  --selected-theme-border-color: orange;
+  --background-image: url('./assets/light.jpg');
+}
+
+[data-theme="Dark"] {
+  --background-color: black;
+  --text-color: white;
+  --border-color: white;
+  --selected-theme-border-color: yellow;
+  --background-image: url('./assets/dark.jpg');
+}
+
+[data-theme="Light-Western"] {
+  --background-color: white;
+  --text-color: black;
+  --border-color: black;
+  --selected-theme-border-color: orange;
+  --background-image: url('./assets/light-western.jpg');
+}
+
+[data-theme="Dark-Western"] {
+  --background-color: black;
+  --text-color: white;
+  --border-color: white;
+  --selected-theme-border-color: yellow;
+  --background-image: url('./assets/dark-western.jpg');
+}
+
+body {
   margin: 0;
-}
-
-
-
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-}
-
-
-
-#app {
-  margin: 0 auto;
+  font-family: 'Anta';
+  color: var(--text-color);
+  background: var(--background-image) no-repeat center center fixed;
+  background-size: cover;
 }

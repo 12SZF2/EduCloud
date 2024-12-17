@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@jamescoyle/vue-icon": "^0.1.2",
+    "@mdi/js": "^7.4.47",
+    "pinia": "^2.3.0",
     "swagger-editor": "^4.14.1",
     "vue": "^3.5.12",
     "vue-router": "^4.5.0"
