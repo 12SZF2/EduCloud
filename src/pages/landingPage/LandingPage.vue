@@ -7,9 +7,9 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <div class="containerr h-[100dvh] w-[100dvw]">
 
-  <header class="header">
+    <header class="header">
 
-    <input type="checkbox" id="check">
+      <input type="checkbox" id="check">
       <label for="check" class="icons">
         <i class='bx bx-menu' id="menu-icon"></i>
         <i class='bx bx-x' id="close-icon"></i>
@@ -31,120 +31,122 @@
 
   </div>
 
-    <div class="flex justify-end " id="rightSide">
-        <div class="fixed-bottom-left font-semibold">
+  <div class="flex justify-end " id="rightSide">
+    <div class="fixed-bottom-left font-semibold">
       <h1>Pollák</h1>
       <h1>Classroom</h1>
     </div>
-    </div>
+  </div>
 </template>
 
 <style scoped>
-
-.header{
-    position: fixed;
-    width: 100%;
-    justify-content: space-between;
-    z-index: 100;
-    padding: 1.3rem;
+.header {
+  position: fixed;
+  width: 100%;
+  justify-content: space-between;
+  z-index: 100;
+  padding: 1.3rem;
 }
 
-.header::before{
-    z-index: -12;
+.header::before {
+  z-index: -12;
 }
 
 .table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(50px);
+  width: 70%;
+  height: 60%;
+  margin-top: -3%;
+  border-radius: 10px;
+}
+
+.navbar a {
+  font-size: 1.15rem;
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  transition: 0.3s;
+  text-shadow: 0 0 2px #000000;
+}
+
+
+.navbar a:hover,
+.navbar a:active,
+.navbar a:focus {
+  transform: translateY(-1px);
+  text-decoration: underline;
+}
+
+#check {
+  display: none;
+}
+
+.icons {
+  right: 3%;
+  position: absolute;
+  font-size: 2.8rem;
+  cursor: pointer;
+  color: white;
+  display: none;
+}
+
+@media (max-width: 992px) {
+  .header {
+    padding: 1.3rem 5%;
+  }
+}
+
+@media (max-width: 910px) {
+  .icons {
+    display: inline-flex;
+  }
+
+  #check:checked~.icons #menu-icon {
+    display: none;
+  }
+
+  .icons #close-icon {
+    display: none;
+  }
+
+  #check:checked~.icons #close-icon {
+    display: block;
+  }
+
+  .navbar {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(50px);
-    width: 70%;
-    height: 60%;
-    margin-top: -3%;
-    border-radius: 10px;
-}
-
-.navbar a{
-    font-size: 1.15rem;
-    color: rgb(0, 0, 0);
-    text-decoration: none;transition: 0.3s;
-    text-shadow: 0 0 2px #000000;
-}
-
-
-.navbar a:hover, .navbar a:active,.navbar a:focus{
-    transform: translateY(-1px);
-    text-decoration: underline;
-}
-
-#check{
-    display: none;
-}
-
-.icons{
-    right: 3%;
+    flex-direction: column;
     position: absolute;
-    font-size: 2.8rem;
-    cursor: pointer;
-    color:white;
-    display: none;
-}
+    top: 100%;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
 
-@media (max-width: 992px){
-    .header{
-        padding: 1.3rem 5%;
-    }
-}
+  #check:checked~.navbar {
+    height: 13.8rem;
+  }
 
-@media (max-width: 910px){
-    .icons{
-        display: inline-flex;
-    }
+  .navbar a {
+    display: block;
+    font-size: 1.1rem;
+    margin: .3rem 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-50px);
+    transition: all 0.13s ease;
+  }
 
-    #check:checked~.icons #menu-icon{
-        display: none;
-    }
-
-    .icons #close-icon{
-        display: none;
-    }
-
-    #check:checked~.icons #close-icon{
-        display: block;
-    }
-
-    .navbar{
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    #check:checked~.navbar{
-        height: 13.8rem;
-    }
-
-    .navbar a{
-        display: block;
-        font-size: 1.1rem;
-        margin: .3rem 0;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(-50px);
-        transition: all 0.13s ease;
-    }
-
-    #check:checked~.navbar a{
-        transform: translateY(0);
-        opacity: 12;
-        transition-delay: calc(.1s * var(--i));
-    }
+  #check:checked~.navbar a {
+    transform: translateY(0);
+    opacity: 12;
+    transition-delay: calc(.1s * var(--i));
+  }
 
 }
 
@@ -154,30 +156,31 @@
   left: 0;
   margin: 3%;
 }
-h1{
-    font-size: 17vh;
-    font-family: Verdana;
-    margin: 0;
-    line-height: 1;
-    transition: 0.3s;
-    color: #000000;
+
+h1 {
+  font-size: 17vh;
+  font-family: Verdana;
+  margin: 0;
+  line-height: 1;
+  transition: 0.3s;
+  color: #000000;
 }
 
 @media (max-width: 1000px) {
-    h1{
-      font-size: 12vh;
+  h1 {
+    font-size: 12vh;
   }
 }
 
 @media (max-width: 710px) {
-    h1{
-      font-size: 8vh;
+  h1 {
+    font-size: 8vh;
   }
 }
 
 @media (max-width: 430px) {
-    h1{
-      font-size: 5vh;
+  h1 {
+    font-size: 5vh;
   }
 }
 
@@ -201,24 +204,4 @@ li {
 .router-link {
   text-decoration: underline;
 }
-.containerr {
-  background: url('../../../imgs/night.jpg') no-repeat center center;
-  background-size: cover;
-  mix-blend-mode: var(--_mesh-gradient-blend-mode);
-  
-}
-@media (max-width: 768px) {
-  .containerr {
-    background: url('/courseController/SZF1_13_Frontend_CourseController/CourseController/src/Views/LandingPage/képek/nightWest.jpg') no-repeat center center;
-    background-size: cover;
-  }
-}
-
-@media (max-width: 480px) {
-  .containerr {
-    background-position: top;
-    background-size: contain;
-  }
-}
-
 </style>
