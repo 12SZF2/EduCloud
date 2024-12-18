@@ -12,9 +12,6 @@
         </div>
         <div class="user-dropdown" v-if="dropdownVisible">
           <ThemeMenu @changeBackground="changeBackground" />
-          <div class="dropdown-menu">
-            <button class="dropdown-item" @click="logout">Logout</button>
-          </div>
         </div>
       </div>
 
@@ -126,7 +123,6 @@ const selectSubItem = (subItem) => {
   );
 };
 
-const logout = () => alert("Logged out!");
 </script>
 
 <style>
@@ -325,19 +321,15 @@ input::placeholder {
   background-color: #000000ac;
 }
 .vonalbottom { 
-  width: calc(100% + 50px); /* A vonal szélessége 50px-szel hosszabb */
-  height: 1px; /* Vonal magassága */
-  background-color: #000; /* Fekete szín */
-  position: relative; /* A vonal helyzete a szülőhöz igazodik */
-  width: 78%; /* A vonal teljes szélessége */
+  width: calc(100% + 50px); 
+  height: 1px;
+  background-color: #000; 
+  position: relative; 
+  width: 78%; 
   height: 1px; 
-  background-color: #000; /* Szín */
   margin: 2rem 0 0 auto;
   position: relative;
 }
-
-
-
 .vonal-vertical {
   width: 1px;
   background-color: #000000ac;
