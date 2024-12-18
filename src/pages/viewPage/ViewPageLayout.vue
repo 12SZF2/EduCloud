@@ -8,15 +8,11 @@
             <input type="text" v-model="searchQuery" placeholder="Search" class="search-input" />
           </div>
           <div class="vonal-vertical"></div>
-          <button class="user-button" @click="toggleDropdown">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px">
-              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
-          </button>
+          <UserIcon @toggleDropdown="toggleDropdown" />
         </div>
         <div class="user-dropdown" v-if="dropdownVisible">
+          <ThemeMenu @changeBackground="changeBackground" />
           <div class="dropdown-menu">
-            <button class="dropdown-item" @click="changeBackground">Change Background</button>
             <button class="dropdown-item" @click="logout">Logout</button>
           </div>
         </div>
@@ -51,7 +47,7 @@
       <section class="content-body">
         <p>{{ selectedSubItem ? selectedSubItem.content : selectedCategory.content }}</p>
         <div class="content-meta">
-          <div class="vonal"></div>
+          <div class="vonalbottom"></div>
           <span>Published by: {{ selectedCategory.publishedBy }}</span>
           <span>Published on: {{ selectedCategory.publishDate }}</span>
           <span>Last updated: {{ selectedCategory.lastUpdated }}</span>
@@ -63,15 +59,15 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import UserIcon from "@/components/userIconComponents/UserIcon.vue";
+import ThemeMenu from "@/components/themeChangerComponents/ThemeMenu.vue";
 
 const dropdownVisible = ref(false);
 const toggleDropdown = () => (dropdownVisible.value = !dropdownVisible.value);
 
 const currentBackground = ref("imgs/day.jpg");
-const backgroundImages = ref(["imgs/day.jpg", "imgs/night.jpg"]);
-const changeBackground = () => {
-  const nextIndex = (backgroundImages.value.indexOf(currentBackground.value) + 1) % backgroundImages.value.length;
-  currentBackground.value = backgroundImages.value[nextIndex];
+const changeBackground = (newBackground) => {
+  currentBackground.value = newBackground;
 };
 
 const modules = ref([
@@ -135,44 +131,33 @@ const logout = () => alert("Logged out!");
 
 <style>
 input::placeholder {
-  color: #000000;
+  color: #ffffff;
 }
 
 .container {
   display: flex;
-  flex-direction: column;
+  position: relative; 
+  overflow: visible; 
+  flex-direction: row;
+  backdrop-filter: blur(10px);
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  color: #000000;
+  min-width: 100vw;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #ffffff;
   font-family: Arial, sans-serif;
 }
-
-.user-button {
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  background: none;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.user-button:hover {
-  transform: scale(1.1);
-  background-color:transparent;
-}
-
-.navigation {
+.navigation{
+  width: 20%; /* Navigációs sáv fix szélessége */
+  min-width: 200px; /* Minimum szélesség, hogy ne törjön meg */
+  position: sticky; /* Fixálja a navigációs sávot */
+  top: 0;
+  height: 100vh;
   backdrop-filter: blur(10px);
   padding: 1rem;
-  box-sizing: border-box;
-  width: 100%;
-  position: relative;
 }
 
 .nav-header {
@@ -193,13 +178,14 @@ input::placeholder {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .search-wrapper {
   display: flex;
   padding: 4px;
   align-items: center;
+  background-color: #5e90d7;
   width: 170px;
   border-radius: 10px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
@@ -211,16 +197,10 @@ input::placeholder {
   border: none;
   outline: none;
   background: transparent;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 1rem;
 }
 
-.icon-button {
-  background: none;
-  border: none;
-  color: #000000;
-  cursor: pointer;
-}
 
 .nav-tabs {
   display: flex;
@@ -234,9 +214,9 @@ input::placeholder {
 }
 
 .nav-tabs .active {
-  color: #000000;
+  color: #fbfbfb;
   font-weight: bold;
-  border-bottom: 2px solid #000000;
+  border-bottom: 2px solid #ffffff;
 }
 
 .category-list li {
@@ -253,7 +233,7 @@ input::placeholder {
 }
 
 .category-list .active {
-  color: #000000;
+  color: #fafafa;
 }
 
 .category-list .category-title {
@@ -269,13 +249,6 @@ input::placeholder {
   user-select: none;
 }
 
-.content {
-  flex: 1;
-  padding: 2rem;
-  box-sizing: border-box;
-  background: rgba(202, 202, 202, 0.1);
-  backdrop-filter: blur(10px);
-}
 
 .content-header {
   margin-bottom: 1rem;
@@ -287,8 +260,8 @@ input::placeholder {
 
 .content-meta {
   margin-top: auto;
-  font-size: 0.9rem;
-  color: #000000;
+  font-size: 1rem;
+  color: #ffffff;
   text-align: center;
   padding: 1rem;
   position: fixed;
@@ -345,38 +318,25 @@ input::placeholder {
   position: relative;
   display: inline-block;
 }
-
-.dropdown-menu {
-  position: absolute;
-  top: 60px;
-  right: 0;
-  background-color: transparent;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
-  cursor: pointer;
-  padding: 6px 2px;
-  font-size: 11px;
-  border: none;
-  text-align: center;
-  width: 100%;
-  background-color: rgb(255, 255, 255);
-  border-radius:10px;
-}
-
-.dropdown-item:hover {
-  background: #5171ffe5;
-  border-radius: 10px;
-}
-
 .vonal {
   width: 75dvw;
   max-width: 1700px;
   height: 1px;
   background-color: #000000ac;
 }
+.vonalbottom { 
+  width: calc(100% + 50px); /* A vonal szélessége 50px-szel hosszabb */
+  height: 1px; /* Vonal magassága */
+  background-color: #000; /* Fekete szín */
+  position: relative; /* A vonal helyzete a szülőhöz igazodik */
+  width: 78%; /* A vonal teljes szélessége */
+  height: 1px; 
+  background-color: #000; /* Szín */
+  margin: 2rem 0 0 auto;
+  position: relative;
+}
+
+
 
 .vonal-vertical {
   width: 1px;
