@@ -96,7 +96,7 @@ const handleFileChange = (event) => {
 .popup-container {
     width: 100%;
     max-width: 930px;
-    color: black;
+    color: var(--text-color);
     border-radius: 8px;
     overflow: hidden;
     margin: 0 auto;
@@ -107,7 +107,7 @@ const handleFileChange = (event) => {
     font-size: 1.5em;
     font-weight: bold;
     padding: 10px 0;
-    border-bottom: 1px solid #34495e;
+    border-bottom: 1px solid var(--text-color);
 }
 
 .popup-content {
@@ -129,7 +129,7 @@ const handleFileChange = (event) => {
 .custom-input {
     width: 12vw;
     padding: 10px;
-    color: black;
+    color: var(--text-color);
     background: transparent;
     border: none;
     outline: none;
@@ -140,7 +140,7 @@ const handleFileChange = (event) => {
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: black;
+    background-color: var(--text-color);
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     top: 100%;
 }
@@ -148,10 +148,10 @@ const handleFileChange = (event) => {
 .select-container select {
     width: 220px;
     padding: 8px;
-    border: 1px solid black;
+    border: 1px solid var(--text-color);
     border-radius: 4px;
-    background-color: #ecf0f1;
-    color: black;
+    background-color: var(--background-color);
+    color: var(--text-color);
     text-align: center;
 }
 
@@ -167,7 +167,7 @@ const handleFileChange = (event) => {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 0.9em;
-    color: black;
+    color: var(--text-color);
     text-align: center;
 }
 

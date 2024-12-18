@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import {useThemeStore} from "@/stores/themeStore";
 
 
 import AdminLayout from "../../slots/AdminLayout.vue";
 import AdminNavbar from "../../components/adminComponents/AdminNavbar.vue";
 import {useRoute, useRouter} from "vue-router";
-import {computed} from "vue";
 
 const router = useRouter()
 
@@ -14,9 +12,6 @@ const route = useRoute()
 const goBack = () => {
   router.go(-1)
 }
-
-const themeStore = useThemeStore();
-const currentTheme = computed(() => themeStore.currentTheme);
 
 
 </script>
@@ -30,7 +25,7 @@ const currentTheme = computed(() => themeStore.currentTheme);
           <button class="text-4xl" @click="goBack">←</button>
           <!-- user icon -->
         </div>
-        <AdminNavbar v-model="currentTheme"/>
+        <AdminNavbar/>
       </section>
     </template>
     <template #right>
