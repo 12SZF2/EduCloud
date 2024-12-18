@@ -1,10 +1,10 @@
-
 <style>
 textarea::placeholder {
   height: 2rem;
   padding-top: 4rem;
 }
-textarea{
+
+textarea {
   height: 2rem;
 }
 </style>
@@ -19,20 +19,15 @@ textarea{
     <div class="flex flex-col justify-center align-middle mt-[23vh] w-full">
       <div class="flex gap-44 justify-center align-middle py-8">
         <div class="relative">
-          <input
-              type="text"
-              placeholder="Modul címe"
-              class="w-[12dvw] py-2 px-2 text-white border-none outline-none focus:ring-0 text-center bg-transparent"
-          />
+          <input type="text" placeholder="Modul címe"
+            class="w-[12dvw] py-2 px-2 text-white border-none outline-none focus:ring-0 text-center bg-transparent" />
           <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
         </div>
 
         <div class="relative">
           <!-- textarea because if the description  is too long it needs to be split into separate lines-->
-          <textarea
-              placeholder="Modul leírása"
-              class="w-[12dvw] px-2 py-2 text-white resize-none border-none outline-none text-center overflow-auto bg-transparent"
-          />
+          <textarea placeholder="Modul leírása"
+            class="w-[12dvw] px-2 py-2 text-white resize-none border-none outline-none text-center overflow-auto bg-transparent" />
           <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
         </div>
       </div>
@@ -41,15 +36,11 @@ textarea{
         <!-- Grade Select -->
         <div class="min-w-[14dvw]">
 
-          <select
-              id="grade"
-              v-model="selectedGrade"
-              @change="filterBasedOnSelection('grade')"
-              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center"
-          >
+          <select id="grade" v-model="selectedGrade" @change="filterBasedOnSelection('grade')"
+            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
             <!-- before anyone tries, you cannot center options, I tried for 30 minutes straight -->
             <option value="" disabled hidden>Osztály</option>
-            <option value="" disabled >Válasszon egy osztályt</option>
+            <option value="" disabled>Válasszon egy osztályt</option>
 
             <option v-for="grade in filteredGrades" :key="grade" :value="grade">{{ grade }}</option>
           </select>
@@ -57,52 +48,44 @@ textarea{
 
         <!-- Category Select -->
         <div class="min-w-[14dvw]">
-          <select
-              id="category"
-              v-model="selectedCategory"
-              @change="filterBasedOnSelection('category')"
-              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center"
-          >
+          <select id="category" v-model="selectedCategory" @change="filterBasedOnSelection('category')"
+            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
             <option value="" disabled hidden>Kategória</option>
-            <option value="" disabled >Válasszon egy kategóriát</option>
+            <option value="" disabled>Válasszon egy kategóriát</option>
             <option v-for="category in filteredCategories" :key="category" :value="category">{{ category }}</option>
           </select>
         </div>
 
         <!-- Profession Select -->
         <div class="min-w-[14dvw]">
-          <select
-              id="profession"
-              v-model="selectedProfession"
-              @change="filterBasedOnSelection('profession')"
-              class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center"
-          >
+          <select id="profession" v-model="selectedProfession" @change="filterBasedOnSelection('profession')"
+            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
             <option value="" disabled hidden>Szakma</option>
-            <option value="" disabled >Válasszon egy szakmát</option>
-            <option v-for="profession in filteredProfessions" :key="profession" :value="profession">{{ profession }}</option>
+            <option value="" disabled>Válasszon egy szakmát</option>
+            <option v-for="profession in filteredProfessions" :key="profession" :value="profession">{{ profession }}
+            </option>
           </select>
         </div>
       </div>
 
       <!-- Clear Button -->
       <div class="w-full flex justify-center align-middle">
-        <button
-            @click="clearSelections"
-            class="max-w-[14dvw] mt-4 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-800 active:bg-gray-600"
-        >
+        <button @click="clearSelections"
+          class="max-w-[14dvw] mt-4 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-800 active:bg-gray-600">
           Választások törlése
         </button>
       </div>
 
       <div class="flex gap-44 justify-center align-middle py-8 ">
         <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file">
-        <button class="rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800" >Fájl szerkesztése</button>
+        <button
+          class="rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800">Fájl
+          szerkesztése</button>
       </div>
 
-      <div class="flex gap-44  justify-center align-middle py-8" >
+      <div class="flex gap-44  justify-center align-middle py-8">
         <button
-              class="rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800"
-        >Mentés</button>
+          class="rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800">Mentés</button>
       </div>
 
     </div>
@@ -222,7 +205,7 @@ const filterBasedOnSelection = (field) => {
     // If category is selected, filter grade and profession
     if (selectedCategory.value) {
       selectedGrade.value = Object.keys(categories).find(grade =>
-          categories[grade].includes(selectedCategory.value)
+        categories[grade].includes(selectedCategory.value)
       ) || ''
       if (!filteredProfessions.value.includes(selectedProfession.value)) {
         selectedProfession.value = ''
@@ -232,7 +215,7 @@ const filterBasedOnSelection = (field) => {
     // If profession is selected, filter grade and category
     if (selectedProfession.value) {
       selectedGrade.value = Object.keys(professions).find(grade =>
-          professions[grade].includes(selectedProfession.value)
+        professions[grade].includes(selectedProfession.value)
       ) || ''
       if (!filteredCategories.value.includes(selectedCategory.value)) {
         selectedCategory.value = ''
