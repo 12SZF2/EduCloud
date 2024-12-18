@@ -6,7 +6,7 @@
 
         <div class="vonal"></div>
         <div class="editor-wrapper">
-            <MdEditor v-model="contents" language="en-US" v-on:upload-img="imgupload" class="custom-editor"
+            <MdEditor v-model="content" language="en-US" v-on:upload-img="imgupload" class="custom-editor"
                 :theme="isDarkTheme ? 'dark' : 'light'" />
         </div>
     </div>
@@ -17,10 +17,10 @@ import { MdEditor } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
 import { ref, onMounted } from "vue";
 
-// Tartalom referencia
-const contents = ref("# Hello World");
-
-// Kép feltöltés kezelése
+const content = defineModel('content', {
+    type: String,
+    default: "# Hello World"
+});
 const imgupload = (e) => {
     console.debug("Uploaded img" + e);
 };

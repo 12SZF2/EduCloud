@@ -1,21 +1,21 @@
 <template>
   <section class="popup-container">
     <div class="popup-header">
-      <span>Modul létrehozása</span>
+      <span>Feladat szerkesztése</span>
     </div>
 
     <div class="popup-content">
       <div class="form-row">
         <div class="input-container">
           <div class="relative">
-            <input type="text" v-model="module.name" placeholder="Modul címe" class="custom-input"/>
+            <input type="text" v-model="assignment.name" placeholder="Feladat címe" class="custom-input"/>
             <hr class="input-underline"/>
           </div>
         </div>
 
         <div class="input-container">
           <div class="relative">
-            <input type="text" v-model="module.description" placeholder="Modul leírása" class="custom-input"/>
+            <input type="text" v-model="assignment.description" placeholder="Feladat leírása" class="custom-input"/>
             <hr class="input-underline"/>
           </div>
         </div>
@@ -23,7 +23,7 @@
 
       <div class="form-row">
         <div class="select-container">
-          <select v-model="module.gradeId">
+          <select v-model="assignment.gradeId">
             <option value="" disabled hidden>Osztály</option>
             <option v-for="grade in store.grades" :key="grade.id" :value="grade.id">
               {{ grade.gradeName }}
@@ -32,7 +32,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="module.categoryId">
+          <select v-model="assignment.categoryId">
             <option value="" disabled hidden>Kategória</option>
             <option v-for="category in store.categories" :key="category.id" :value="category.id">
               {{ category.categoryName }}
@@ -41,7 +41,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="module.professionId">
+          <select v-model="assignment.professionId">
             <option value="" disabled hidden>Szakma</option>
             <option v-for="profession in store.professions" :key="profession.id" :value="profession.id">
               {{ profession.professionName }}
@@ -57,15 +57,15 @@
         </label>
         <button @click="showEditorPopup = true" class="edit-btn">Fájl szerkesztése</button>
         <PopupModal :isOpen="showEditorPopup" @close="showEditorPopup = false">
-          <EditorPopupMenu v-model:content="module.content"/>
+          <EditorPopupMenu v-model:content="assignment.content"/>
         </PopupModal>
       </div>
       <div class="file-name">
-        {{ module.name || "Nincsen kiválasztott fájl" }}
+        {{ assignment.name || "Nincsen kiválasztott fájl" }}
       </div>
 
       <div class="form-buttons">
-        <button @click="handleModuleSave" class="save-btn">Mentés</button>
+        <button @click="handleAssignmentSave" class="save-btn">Mentés</button>
       </div>
     </div>
   </section>
@@ -76,14 +76,14 @@ import {ref} from "vue";
 import {usePopupStore} from "@/stores/popup.js";
 import PopupModal from "@/components/PopupComponents/PopupModal.vue";
 import EditorPopupMenu from "@/components/PopupComponents/EditorPopupMenu.vue";
-import {useModuleStore} from "@/stores/module";
+import {useAssignmentStore} from "@/stores/assignment";
 
 const store = usePopupStore();
-const moduleStore = useModuleStore();
+const assignmentStore = useAssignmentStore();
 
 const showEditorPopup = ref(false);
 
-const module = ref({
+const assignment = ref({
   name: "",
   content: "",
   description: "",
@@ -93,7 +93,7 @@ const module = ref({
 });
 
 const clearSelections = () => {
-  module.value = {
+  assignment.value = {
     name: "",
     content: "",
     description: "",
@@ -105,26 +105,26 @@ const clearSelections = () => {
 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
-  module.value.name = file ? file.name : "";
+  assignment.value.name = file ? file.name : "";
   if (file) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target.result;
       if (typeof result === 'string') {
-        module.value.content = result;
+        assignment.value.content = result;
       } else {
-        module.value.content = new TextDecoder().decode(result);
+        assignment.value.content = new TextDecoder().decode(result);
       }
     };
     reader.readAsText(file);
   } else {
-    module.value.content = "";
+    assignment.value.content = "";
   }
 };
 
-async function handleModuleSave() {
+async function handleAssignmentSave() {
   try {
-    await moduleStore.uploadModule(module.value);
+    await assignmentStore.uploadAssignment(assignment.value);
   } catch (e) {
     console.error(e);
   }
@@ -132,11 +132,12 @@ async function handleModuleSave() {
 };
 </script>
 
+
 <style scoped>
 .popup-container {
     width: 100%;
     max-width: 930px;
-    color: var(--text-color);
+    color: black;
     border-radius: 8px;
     overflow: hidden;
     margin: 0 auto;
@@ -147,7 +148,7 @@ async function handleModuleSave() {
     font-size: 1.5em;
     font-weight: bold;
     padding: 10px 0;
-    border-bottom: 1px solid var(--text-color);
+    border-bottom: 1px solid #34495e;
 }
 
 .popup-content {
@@ -169,7 +170,7 @@ async function handleModuleSave() {
 .custom-input {
     width: 12vw;
     padding: 10px;
-    color: var(--text-color);
+    color: black;
     background: transparent;
     border: none;
     outline: none;
@@ -180,7 +181,7 @@ async function handleModuleSave() {
     position: absolute;
     width: 100%;
     height: 3px;
-    background-color: var(--text-color);
+    background-color: black;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
     top: 100%;
 }
@@ -188,10 +189,10 @@ async function handleModuleSave() {
 .select-container select {
     width: 220px;
     padding: 8px;
-    border: 1px solid var(--text-color);
+    border: 1px solid black;
     border-radius: 4px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: #ecf0f1;
+    color: black;
     text-align: center;
 }
 
@@ -207,7 +208,7 @@ async function handleModuleSave() {
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 0.9em;
-    color: var(--text-color);
+    color: black;
     text-align: center;
 }
 

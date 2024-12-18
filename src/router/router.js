@@ -11,7 +11,7 @@ const routes = [
     { path: '/test-user-icon', component: () => import("../pages/testPages/UserIconTestPage.vue") },
     { path: '/test-popup', component: () => import("../pages/testPages/PopupTestPage.vue") },
     { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import("../pages/NotFound.vue") },
-    {path: '/view',component: () => import("../pages/viewPage/ViewPageLayout.vue")},
+    { path: '/view',component: () => import("../pages/viewPage/ViewPageLayout.vue") },
     {
         path: '/admin',
         name:'AdminPage',
