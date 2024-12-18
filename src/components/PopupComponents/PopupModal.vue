@@ -34,8 +34,8 @@ const closePopup = () => {
 }
 
 .modal-content {
-    background: white;
-    color: black;
+    background: var(--background-color);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 8px;
     width: 90%;
@@ -51,7 +51,7 @@ const closePopup = () => {
     right: 30px;
     font-size: 2em;
     background: none;
-    color: black;
+    color: var(--text-color);
     border: none;
     cursor: pointer;
 }
