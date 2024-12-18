@@ -5,12 +5,16 @@ const showModulesDropdown = ref(false);
 const showAssignmentsDropdown = ref(false);
 const showUsersDropdown = ref(false);
 
+const model = defineModel()
+
+console.log(model.value)
 </script>
 
 <template>
 
   <section>
-    <div class="flex flex-col border-t-[1px] border-t-white text-white sm:text-xl md:text-1xl">
+    <div class="flex flex-col border-t-[1px] border-t-[--border-color] text-[--text-color] sm:text-xl md:text-1xl
+                ">
       <!-- Modules Dropdown -->
       <div class="ml-1">
         <div class="py-2 mt-2">

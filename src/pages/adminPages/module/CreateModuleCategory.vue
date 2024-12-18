@@ -1,77 +1,53 @@
 <script setup>
+import { ref } from "vue";
 
-import {ref} from "vue";
+const inputValues = ref(["", "", ""]);
 
-const inputValues = ref(['','',''])
-
-const inputValuesSum = ref("")
+const inputValuesSum = ref("");
 </script>
 
 <template>
   <section class="w-full h-full">
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-gray-800">
+    <!-- Header -->
+    <div class="flex w-full justify-center items-center text-lg sm:text-xl lg:text-2xl h-[3em] font-bold border-b border-b-white">
       <span>Modul kategória létrehozása</span>
     </div>
 
-    <div class="flex flex-col justify-center align-middle mt-[23vh] w-full">
-      <div class="flex gap-44 justify-center align-middle py-8">
-        <div class="relative">
+    <!-- Form Section -->
+    <div class="flex flex-col justify-center items-center mt-[15vh] sm:mt-[20vh] w-full">
+      <!-- Input Fields -->
+      <div class="flex flex-wrap gap-4 justify-center items-center py-8 w-full">
+        <div v-for="(value, index) in inputValues" :key="index" class="relative w-full sm:w-auto max-w-md">
           <input
-              v-model="inputValues[0]"
+              v-model="inputValues[index]"
               type="text"
-              placeholder="Modul címe"
-              class="w-[12dvw] py-2 px-2 text-white placeholder-black border-none outline-none focus:ring-0 text-center bg-transparent"
+              :placeholder="'Modul címe ' + (index + 1)"
+              class="w-full py-2 px-4 text-[--text-color] placeholder-gray-400 border-none outline-none focus:ring-0 text-center bg-transparent"
           />
-          <hr class="absolute w-full h-[3px] bg-white shadow-2xl top-full" />
+          <hr class="absolute w-full h-[2px] bg-[--underline-color] shadow-2xl top-full" />
         </div>
-
-        <div class="relative">
-          <input
-              v-model="inputValues[1]"
-              type="text"
-              placeholder="Modul címe"
-              class="w-[12dvw] py-2 px-2 border-none placeholder-black text-white outline-none focus:ring-0 text-center bg-transparent"
-          />
-          <hr class="absolute w-full h-[3px] bg-white shadow-2xl top-full" />
-        </div>
-
-        <div class="relative">
-          <input
-              v-model="inputValues[2]"
-              type="text"
-              placeholder="Modul címe"
-              class="w-[12dvw] py-2 px-2 text-white placeholder-black border-none outline-none focus:ring-0 text-center bg-transparent"
-          />
-          <hr class="absolute w-full h-[3px] bg-white shadow-2xl top-full" />
-        </div>
-
-
       </div>
 
-
-        <!-- Grade Select -->
-
-
       <!-- Clear Button -->
-      <div class="w-full flex justify-center align-middle">
+      <div class="w-full flex justify-center items-center">
         <button
-            @click="()=>{inputValues = ['','','']}"
-            class="max-w-[14dvw] mt-4 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-800 active:bg-gray-600"
+            @click="inputValues.fill('')"
+            class="w-full sm:w-auto max-w-[14dvw] py-2 px-6 bg-[--button-delete-base-color] text-[--button-delete-text-color] font-semibold rounded-lg hover:bg-[--button-delete-hover-color] active:bg-[--button-delete-active-color]"
         >
           Válaszok törlése
         </button>
       </div>
 
-      <!-- some ass function to display them, works at least -->
-      <div class="flex flex-col items-center py-8" >
+      <!-- Save Section -->
+      <div class="flex flex-col items-center py-8">
         <button
-            @click="()=>inputValuesSum = `${inputValues[0]}, ${inputValues[1]}, ${inputValues[2]}`"
-            class="rounded-md max-w-[10dvw] py-1 px-12  text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800"
-        >Mentés</button>
-        <p>{{inputValuesSum}}</p>
+            @click="inputValuesSum = inputValues.join(', ')"
+            class="rounded-md w-full sm:w-auto py-2 px-6 text-center bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] text-[--button-submit-text-color]"
+        >
+          Mentés
+        </button>
+        <p class="text-center mt-4 text-sm sm:text-base text-gray-400">{{ inputValuesSum }}</p>
       </div>
-
     </div>
   </section>
-
 </template>

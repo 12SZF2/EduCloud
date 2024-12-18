@@ -5,11 +5,41 @@
 @tailwind utilities;
 
 [data-theme="Light"] {
+  /*basic config*/
   --background-color: white;
   --text-color: black;
   --border-color: black;
   --selected-theme-border-color: orange;
   --background-image: url('./assets/light.jpg');
+
+  /*other colors*/
+  --underline-color: theme(colors.white);
+  --placeholder-color: theme(colors.gray.800);
+  --search-text-color: theme(colors.black);
+  --search-border-color: theme(colors.white);
+
+  /*normal buttons*/
+  --button-base-color: theme(colors.gray.100);
+  --button-hover-color: theme(colors.gray.200);
+  --button-focus-color: theme(colors.gray.100);
+  --button-active-color: theme(colors.gray.300);
+  --button-text-color: theme(colors.black);
+
+  /*delete buttons (except icon delete buttons)*/
+  --button-delete-base-color: theme(colors.gray.800);
+  --button-delete-hover-color: theme(colors.gray.700);
+  --button-delete-focus-color: theme(colors.gray.800);
+  --button-delete-active-color: theme(colors.gray.600);
+  --button-delete-text-color: theme(colors.white);
+
+  /*submit buttons*/
+  --button-submit-base-color: theme(colors.gray.600);
+  --button-submit-hover-color: theme(colors.gray.500);
+  --button-submit-focus-color: theme(colors.gray.600);
+  --button-submit-active-color: theme(colors.gray.400);
+  --button-submit-text-color: theme(colors.white);
+
+  /*table attributes*/
 }
 
 [data-theme="Dark"] {
