@@ -1,94 +1,134 @@
 <template>
-    <section class="popup-container">
-        <div class="popup-header">
-            <span>Modul szerkesztése</span>
+  <section class="popup-container">
+    <div class="popup-header">
+      <span>Modul szerkesztése</span>
+    </div>
+
+    <div class="popup-content">
+      <div class="form-row">
+        <div class="input-container">
+          <div class="relative">
+            <input type="text" v-model="module.name" placeholder="Modul címe" class="custom-input"/>
+            <hr class="input-underline"/>
+          </div>
         </div>
 
-        <div class="popup-content">
-            <div class="form-row">
-                <div class="input-container">
-                    <div class="relative">
-                        <input type="text" placeholder="Modul címe" class="custom-input" />
-                        <hr class="input-underline" />
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <div class="relative">
-                        <input type="text" placeholder="Modul leírása" class="custom-input" />
-                        <hr class="input-underline" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="select-container">
-                    <select v-model="selectedGrade">
-                        <option value="" disabled hidden>Osztály</option>
-                        <option v-for="grade in grades" :key="grade" :value="grade">
-                            {{ grade }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="select-container">
-                    <select v-model="selectedCategory">
-                        <option value="" disabled hidden>Kategória</option>
-                        <option v-for="category in categories" :key="category" :value="category">
-                            {{ category }}
-                        </option>
-                    </select>
-                </div>
-
-                <div class="select-container">
-                    <select v-model="selectedProfession">
-                        <option value="" disabled hidden>Szakma</option>
-                        <option v-for="profession in professions" :key="profession" :value="profession">
-                            {{ profession }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="file-buttons">
-                <label class="upload-btn">
-                    Fájl feltöltése
-                    <input type="file" class="hidden" @change="handleFileChange" />
-                </label>
-                <button class="edit-btn">Fájl szerkesztése</button>
-            </div>
-            <div class="file-name">
-                {{ selectedFileName || "Nincsen kiválasztott fájl" }}
-            </div>
-
-            <div class="form-buttons">
-                <button class="save-btn">Mentés</button>
-            </div>
+        <div class="input-container">
+          <div class="relative">
+            <input type="text" v-model="module.description" placeholder="Modul leírása" class="custom-input"/>
+            <hr class="input-underline"/>
+          </div>
         </div>
-    </section>
+      </div>
+
+      <div class="form-row">
+        <div class="select-container">
+          <select v-model="module.gradeId">
+            <option value="" disabled hidden>Osztály</option>
+            <option v-for="grade in store.grades" :key="grade.id" :value="grade.id">
+              {{ grade.gradeName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="select-container">
+          <select v-model="module.categoryId">
+            <option value="" disabled hidden>Kategória</option>
+            <option v-for="category in store.categories" :key="category.id" :value="category.id">
+              {{ category.categoryName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="select-container">
+          <select v-model="module.professionId">
+            <option value="" disabled hidden>Szakma</option>
+            <option v-for="profession in store.professions" :key="profession.id" :value="profession.id">
+              {{ profession.professionName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="file-buttons">
+        <label class="upload-btn">
+          Fájl feltöltése
+          <input type="file" class="hidden" @change="handleFileChange"/>
+        </label>
+        <button @click="showEditorPopup = true" class="edit-btn">Fájl szerkesztése</button>
+        <PopupModal :isOpen="showEditorPopup" @close="showEditorPopup = false">
+          <EditorPopupMenu v-model:content="module.content"/>
+        </PopupModal>
+      </div>
+      <div class="file-name">
+        {{ module.name || "Nincsen kiválasztott fájl" }}
+      </div>
+
+      <div class="form-buttons">
+        <button @click="handleModuleSave" class="save-btn">Mentés</button>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script setup>
-import { ref } from "vue";
+<script setup lang="ts">
+import {ref} from "vue";
+import {usePopupStore} from "@/stores/popup.js";
+import PopupModal from "@/components/PopupComponents/PopupModal.vue";
+import EditorPopupMenu from "@/components/PopupComponents/EditorPopupMenu.vue";
+import {useModuleStore} from "@/stores/module";
 
-const grades = ["9", "10", "11", "12", "13"];
-const categories = ["Backend", "Frontend", "etc.."];
-const professions = ["Software engineer", "IT", "Electrician"];
+const store = usePopupStore();
+const moduleStore = useModuleStore();
 
-const selectedGrade = ref("");
-const selectedCategory = ref("");
-const selectedProfession = ref("");
-const selectedFileName = ref("");
+const showEditorPopup = ref(false);
+
+const module = ref({
+  name: "",
+  content: "",
+  description: "",
+  gradeId: "",
+  categoryId: "",
+  professionId: "",
+});
 
 const clearSelections = () => {
-    selectedGrade.value = "";
-    selectedCategory.value = "";
-    selectedProfession.value = "";
+  module.value = {
+    name: "",
+    content: "",
+    description: "",
+    gradeId: "",
+    categoryId: "",
+    professionId: "",
+  };
 };
 
 const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    selectedFileName.value = file ? file.name : "";
+  const file = event.target.files[0];
+  module.value.name = file ? file.name : "";
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const result = e.target.result;
+      if (typeof result === 'string') {
+        module.value.content = result;
+      } else {
+        module.value.content = new TextDecoder().decode(result);
+      }
+    };
+    reader.readAsText(file);
+  } else {
+    module.value.content = "";
+  }
+};
+
+async function handleModuleSave() {
+  try {
+    await moduleStore.uploadModule(module.value);
+  } catch (e) {
+    console.error(e);
+  }
+  clearSelections();
 };
 </script>
 
