@@ -17,27 +17,28 @@ const goBack = () => {
 </script>
 
 <template>
-  <AdminLayout class="text-white">
+  <AdminLayout class="text-[--text-color]">
     <template #left>
-      <section class=" w-full h-full border-r-[1px] border-r-white">
-        <div class="w-full h-[7dvh] flex justify-between px-4 flex-nowrap gap-[7rem]">
+      <section class=" w-full h-full border-r-[1px] border-[--border-color] ">
+                     <!-- pixel perfect -->
+        <div class="w-full h-[4.44em] flex justify-between px-4 flex-nowrap gap-[3em]">
           <button class="text-4xl" @click="goBack">←</button>
-          <img src="/src/public/images/person-circle.svg" alt="fekete" class="size-12 my-3 invert">
+          <!-- user icon -->
         </div>
         <AdminNavbar/>
       </section>
     </template>
     <template #right>
-      <section class="w-full h-full">
+      <section class="w-full">
         <section v-if="route.path === '/admin'" class="h-full">
-          <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
+          <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
             <span>Admin felület</span>
           </div>
           <div class="h-full w-full pb-56 flex justify-center items-center">
             <p>Válasszon egy felületet a navigációból.</p>
           </div>
         </section>
-        <section v-else class="w-full h-full">
+        <section v-else class="w-full h-full ">
           <router-view/>
         </section>
       </section>

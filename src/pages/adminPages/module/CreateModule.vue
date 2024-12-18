@@ -1,116 +1,155 @@
 <style>
 textarea::placeholder {
-  height: 2rem;
-  padding-top: 4rem;
+height: 2rem;
+padding-top: 4rem;
 }
 
 textarea {
-  height: 2rem;
+height: 2rem;
 }
 </style>
 
-<template>
 
-  <section class="w-full h-full text-white">
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
+<template>
+  <section class="w-full h-full text-[--text-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b border-[--border-color]">
       <span>Modul létrehozása</span>
     </div>
 
-    <div class="flex flex-col justify-center align-middle mt-[23vh] w-full">
-      <div class="flex gap-44 justify-center align-middle py-8">
-        <div class="relative">
-          <input type="text" placeholder="Modul címe"
-            class="w-[12dvw] py-2 px-2 text-white border-none outline-none focus:ring-0 text-center bg-transparent" />
-          <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
+    <div class="flex flex-col justify-center items-center mt-32 w-full">
+      <div class="flex flex-wrap gap-8 w-full justify-center items-center py-8">
+        <div class="relative w-full max-w-xs">
+          <input
+              type="text"
+              placeholder="Modul címe"
+              class="w-full py-2 px-2 text-[--text-color] border-none outline-none focus:ring-0 text-center bg-transparent placeholder-[--placeholder-color]"
+          />
+          <hr class="absolute w-full h-[3px] bg-[--underline-color] shadow-2xl top-full" />
         </div>
 
-        <div class="relative">
-          <!-- textarea because if the description  is too long it needs to be split into separate lines-->
-          <textarea placeholder="Modul leírása"
-            class="w-[12dvw] px-2 py-2 text-white resize-none border-none outline-none text-center overflow-auto bg-transparent" />
-          <hr class="absolute w-full h-[3px] bg-black shadow-2xl top-full" />
+        <div class="relative w-full max-w-xs">
+          <textarea
+              placeholder="Modul leírása"
+              class="w-full px-2 py-2 text-[--text-color] resize-none border-none outline-none text-center overflow-auto bg-transparent placeholder-[--placeholder-color]"
+          ></textarea>
+          <hr class="absolute w-full h-[3px] bg-[--underline-color] mt-[3px] shadow-2xl top-full" />
         </div>
       </div>
 
-      <div class="flex flex-row justify-center align-middle gap-44 w-full py-4">
+      <div class="flex flex-wrap justify-center items-center gap-8 w-full py-4">
         <!-- Grade Select -->
-        <div class="min-w-[14dvw]">
-
-          <select id="grade" v-model="selectedGrade" @change="filterBasedOnSelection('grade')"
-            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
-            <!-- before anyone tries, you cannot center options, I tried for 30 minutes straight -->
+        <div class="w-full max-w-xs">
+          <select
+              id="grade"
+              v-model="selectedGrade"
+              @change="filterBasedOnSelection('grade')"
+              class="block w-full mt-2 p-2 rounded-lg text-center border border-gray-300
+              bg-[--button-base-color] hover:bg-[--button-hover-color] focus:bg-[--button-focus-color] active:bg-[--button-active-color] "
+          >
             <option value="" disabled hidden>Osztály</option>
             <option value="" disabled>Válasszon egy osztályt</option>
-
-            <option v-for="grade in filteredGrades" :key="grade" :value="grade">{{ grade }}</option>
+            <option
+                v-for="grade in filteredGrades"
+                :key="grade"
+                :value="grade"
+            >
+              {{ grade }}
+            </option>
           </select>
         </div>
 
         <!-- Category Select -->
-        <div class="min-w-[14dvw]">
-          <select id="category" v-model="selectedCategory" @change="filterBasedOnSelection('category')"
-            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
+        <div class="w-full max-w-xs">
+          <select
+              id="category"
+              v-model="selectedCategory"
+              @change="filterBasedOnSelection('category')"
+              class="block w-full mt-2 p-2 rounded-lg text-center border border-gray-300
+              bg-[--button-base-color] hover:bg-[--button-hover-color] focus:bg-[--button-focus-color] active:bg-[--button-active-color] "
+          >
             <option value="" disabled hidden>Kategória</option>
             <option value="" disabled>Válasszon egy kategóriát</option>
-            <option v-for="category in filteredCategories" :key="category" :value="category">{{ category }}</option>
+            <option
+                v-for="category in filteredCategories"
+                :key="category"
+                :value="category"
+            >
+              {{ category }}
+            </option>
           </select>
         </div>
 
         <!-- Profession Select -->
-        <div class="min-w-[14dvw]">
-          <select id="profession" v-model="selectedProfession" @change="filterBasedOnSelection('profession')"
-            class="block w-full mt-2 p-2 border border-gray-300 bg-gray-800 hover:bg-gray-600 focus:bg-gray-800 active:bg-gray-600 rounded-lg text-center">
+        <div class="w-full max-w-xs">
+          <select
+              id="profession"
+              v-model="selectedProfession"
+              @change="filterBasedOnSelection('profession')"
+              class="block w-full mt-2 p-2 rounded-lg text-center border border-gray-300
+              bg-[--button-base-color] hover:bg-[--button-hover-color] focus:bg-[--button-focus-color] active:bg-[--button-active-color] "
+          >
             <option value="" disabled hidden>Szakma</option>
             <option value="" disabled>Válasszon egy szakmát</option>
-            <option v-for="profession in filteredProfessions" :key="profession" :value="profession">{{ profession }}
+            <option
+                v-for="profession in filteredProfessions"
+                :key="profession"
+                :value="profession"
+            >
+              {{ profession }}
             </option>
           </select>
         </div>
       </div>
 
       <!-- Clear Button -->
-      <div class="w-full flex justify-center align-middle">
-        <button @click="clearSelections"
-          class="max-w-[14dvw] mt-4 py-2 px-4 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-800 active:bg-gray-600">
+      <div class="w-full flex justify-center items-center">
+        <button
+            @click="clearSelections"
+            class="max-w-[14em] w-full mt-4 py-2 px-4 bg-[--button-delete-base-color] text-[--button-delete-text-color] font-semibold rounded-lg hover:bg-[--button-delete-hover-color] active:bg-[--button-delete-active-color] focus:bg-[--button-delete-focus-color]"
+        >
           Választások törlése
         </button>
       </div>
 
-      <div class="flex gap-44 justify-center align-middle py-8 ">
-        <input class="border-b text-center focus:outline-none" placeholder="Modul címe" type="file">
+      <div class="flex flex-wrap gap-8 justify-center items-center py-8 w-full">
+        <input
+            class="w-full max-w-xs border-b text-center focus:outline-none"
+            placeholder="Modul címe"
+            type="file"
+        >
         <button
-          class="rounded-md py-1 border border-gray-300  px-12 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800">Fájl
-          szerkesztése</button>
+            class="rounded-md py-1 px-6 w-full max-w-xs border border-gray-300 bg-[--button-base-color] hover:bg-[--button-hover-color] active:bg-[--button-active-color]"
+        >
+          Fájl szerkesztése
+        </button>
       </div>
 
-      <div class="flex gap-44  justify-center align-middle py-8">
+      <div class="flex justify-center items-center py-8 w-full">
         <button
-          class="rounded-md py-1 px-12 border border-gray-300 text-center bg-gray-800 hover:bg-gray-600 active:bg-gray-800">Mentés</button>
+            class="rounded-md w-full sm:w-auto py-2 px-6 text-center text-[--button-submit-text-color] bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] focus:bg-[--button-submit-focus-color]"
+        >
+          Mentés
+        </button>
       </div>
-
     </div>
   </section>
-
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-
-
-
+import { ref, computed } from 'vue';
 
 // Sample expanded data structure
-const grades = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+const grades = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 const categories = {
   A: ['Math', 'Science'],
-  B: ['History', 'Geography', "Math"],
+  B: ['History', 'Geography', 'Math'],
   C: ['Literature', 'Arts'],
   D: ['Biology', 'Chemistry'],
   E: ['Physics', 'Astronomy'],
   F: ['Philosophy', 'Sociology'],
   G: ['Law', 'Politics'],
-  H: ['Economics', 'Psychology']
-}
+  H: ['Economics', 'Psychology'],
+};
 const professions = {
   A: ['Engineer', 'Scientist'],
   B: ['Teacher', 'Historian'],
@@ -119,10 +158,9 @@ const professions = {
   E: ['Physicist', 'Astronomer'],
   F: ['Philosopher', 'Sociologist'],
   G: ['Lawyer', 'Politician'],
-  H: ['Economist', 'Psychologist']
-}
+  H: ['Economist', 'Psychologist'],
+};
 
-// Reverse mapping to easily find which grades each category or profession is associated with
 const categoryToGrades = {
   Math: ['A', 'B'],
   Science: ['A', 'D'],
@@ -139,8 +177,8 @@ const categoryToGrades = {
   Law: ['G'],
   Politics: ['G'],
   Economics: ['H'],
-  Psychology: ['H']
-}
+  Psychology: ['H'],
+};
 
 const professionToGrades = {
   Engineer: ['A', 'B'],
@@ -158,80 +196,66 @@ const professionToGrades = {
   Lawyer: ['G'],
   Politician: ['G'],
   Economist: ['H'],
-  Psychologist: ['H']
-}
+  Psychologist: ['H'],
+};
 
-// Reactive state for selections
-const selectedGrade = ref('')
-const selectedCategory = ref('')
-const selectedProfession = ref('')
+const selectedGrade = ref('');
+const selectedCategory = ref('');
+const selectedProfession = ref('');
 
-// Filtered categories and professions based on selected grade
 const filteredCategories = computed(() => {
-  if (!selectedGrade.value) return Object.values(categories).flat()
-  return categories[selectedGrade.value] || []
-})
+  if (!selectedGrade.value) return Object.values(categories).flat();
+  return categories[selectedGrade.value] || [];
+});
 
 const filteredProfessions = computed(() => {
-  if (!selectedGrade.value) return Object.values(professions).flat()
-  return professions[selectedGrade.value] || []
-})
+  if (!selectedGrade.value) return Object.values(professions).flat();
+  return professions[selectedGrade.value] || [];
+});
 
-// Filtered grades based on selected category and profession
 const filteredGrades = computed(() => {
-  let validGrades = grades
+  let validGrades = grades;
   if (selectedCategory.value) {
-    validGrades = validGrades.filter(grade => categoryToGrades[selectedCategory.value]?.includes(grade))
+    validGrades = validGrades.filter((grade) => categoryToGrades[selectedCategory.value]?.includes(grade));
   }
   if (selectedProfession.value) {
-    validGrades = validGrades.filter(grade => professionToGrades[selectedProfession.value]?.includes(grade))
+    validGrades = validGrades.filter((grade) => professionToGrades[selectedProfession.value]?.includes(grade));
   }
-  return validGrades
-})
+  return validGrades;
+});
 
-// Dynamically filter grade, category, and profession based on the current selection
 const filterBasedOnSelection = (field) => {
   if (field === 'grade') {
-    // If grade is selected, filter category and profession
     if (selectedGrade.value) {
       if (!filteredCategories.value.includes(selectedCategory.value)) {
-        selectedCategory.value = ''
+        selectedCategory.value = '';
       }
       if (!filteredProfessions.value.includes(selectedProfession.value)) {
-        selectedProfession.value = ''
+        selectedProfession.value = '';
       }
     }
   } else if (field === 'category') {
-    // If category is selected, filter grade and profession
     if (selectedCategory.value) {
-      selectedGrade.value = Object.keys(categories).find(grade =>
-        categories[grade].includes(selectedCategory.value)
-      ) || ''
+      selectedGrade.value =
+          Object.keys(categories).find((grade) => categories[grade].includes(selectedCategory.value)) || '';
       if (!filteredProfessions.value.includes(selectedProfession.value)) {
-        selectedProfession.value = ''
+        selectedProfession.value = '';
       }
     }
   } else if (field === 'profession') {
-    // If profession is selected, filter grade and category
     if (selectedProfession.value) {
-      selectedGrade.value = Object.keys(professions).find(grade =>
-        professions[grade].includes(selectedProfession.value)
-      ) || ''
+      selectedGrade.value =
+          Object.keys(professions).find((grade) => professions[grade].includes(selectedProfession.value)) || '';
       if (!filteredCategories.value.includes(selectedCategory.value)) {
-        selectedCategory.value = ''
+        selectedCategory.value = '';
       }
     }
   }
-}
+};
 
-// Clear all selections
 const clearSelections = () => {
-  selectedGrade.value = ''
-  selectedCategory.value = ''
-  selectedProfession.value = ''
-}
+  selectedGrade.value = '';
+  selectedCategory.value = '';
+  selectedProfession.value = '';
+};
 </script>
-
-<style scoped>
-/* Tailwind is already sufficient for basic styling */
-</style>

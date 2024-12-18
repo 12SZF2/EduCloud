@@ -9,6 +9,8 @@
         <button @click="showEditorPopup = true" class="open-popup-btn">Editor</button>
     </div>
 
+    <UserIcon />
+
     <PopupModal :isOpen="showCreateModulePopup" @close="showCreateModulePopup = false">
         <CreateModulePopupMenu />
     </PopupModal>
@@ -35,9 +37,10 @@ import { ref } from "vue";
 import PopupModal from "../../components/PopupComponents/PopupModal.vue";
 import CreateModulePopupMenu from "../../components/PopupComponents/CreateModulePopupMenu.vue";
 import EditModulePopupMenu from "../../components/PopupComponents/EditModulePopupMenu.vue";
-import CreateTaskPopupMenu from "../../components/PopupComponents/CreateTaskPopupMenu.vue";
-import EditTaskPopupMenu from "../../components/PopupComponents/EditTaskPopupMenu.vue";
+import CreateTaskPopupMenu from "../../components/PopupComponents/CreateAssignmentPopupMenu.vue";
+import EditTaskPopupMenu from "../../components/PopupComponents/EditAssignmentPopupMenu.vue";
 import EditorPopupMenu from "../../components/PopupComponents/EditorPopupMenu.vue";
+import UserIcon from "../../components/userIconComponents/UserIcon.vue";
 
 const showCreateModulePopup = ref(false);
 const showEditModulePopup = ref(false);

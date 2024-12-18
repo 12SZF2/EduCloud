@@ -1,6 +1,6 @@
 <template>
-    <div class="user-icon" ref="userIcon">
-        <SvgIcon type="mdi" :path="mdiAccountOutline" class="icon" @click="toggleDropdown" />
+    <div class="user-icon" ref="userIcon" @click.stop="toggleDropdown">
+        <SvgIcon type="mdi" :path="mdiAccountOutline" class="icon" />
         <div v-if="isDropdownVisible" class="dropdown-menu" :style="dropdownPosition">
             <div class="dropdown-item" @click="admin">
                 <SvgIcon type="mdi" :path="mdiSecurity" />
@@ -8,15 +8,16 @@
             </div>
             <div class="dropdown-item" @click="logout">
                 <SvgIcon type="mdi" :path="mdiLogout" />
-                <p>Kijelentkezes</p>
+                <p>Kijelentkezés</p>
             </div>
-            <ThemeMenu class="dropdown-item" />
+            <!-- Add click.stop here -->
+            <ThemeMenu class="dropdown-item" @click.stop />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue';
+import { computed, ref, onMounted, onBeforeUnmount } from 'vue';
 import { useThemeStore } from '@/stores/themeStore';
 import ThemeMenu from '@/components/themeChangerComponents/ThemeMenu.vue';
 import { mdiAccountOutline, mdiSecurity, mdiLogout } from "@mdi/js";
@@ -28,60 +29,25 @@ const dropdownPosition = ref<{ top: string, left: string }>({ top: '0px', left: 
 
 function toggleDropdown() {
     isDropdownVisible.value = !isDropdownVisible.value;
-    if (isDropdownVisible.value && userIcon.value) {
-        const iconRect = userIcon.value.getBoundingClientRect();
-        const screenWidth = window.innerWidth;
-        const dropdownWidth = 190;
-        const leftSpace = iconRect.left;
-        const rightSpace = screenWidth - (iconRect.left + iconRect.width);
+    updateDropdownPosition();
+}
 
-        console.log(leftSpace)
-        console.log(rightSpace)
-
-        if (window.outerWidth <= 500) {
-            dropdownPosition.value = {
-                top: `${iconRect.bottom + window.scrollY}px`,
-                left: `${(screenWidth - (0.8 * screenWidth)) / 2}px`,
-            };
-        } else {
-            if (leftSpace < 0.5 * screenWidth) {
-                dropdownPosition.value = {
-                    top: `${iconRect.bottom + window.scrollY}px`,
-                    left: `${iconRect.left}px`,
-                };
-            }
-            else if (rightSpace < 0.5 * screenWidth) {
-                dropdownPosition.value = {
-                    top: `${iconRect.bottom + window.scrollY}px`,
-                    left: `${iconRect.left + iconRect.width - dropdownWidth - 25}px`,
-                };
-            }
-            else {
-                dropdownPosition.value = {
-                    top: `${iconRect.bottom + window.scrollY}px`,
-                    left: `${iconRect.left + window.scrollX}px`,
-                };
-            }
-        }
-    }
+function closeDropdown() {
+    isDropdownVisible.value = false;
 }
 
 function admin() {
-    alert("admin")
+    alert("admin");
 }
 
 function logout() {
-    alert("logout")
+    alert("logout");
 }
 
 const themeStore = useThemeStore();
 const currentTheme = computed(() => themeStore.currentTheme);
 
-onMounted(() => {
-    window.addEventListener('resize', updateDropdownPosition);
-});
-
-const updateDropdownPosition = () => {
+function updateDropdownPosition() {
     if (isDropdownVisible.value && userIcon.value) {
         const iconRect = userIcon.value.getBoundingClientRect();
         const screenWidth = window.innerWidth;
@@ -100,14 +66,12 @@ const updateDropdownPosition = () => {
                     top: `${iconRect.bottom + window.scrollY}px`,
                     left: `${iconRect.left}px`,
                 };
-            }
-            else if (rightSpace < 0.5 * screenWidth) {
+            } else if (rightSpace < 0.5 * screenWidth) {
                 dropdownPosition.value = {
                     top: `${iconRect.bottom + window.scrollY}px`,
                     left: `${iconRect.left + iconRect.width - dropdownWidth - 25}px`,
                 };
-            }
-            else {
+            } else {
                 dropdownPosition.value = {
                     top: `${iconRect.bottom + window.scrollY}px`,
                     left: `${iconRect.left + window.scrollX}px`,
@@ -115,8 +79,23 @@ const updateDropdownPosition = () => {
             }
         }
     }
-};
+}
 
+function handleOutsideClick(event: MouseEvent) {
+    if (userIcon.value && !userIcon.value.contains(event.target as Node)) {
+        closeDropdown();
+    }
+}
+
+onMounted(() => {
+    window.addEventListener('resize', updateDropdownPosition);
+    document.addEventListener('click', handleOutsideClick);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', updateDropdownPosition);
+    document.removeEventListener('click', handleOutsideClick);
+});
 </script>
 
 <style scoped>

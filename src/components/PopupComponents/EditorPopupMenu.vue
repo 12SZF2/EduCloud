@@ -6,7 +6,8 @@
 
         <div class="vonal"></div>
         <div class="editor-wrapper">
-            <MdEditor v-model="contents" language="en-US" v-on:upload-img="imgupload" class="custom-editor" />
+            <MdEditor v-model="content" language="en-US" v-on:upload-img="imgupload" class="custom-editor"
+                :theme="isDarkTheme ? 'dark' : 'light'" />
         </div>
     </div>
 </template>
@@ -14,12 +15,24 @@
 <script setup lang="ts">
 import { MdEditor } from "md-editor-v3";
 import "md-editor-v3/lib/style.css";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
-const contents = ref("# Hello World");
+const content = defineModel('content', {
+    type: String,
+    default: "# Hello World"
+});
 const imgupload = (e) => {
     console.debug("Uploaded img" + e);
 };
+
+// Dark theme meghatározása
+const isDarkTheme = ref(false);
+
+onMounted(() => {
+    // Ellenőrizzük a `--background-color` változó értékét
+    const backgroundColor = getComputedStyle(document.documentElement).getPropertyValue("--background-color").trim();
+    isDarkTheme.value = backgroundColor === "black";
+});
 </script>
 
 <style scoped>
@@ -27,7 +40,7 @@ const imgupload = (e) => {
     width: 90dvw;
     max-width: 1700px;
     height: 2px;
-    background-color: #000;
+    background-color: var(--text-color);
     margin: 0 auto;
 }
 
@@ -49,7 +62,7 @@ const imgupload = (e) => {
     align-items: center;
     width: 70%;
     padding: 10px 20px;
-    color: rgb(0, 0, 0);
+    color: var(--text-color);
     z-index: 10;
 }
 
@@ -71,7 +84,8 @@ const imgupload = (e) => {
 .custom-editor {
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    background: var(--background-color);
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;

@@ -1,7 +1,7 @@
 <!-- PopupModal.vue -->
 <template>
-    <div v-if="isOpen" class="modal-overlay">
-        <div class="modal-content">
+    <div v-if="isOpen" class="modal-overlay" @click="handleOverlayClick">
+        <div class="modal-content" @click.stop>
             <button @click="closePopup" class="close-btn">×</button>
             <slot></slot>
         </div>
@@ -20,6 +20,10 @@ const emit = defineEmits(["close"]);
 const closePopup = () => {
     emit("close");
 };
+
+const handleOverlayClick = () => {
+    closePopup();
+};
 </script>
 
 <style scoped>
@@ -34,8 +38,8 @@ const closePopup = () => {
 }
 
 .modal-content {
-    background: white;
-    color: black;
+    background: var(--background-color);
+    color: var(--text-color);
     padding: 20px;
     border-radius: 8px;
     width: 90%;
@@ -51,7 +55,7 @@ const closePopup = () => {
     right: 30px;
     font-size: 2em;
     background: none;
-    color: black;
+    color: var(--text-color);
     border: none;
     cursor: pointer;
 }

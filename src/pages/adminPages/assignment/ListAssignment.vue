@@ -125,9 +125,9 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
 
 <template>
 
-  <section class="w-full h-full flex flex-col  items-center">
+  <section class="w-full h-full flex flex-col text-[--text-color]  items-center">
 
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
+    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
       <span>Modulok</span>
     </div>
 
@@ -157,7 +157,7 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
           <tbody>
           <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-gray-500 even:bg-gray-600">
             <td>
-              <button @click="handleItemClick(assignment)" class="text-black hover:text-gray-600 active:text-gray-800">{{ assignment.name }}</button>
+              <button @click="handleItemClick(assignment)" class="text-[--text-color] hover:text-gray-600 active:text-gray-800">{{ assignment.name }}</button>
             </td>
             <td>
               {{ assignment.grade }}

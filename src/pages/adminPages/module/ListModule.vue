@@ -39,46 +39,59 @@ const nameSearchQuery = ref('');
 </script>
 
 <template>
-
   <section class="w-full h-full flex flex-col items-center">
 
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-b-white">
+    <div class="flex w-full justify-center items-center text-xl lg:text-2xl h-[3em] font-bold border-b border-[--border-color]">
       <span>Modulok</span>
     </div>
 
-    <div class="mt-8 flex-nowrap flex flex-col items-center">
+    <div class="mt-8 w-full px-4 flex flex-col items-center">
 
-      <div v-if="modules.length <= 0" >
-        <h1 class="form-title">Nincsenek elérhető modulok</h1>
-      </div>
-      <div v-if="modules.length > 0" class="my-8 relative">
-        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent text-center focus:outline-none" />🔍
-        <hr class="absolute w-full h-[2px] bg-white shadow-2xl top-full" />
+      <!-- Search -->
+      <div v-if="modules.length > 0" class="my-8 w-full max-w-md relative">
+        <input
+            v-model="nameSearchQuery"
+            type="text"
+            placeholder="Keresés"
+            class="w-full text-[--search-text-color] bg-transparent placeholder-[--placeholder-color] text-center border-b border-[--search-border-color] focus:outline-none"
+        />
       </div>
 
-      <div v-if="modules.length > 0" class=" rounded-md bg-gray-800 border-r-gray-800">
-        <table class="min-w-[60dvw] text-center">
+      <!-- Modules Table -->
+      <div v-if="modules.length > 0" class="w-full overflow-x-auto rounded-md bg-gray-800">
+        <table class="table-auto w-full text-center">
           <thead>
-          <tr class="">
-            <th v-for="content in tableCols" :key="content">{{content}}</th>
+          <tr class="bg-gray-900 text-[--text-color]">
+            <th v-for="content in tableCols" :key="content" class="px-4 py-2">
+              {{ content }}
+            </th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(module, index) in filteredModulesByName" :key="index" class="odd:bg-gray-600 even:bg-gray-500">
-            <td>{{ module.id }}</td>
-            <td>{{ module.name }}</td>
-            <td>{{ module.grade }}</td>
-            <td>{{ module.description }}</td>
-            <td>{{ module.categoryName }}</td>
-            <td>{{ module.professionName }}</td>
-            <td>{{ module.createdAt }}</td>
-            <td>
-              <button @click="editModule(module.id)" class="delete-button">
+          <tr
+              v-for="(module, index) in filteredModulesByName"
+              :key="index"
+              class="odd:bg-gray-700 even:bg-gray-600"
+          >
+            <td class="px-4 py-2">{{ module.id }}</td>
+            <td class="px-4 py-2">{{ module.name }}</td>
+            <td class="px-4 py-2">{{ module.grade }}</td>
+            <td class="px-4 py-2">{{ module.description }}</td>
+            <td class="px-4 py-2">{{ module.categoryName }}</td>
+            <td class="px-4 py-2">{{ module.professionName }}</td>
+            <td class="px-4 py-2">{{ module.createdAt }}</td>
+            <td class="px-4 py-2">
+              <button
+                  class="bg-blue-600 hover:bg-blue-500 text-[--text-color] py-1 px-4 rounded"
+              >
                 ✎
               </button>
             </td>
-            <td>
-              <button @click="deleteModule(module.id)" class="delete-button">
+            <td class="px-4 py-2">
+              <button
+                  @click="deleteModule(module.id)"
+                  class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded"
+              >
                 Törlés
               </button>
             </td>
@@ -86,7 +99,11 @@ const nameSearchQuery = ref('');
           </tbody>
         </table>
       </div>
+
+      <!-- No Modules Message -->
+      <div v-if="modules.length <= 0">
+        <h1 class="text-lg font-semibold text-gray-700">Nincsenek elérhető modulok</h1>
+      </div>
     </div>
   </section>
-
 </template>
