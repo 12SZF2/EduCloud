@@ -1,9 +1,221 @@
 <script setup lang="ts">
+import { ref, onMounted, onBeforeUnmount, watch, Ref } from 'vue';
 
+const isRain = ref(false); // Az eső alapértelmezés szerint ne essen
+let counter = 0;
 
+const toggleRain = (): void => {
+  if (counter === 0) {
+    initCanvas();
+    counter++;
+  }
+  isRain.value = !isRain.value;
+};
+
+const canvas: Ref<HTMLCanvasElement | null> = ref(null);
+let ctx: CanvasRenderingContext2D | null = null;
+let width = 0;
+let height = 0;
+
+let mouse = { X: 0, Y: 0 };
+
+type Particle = {
+  vitesseX: number;
+  vitesseY: number;
+  X: number;
+  Y: number;
+  alpha: number;
+  couleur: string;
+};
+type Drop = {
+  vitesseX: number;
+  vitesseY: number;
+  X: number;
+  Y: number;
+  radius: number;
+  alpha: number;
+  couleur: string;
+};
+
+let particules: Particle[] = [];
+let gouttes: Drop[] = [];
+
+interface Controls {
+  rain: number;
+  Object: string;
+  alpha: number;
+  color: number;
+  auto: boolean;
+  opacity: number;
+  saturation: number;
+  lightness: number;
+  back: number;
+  red: number;
+  green: number;
+  blue: number;
+  multi: boolean;
+  speed: number;
+}
+
+let controls: Controls = {
+  rain: 0,
+  Object: 'Nothing',
+  alpha: 1,
+  color: 200,
+  auto: false,
+  opacity: 1,
+  saturation: 100,
+  lightness: 50,
+  back: 100,
+  red: 0,
+  green: 0,
+  blue: 0,
+  multi: false,
+  speed: 0.5,
+};
+
+const requestAnimFrame = (() => {
+  return (
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    function (callback: FrameRequestCallback): number {
+      return window.setTimeout(callback, 1000 / 60);
+    }
+  );
+})();
+
+const Rain = (X: number, Y: number, nombre = 2): void => {
+  while (nombre--) {
+    particules.push({
+      vitesseX: Math.random() * 0.25,
+      vitesseY: Math.random() * 4 + 1,
+      X,
+      Y,
+      alpha: 1,
+      couleur: `hsla(${controls.color},${controls.saturation}%,${controls.lightness}%,${controls.opacity})`,
+    });
+  }
+};
+
+const explosion = (X: number, Y: number, couleur: string, nombre = 5): void => {
+  while (nombre--) {
+    gouttes.push({
+      vitesseX: Math.random() * 4 - 2,
+      vitesseY: Math.random() * -4,
+      X,
+      Y,
+      radius: 1 + Math.floor(Math.random() * 3),
+      alpha: 1,
+      couleur,
+    });
+  }
+};
+
+const update = (): void => {
+  particules = particules.filter((particle) => {
+    particle.X += particle.vitesseX;
+    particle.Y += particle.vitesseY + 5;
+    if (particle.Y > height - 15) {
+      explosion(particle.X, particle.Y, particle.couleur);
+      return false;
+    }
+    return true;
+  });
+
+  gouttes = gouttes.filter((drop) => {
+    drop.X += drop.vitesseX;
+    drop.Y += drop.vitesseY;
+    drop.radius -= 0.075;
+    drop.alpha = Math.max(0, drop.alpha - 0.005);
+    return drop.radius > 0;
+  });
+
+  for (let i = 0; i < controls.rain; i++) {
+    Rain(Math.floor(Math.random() * width), -15);
+  }
+};
+
+const rendu = (ctx: CanvasRenderingContext2D): void => {
+  ctx.save();
+  ctx.clearRect(0, 0, width, height);
+
+  particules.forEach((particle) => {
+    ctx.globalAlpha = particle.alpha;
+    ctx.fillStyle = particle.couleur;
+    ctx.fillRect(particle.X, particle.Y, particle.vitesseY / 4, particle.vitesseY);
+  });
+
+  gouttes.forEach((drop) => {
+    ctx.globalAlpha = drop.alpha;
+    ctx.fillStyle = drop.couleur;
+    ctx.beginPath();
+    ctx.arc(drop.X, drop.Y, drop.radius, 0, Math.PI * 2);
+    ctx.fill();
+  });
+
+  ctx.restore();
+};
+
+const animate = (): void => {
+  requestAnimFrame(animate);
+  if (ctx) {
+    update();
+    rendu(ctx);
+  }
+};
+
+const initCanvas = (): void => {
+  if (canvas.value) {
+    ctx = canvas.value.getContext('2d');
+    if (ctx) {
+      width = canvas.value.width = window.innerWidth;
+      height = canvas.value.height = window.innerHeight;
+
+      window.onresize = () => {
+        if (canvas.value) {
+          width = canvas.value.width = window.innerWidth;
+          height = canvas.value.height = window.innerHeight;
+        }
+      };
+
+      window.onmousemove = (event) => {
+        mouse.X = event.clientX;
+        mouse.Y = event.clientY;
+      };
+
+      animate();
+    }
+  }
+};
+
+const cleanupCanvas = (): void => {
+  particules = [];
+  gouttes = [];
+  if (ctx) {
+    ctx.clearRect(0, 0, width, height);
+  }
+};
+
+onMounted(() => {
+  initCanvas();
+});
+
+onBeforeUnmount(() => {
+  cleanupCanvas();
+});
+
+watch(isRain, (newVal) => {
+  controls.rain = newVal ? 12 : 0;
+});
 </script>
 
+
 <template>
+  <canvas ref="canvas" style="position: absolute; top: 0; left: 0;"></canvas>
+
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <div class="containerr h-[100dvh] w-[100dvw]">
 
@@ -29,6 +241,11 @@
 
     </header>
 
+    <div class="fixed-bottom-right">
+      <button class="rain-button" @click="toggleRain"><img src="../../assets/cloud-icon.png"
+          alt="Button Image" /></button>
+    </div>
+
   </div>
 
   <div class="flex justify-end " id="rightSide">
@@ -40,6 +257,27 @@
 </template>
 
 <style scoped>
+.rain-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.rain-button img {
+  width: 7vw;
+  height: 7vw;
+  display: block;
+}
+
+.fixed-bottom-right {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 3%;
+  color: black;
+}
+
 .header {
   position: fixed;
   width: 100%;
