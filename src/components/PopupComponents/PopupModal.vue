@@ -1,7 +1,7 @@
 <!-- PopupModal.vue -->
 <template>
-    <div v-if="isOpen" class="modal-overlay">
-        <div class="modal-content">
+    <div v-if="isOpen" class="modal-overlay" @click="handleOverlayClick">
+        <div class="modal-content" @click.stop>
             <button @click="closePopup" class="close-btn">×</button>
             <slot></slot>
         </div>
@@ -19,6 +19,10 @@ const emit = defineEmits(["close"]);
 
 const closePopup = () => {
     emit("close");
+};
+
+const handleOverlayClick = () => {
+    closePopup();
 };
 </script>
 
