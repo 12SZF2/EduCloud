@@ -7,7 +7,7 @@
       <button class="back-button">←</button>
       <span class="title">Szerkesztés</span>
       <div class="user-dropdown">
-        <button class="user-button" @click="toggleDropdown">👤</button>
+        <UserIcon @click="toggleDropdown" />
         <div v-if="dropdownVisible" class="dropdown-menu">
           <button class="dropdown-item" @click="toggleBackground">
             Háttér változtatás
@@ -18,25 +18,14 @@
     </div>
 
     <div class="vonal"></div>
-    <div class="editor-wrapper">
-      <MdEditor
-        v-model="contents"
-        language="en-US"
-        v-on:upload-img="imgupload"
-        class="custom-editor"
-      />
-    </div>
+    <Editor />
   </div>
 </template>
-<script setup lang="ts">
-import { MdEditor } from "md-editor-v3";
-import "md-editor-v3/lib/style.css";
-import { ref } from "vue";
 
-const contents = ref("# Hello World");
-const imgupload = (e) => {
-  console.debug("Uploaded img" + e);
-};
+<script setup lang="ts">
+import { ref } from "vue";
+import UserIcon from "../../components/userIconComponents/UserIcon.vue";
+import Editor from "../../components/EditorPageComponents/Editor.vue";
 
 const backgrounds = ["imgs/day.jpg", "imgs/night.jpg"];
 const currentBackground = ref(backgrounds[0]);
@@ -55,7 +44,6 @@ const toggleDropdown = () => {
 
 const logout = () => {
   console.log("Kijelentkezés");
-
 };
 </script>
 
@@ -100,24 +88,10 @@ const logout = () => {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
 }
 
-.user-button {
-  background: none;
-  border: none;
-  color: rgb(0, 0, 0);
-  font-size: 20px;
-  cursor: pointer;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
-}
-
-.user-button:hover {
-  color: #007bff; 
-  transform: scale(1.1);
-}
-
 .title {
   font-size: 20px;
   font-weight: bold;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* Szöveg árnyékolása */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); 
 }
 
 .user-dropdown {
@@ -148,27 +122,5 @@ const logout = () => {
 
 .dropdown-item:hover {
   background: #5171ffe5;
-}
-
-.editor-wrapper {
-  width: 90%;
-  height: 80%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  margin-top: 20px; 
-}
-
-.custom-editor {
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1); 
-  backdrop-filter: blur(10px); 
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
 }
 </style>
