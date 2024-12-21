@@ -55,7 +55,6 @@ onMounted(() => {
     background-size: cover;
     transition: background 0.5s ease;
 }
-
 .nav-bar {
     display: flex;
     justify-content: center;
