@@ -1,342 +1,200 @@
 <template>
-  <div :style="{ backgroundImage: `url(${currentBackground})` }" class="container">
-    <div class="navigation">
-      <div class="nav-header">
-        <div class="search-container">
-          <button class="back-button" @click="goBack">←</button>
-          <div class="search-wrapper">
-            <input type="text" v-model="searchQuery" placeholder="Search" class="search-input" />
-          </div>
-          <div class="vonal-vertical"></div>
-          <UserIcon @toggleDropdown="toggleDropdown" />
+  <div class="view-page">
+    <div class="view-page-content">
+      <div class="sidebar">
+        <navbar />
+        <div class="sidebar-controls">
+          <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
+          <button :class="{ active: viewType === 'tasks' }" @click="setViewType('tasks')">Feladatok</button>
         </div>
-        <div class="user-dropdown" v-if="dropdownVisible">
-          <ThemeMenu @changeBackground="changeBackground" />
-        </div>
+        <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
+          :modules="category.items" @moduleSelected="updateContent" />
       </div>
-
-      <div class="nav-tabs">
-        <span :class="{ active: activeTab === 'modules' }" @click="switchTab('modules')">Modules</span>
-        <span :class="{ active: activeTab === 'tasks' }" @click="switchTab('tasks')">Tasks</span>
+      <div class="main-content">
+        <content v-if="selectedModule" :moduleTitle="selectedModule.name"
+          :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content" :author="'N/A'"
+          :publishedDate="selectedModule.createdAt" :updatedDate="selectedModule.updatedAt" />
       </div>
-
-      <ul class="category-list">
-        <li v-for="category in filteredCategories" :key="category.id">
-          <div class="category-title" @click="toggleCategory(category)" :class="{ active: selectedCategory.id === category.id }">
-            {{ category.title }}
-            <span class="arrow">{{ category.expanded ? '▲' : '▼' }}</span>
-          </div>
-          <ul v-if="category.expanded" class="sub-list">
-            <li v-for="subItem in category.subItems" :key="subItem.id" @click.stop="selectSubItem(subItem)">
-              {{ subItem.title }}
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <div class="content">
-      <header class="content-header">
-        <h1>{{ selectedCategory.title }}</h1>
-        <h2 v-if="selectedSubItem">{{ selectedSubItem.title }}</h2>
-      </header>
-      <div class="vonal"></div>
-      <section class="content-body">
-        <p>{{ selectedSubItem ? selectedSubItem.content : selectedCategory.content }}</p>
-        <div class="content-meta">
-          <div class="vonalbottom"></div>
-          <span>Published by: {{ selectedCategory.publishedBy }}</span>
-          <span>Published on: {{ selectedCategory.publishDate }}</span>
-          <span>Last updated: {{ selectedCategory.lastUpdated }}</span>
-        </div>
-      </section>
     </div>
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
-import UserIcon from "@/components/userIconComponents/UserIcon.vue";
-import ThemeMenu from "@/components/themeChangerComponents/ThemeMenu.vue";
+<script>
+import Navbar from "../../Components/ViewPageComponents/Navbar.vue";
+import CategoryNavbar from "../../Components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue";
+import Content from "../../Components/ViewPageComponents/Content/Content.vue";
 
-const dropdownVisible = ref(false);
-const toggleDropdown = () => (dropdownVisible.value = !dropdownVisible.value);
+export default {
+  components: {
+    Navbar,
+    CategoryNavbar,
+    Content,
+  },
+  data() {
+    return {
+      viewType: "modules",
+      backendData: [],
+      selectedModule: null,
+      selectedCategory: "",
+    };
+  },
+  computed: {
+    filteredCategories() {
+      const groupedByCategory = {};
 
-const currentBackground = ref("imgs/day.jpg");
-const changeBackground = (newBackground) => {
-  currentBackground.value = newBackground;
-};
+      this.backendData.forEach((item) => {
+        item.categories.forEach((category) => {
+          if (!groupedByCategory[category.categoryName]) {
+            groupedByCategory[category.categoryName] = { name: category.categoryName, items: [] };
+          }
+          groupedByCategory[category.categoryName].items.push(item);
+        });
+      });
 
-const modules = ref([
-  { id: 1, title: "Frontend", content: "Introduction to HTML basics.", publishedBy: "Admin", publishDate: "2024-01-10", lastUpdated: "2024-02-01", expanded: false, subItems: [{ id: "1-1", title: "HTML", content: "HTML details" }, { id: "1-2", title: "JS", content: "JS details" }] },
-  { id: 2, title: "Backend", content: "Server-side programming basics.", publishedBy: "Admin", publishDate: "2024-02-10", lastUpdated: "2024-03-01", expanded: false, subItems: [{ id: "2-1", title: "Node.js", content: "Node.js basics" }, { id: "2-2", title: "Js", content: "Js management" }] },
-  { id: 3, title: "C#", content: "C# programming concepts.", publishedBy: "Admin", publishDate: "2024-02-10", lastUpdated: "2024-03-01", expanded: false, subItems: [{ id: "3-1", title: "C# Basics", content: "Introduction to C#" }] },
-  { id: 4, title: "Adatbázis kezelés", content: "SQL Basics and best practices.", publishedBy: "Admin", publishDate: "2024-02-10", lastUpdated: "2024-03-01", expanded: false, subItems: [{ id: "4-1", title: "SQL Basics", content: "Introduction to SQL" }] },
-]);
-
-const tasks = ref([
-  { id: 1, title: "Complete HTML Practice", description: "Build a basic webpage using HTML and CSS.", dueDate: "2024-12-20", status: "Pending" },
-  { id: 2, title: "Node.js Assignment", description: "Create a simple REST API using Node.js and Express.", dueDate: "2024-12-22", status: "In Progress" },
-  { id: 3, title: "SQL Query Task", description: "Write queries to retrieve data from a sample database.", dueDate: "2024-12-25", status: "Not Started" },
-]);
-
-const activeTab = ref("modules");
-const categories = ref(modules.value);
-const selectedCategory = ref(categories.value[0]);
-const selectedSubItem = ref(null);
-const searchQuery = ref("");
-
-const filteredCategories = computed(() =>
-  categories.value.filter(
-    (category) =>
-      category.title.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-      category.content.toLowerCase().includes(searchQuery.value.toLowerCase())
-  )
-);
-
-const switchTab = (tab) => {
-  activeTab.value = tab;
-  categories.value = tab === "modules" ? modules.value : tasks.value;
-  selectedCategory.value = categories.value[0];
-  selectedSubItem.value = null;
-};
-
-const toggleCategory = (category) => {
-  if (selectedCategory.value.id === category.id) {
-    category.expanded = !category.expanded;
-  } else {
-    categories.value.forEach((cat) => {
-      if (cat.id !== category.id) {
-        cat.expanded = false;
+      return Object.values(groupedByCategory);
+    },
+  },
+  methods: {
+    setViewType(type) {
+      this.viewType = type;
+      this.fetchData(type);
+    },
+    fetchData(type) {
+      if (type === "modules") {
+        this.backendData = [
+          {
+            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
+            name: "NestJS alapok",
+            content: "Ez itt a nestjs alapok cucca HAHAHAHA",
+            description: "Description for Module 1",
+            createdAt: "2024-12-27T21:54:35.600Z",
+            updatedAt: "2024-12-27T21:54:35.600Z",
+            categories: [
+              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
+            ],
+            professions: [
+              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
+            ],
+            grades: [
+              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
+            ],
+          },
+          {
+            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
+            name: "Vue alapok",
+            content: "Ez itt a vue alapok cucca HAHAHAHAH",
+            description: "Description for Module 1",
+            createdAt: "2024-12-27T21:54:35.600Z",
+            updatedAt: "2024-12-27T21:54:35.600Z",
+            categories: [
+              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Frontend" },
+            ],
+            professions: [
+              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
+            ],
+            grades: [
+              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
+            ],
+          },
+        ];
+      } else if (type === "tasks") {
+        this.backendData = [
+          {
+            id: "0fab0f69-f5a3-4881-a7e5-148f08cd6823",
+            name: "NestJS gyakorlatok",
+            content: "Ezek itt a nestjs gyakorlatok HAHAHA",
+            description: "Description for Task 1",
+            createdAt: "2024-12-27T21:54:51.943Z",
+            updatedAt: "2024-12-27T21:54:51.943Z",
+            categories: [
+              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
+            ],
+            professions: [
+              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
+            ],
+            grades: [
+              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
+            ],
+          },
+          {
+            id: "0fab0f69-f5a3-4881-a7e5-148f08cd6823",
+            name: "Vue gyakorlatok",
+            content: "Ezek itt a vue gyarkolatok HAHAH",
+            description: "Description for Task 1",
+            createdAt: "2024-12-27T21:54:51.943Z",
+            updatedAt: "2024-12-27T21:54:51.943Z",
+            categories: [
+              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Frontend" },
+            ],
+            professions: [
+              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
+            ],
+            grades: [
+              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
+            ],
+          },
+        ];
       }
-    });
-    category.expanded = true;
-    selectedCategory.value = category;
-    selectedSubItem.value = null;
-  }
+    },
+    updateContent(module) {
+      this.selectedModule = module;
+      this.selectedCategory = this.filteredCategories.find((cat) =>
+        cat.items.some((item) => item.id === module.id)
+      )?.name || "Unknown";
+    },
+  },
+  mounted() {
+    this.fetchData(this.viewType);
+  },
 };
-
-const selectSubItem = (subItem) => {
-  selectedSubItem.value = subItem;
-  selectedCategory.value = categories.value.find((cat) =>
-    cat.subItems.some((item) => item.id === subItem.id)
-  );
-};
-
 </script>
 
 <style>
-input::placeholder {
-  color: #ffffff;
-}
-
-.container {
+.view-page {
   display: flex;
-  position: relative; 
-  overflow: visible; 
-  flex-direction: row;
-  backdrop-filter: blur(10px);
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
-  min-width: 100vw;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  color: #ffffff;
-  font-family: Arial, sans-serif;
-}
-.navigation{
-  width: 20%; /* Navigációs sáv fix szélessége */
-  min-width: 200px; /* Minimum szélesség, hogy ne törjön meg */
-  position: sticky; /* Fixálja a navigációs sávot */
-  top: 0;
+  flex-direction: column;
   height: 100vh;
-  backdrop-filter: blur(10px);
-  padding: 1rem;
+  color: var(--text-color)
 }
 
-.nav-header {
+.view-page-content {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.search-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.back-button {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: rgb(255, 255, 255);
-}
-
-.search-wrapper {
-  display: flex;
-  padding: 4px;
-  align-items: center;
-  background-color: #5e90d7;
-  width: 170px;
-  border-radius: 10px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
   flex: 1;
 }
 
-.search-input {
-  flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: rgb(255, 255, 255);
-  font-size: 1rem;
+.sidebar {
+  width: 20%;
+  background-color: var(--background-color);
+  padding: 10px;
 }
 
-
-.nav-tabs {
+.sidebar-controls {
   display: flex;
-  justify-content: space-around;
-  margin: 1rem 0;
-}
-
-.nav-tabs span {
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.nav-tabs .active {
-  color: #fbfbfb;
-  font-weight: bold;
-  border-bottom: 2px solid #ffffff;
-}
-
-.category-list li {
-  padding: 0.5rem;
-  cursor: pointer;
-  text-align: center;
-  border-radius: 5px;
-  transition: color 0.3s;
-}
-
-.category-list li:hover {
-  color: #ffffff;
-  background: none;
-}
-
-.category-list .active {
-  color: #fafafa;
-}
-
-.category-list .category-title {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  font-weight: bold;
+  margin-bottom: 10px;
 }
 
-.category-list .category-title .arrow {
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
-  user-select: none;
-}
-
-
-.content-header {
-  margin-bottom: 1rem;
-}
-
-.content-body {
-  margin-top: 1rem;
-}
-
-.content-meta {
-  margin-top: auto;
-  font-size: 1rem;
-  color: #ffffff;
-  text-align: center;
-  padding: 1rem;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-.change-bg-button {
-  position: fixed;
-  bottom: 1rem;
-  right: 1rem;
-  background-color: #007bff;
+.sidebar-controls button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
   border: none;
-  padding: 0.5rem 1rem;
+  background-color: #ddd;
   cursor: pointer;
-  border-radius: 5px;
+  transition: background-color 0.3s;
 }
 
-@media (min-width: 768px) {
-  .container {
-    flex-direction: row;
-  }
-
-  .navigation {
-    width: 20%;
-    height: 100vh;
-  }
-
-  .content {
-    width: 80%;
-  }
-
-  .nav-header {
-    flex-wrap: nowrap;
-  }
-
-  .category-list {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
+.sidebar-controls button.active {
+  background-color: #444;
+  color: #fff;
 }
 
-@media (min-width: 1024px) {
-  .content {
-    padding: 3rem;
-  }
-
-  .category-list {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+.sidebar-controls button:hover {
+  background-color: #bbb;
 }
 
-.user-menu {
-  position: relative;
-  display: inline-block;
-}
-.vonal {
-  width: 75dvw;
-  max-width: 1700px;
-  height: 1px;
-  background-color: #000000ac;
-}
-.vonalbottom { 
-  width: calc(100% + 50px); 
-  height: 1px;
-  background-color: #000; 
-  position: relative; 
-  width: 78%; 
-  height: 1px; 
-  margin: 2rem 0 0 auto;
-  position: relative;
-}
-.vonal-vertical {
-  width: 1px;
-  background-color: #000000ac;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
+.main-content {
+  flex: 1;
+  padding: 20px;
 }
 </style>
