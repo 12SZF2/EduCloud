@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { mdiPencil } from "@mdi/js";
+import { mdiPencilOutline } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 
 export default {
@@ -15,7 +15,7 @@ export default {
         SvgIcon
     },
     data() {
-        return { iconPath: mdiPencil };
+        return { iconPath: mdiPencilOutline };
     },
     props: ["title", "category"],
 };
