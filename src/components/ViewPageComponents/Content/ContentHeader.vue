@@ -44,6 +44,7 @@ h1 {
     cursor: pointer;
     transition: transform 0.3s ease;
     flex-shrink: 0;
+    z-index: 100;
 }
 
 .icon:hover {
