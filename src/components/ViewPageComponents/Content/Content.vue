@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="content-body">
         <content-header :title="moduleTitle" :category="categoryTitle" />
         <content-body :content="content" />
         <content-footer :author="author" :publishedDate="publishedDate" :updatedDate="updatedDate" />
@@ -17,5 +17,5 @@ export default {
 </script>
 
 <style>
-/* Add your styles here */
+.content-body {}
 </style>

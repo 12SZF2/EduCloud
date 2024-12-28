@@ -7,6 +7,7 @@ const routes = [
 
     { path: '/', component: () => import("../pages/landingPage/LandingPage.vue") },
     { path: '/login', component: () => import("../pages/loginPage/Login.vue") },
+    { path: '/edit', component: () => import("../pages/editorPage/AddUpdate.vue") },
     { path: '/listing', component: () => import("../pages/listingPage/ListingPage.vue") },
     { path: '/test-user-icon', component: () => import("../pages/testPages/UserIconTestPage.vue") },
     { path: '/test-popup', component: () => import("../pages/testPages/PopupTestPage.vue") },
