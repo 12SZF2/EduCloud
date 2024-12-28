@@ -16,6 +16,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .content-body {}
 </style>

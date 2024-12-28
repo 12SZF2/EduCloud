@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 h2 {
     padding-left: 5px;
     font-size: 1.7rem;

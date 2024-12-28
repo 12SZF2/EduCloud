@@ -13,6 +13,6 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Add your styles here */
 </style>

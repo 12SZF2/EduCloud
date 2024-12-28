@@ -15,7 +15,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 li {
     cursor: pointer;
     display: inline-flex;
