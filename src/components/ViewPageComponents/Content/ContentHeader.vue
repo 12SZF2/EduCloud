@@ -1,14 +1,65 @@
 <template>
     <header>
+        <h1>{{ category }}</h1>
         <h1>{{ title }}</h1>
-        <h2>{{ category }}</h2>
+        <SvgIcon type="mdi" :path="iconPath" class="icon" />
     </header>
 </template>
 
 <script>
+import { mdiPencil } from "@mdi/js";
+import SvgIcon from "@jamescoyle/vue-icon";
+
 export default {
+    components: {
+        SvgIcon
+    },
+    data() {
+        return { iconPath: mdiPencil };
+    },
     props: ["title", "category"],
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #585858;
+}
+
+h1 {
+    font-size: clamp(1rem, 5vw, 2rem);
+    flex-shrink: 0;
+    margin: 0;
+}
+
+.icon {
+    border-radius: 15px;
+    width: 50px;
+    height: 50px;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.icon:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 500px) {
+    .icon {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+@media (max-height: 500px) {
+    header {
+        padding-bottom: 25px;
+    }
+}
+</style>

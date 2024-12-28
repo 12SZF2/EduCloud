@@ -1,8 +1,8 @@
 <template>
     <div class="content-body">
-        <content-header :title="moduleTitle" :category="categoryTitle" />
-        <content-body :content="content" />
-        <content-footer :author="author" :publishedDate="publishedDate" :updatedDate="updatedDate" />
+        <content-header :title="moduleTitle" :category="categoryTitle" class="c-header" />
+        <content-body :content="content" class="c-body" />
+        <content-footer :author="author" :publishedDate="publishedDate" :updatedDate="updatedDate" class="c-footer" />
     </div>
 </template>
 
@@ -17,5 +17,26 @@ export default {
 </script>
 
 <style scoped>
-.content-body {}
+.content-body {
+    width: 100%;
+    height: 100%;
+}
+
+.c-header {
+    min-height: 10%;
+    max-height: 10%;
+    width: 100%;
+}
+
+.c-body {
+    min-height: 80%;
+    max-height: 80%;
+    width: 100%;
+}
+
+.c-footer {
+    min-height: 10%;
+    max-height: 10%;
+    width: 100%;
+}
 </style>

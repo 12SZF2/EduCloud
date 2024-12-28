@@ -1,7 +1,7 @@
 <template>
-  <div class="view-page">
+  <div class="view-page" v-if="isSizeCompatible">
     <div class="view-page-content">
-      <div class="sidebar">
+      <div v-if="isSizeEnough" class="sidebar">
         <navbar />
         <div class="sidebar-controls">
           <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
@@ -10,6 +10,25 @@
         <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
           :modules="category.items" @moduleSelected="updateContent" />
       </div>
+
+      <div v-else class="hamburger-menu">
+        <button @click="toggleMenu" class="hamburger-icon">
+          <span v-if="menuOpen">X</span>
+          <span v-else>☰</span>
+        </button>
+        <div v-if="menuOpen" class="hamburger-menu-items">
+          <navbar />
+          <div class="sidebar-controls">
+            <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
+            <button :class="{ active: viewType === 'tasks' }" @click="setViewType('tasks')">Feladatok</button>
+          </div>
+          <div class="categories">
+            <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
+              :modules="category.items" @moduleSelected="updateContent" />
+          </div>
+        </div>
+      </div>
+
       <div class="main-content">
         <content v-if="selectedModule" :moduleTitle="selectedModule.name"
           :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content" :author="'N/A'"
@@ -17,7 +36,11 @@
       </div>
     </div>
   </div>
+  <div class="size-error" v-else>
+    <p>Ekkora méretben az oldal nem megtekinthető</p>
+  </div>
 </template>
+
 
 <script>
 import Navbar from "../../Components/ViewPageComponents/Navbar.vue";
@@ -35,6 +58,9 @@ export default {
       viewType: "modules",
       backendData: [],
       selectedModule: null,
+      isSizeEnough: true,
+      isSizeCompatible: true,
+      menuOpen: false,
     };
   },
   computed: {
@@ -81,7 +107,7 @@ export default {
           {
             id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
             name: "NODE alapok",
-            content: "Ez itt a NODE alapok cucca HAHAHAHA",
+            content: "EZ ITT A NODE ALAPOK LOL",
             description: "Description for Module 1",
             createdAt: "2024-12-27T21:54:35.600Z",
             updatedAt: "2024-12-27T21:54:35.600Z",
@@ -192,14 +218,39 @@ export default {
         cat.items.some((item) => item.id === module.id)
       )?.name || "Unknown";
     },
+    checkSize() {
+      if (window.innerWidth < 300 || window.innerHeight < 350) {
+        this.isSizeCompatible = false;
+      } else {
+        this.isSizeCompatible = true;
+      }
+      this.isSizeEnough = window.innerWidth > 1300;
+    },
+    toggleMenu() {
+      this.menuOpen = !this.menuOpen;
+    }
   },
   mounted() {
     this.fetchData(this.viewType);
+    this.checkSize();
+    window.addEventListener("resize", this.checkSize);
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.checkSize);
+  }
 };
 </script>
 
 <style scoped>
+.size-error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--text-color);
+}
+
 .view-page {
   display: flex;
   flex-direction: column;
@@ -251,5 +302,77 @@ export default {
 .main-content {
   flex: 1;
   padding: 20px;
+}
+
+.hamburger-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.hamburger-icon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  background-color: var(--background-color);
+  border-radius: 0 30px 30px 0;
+  padding: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hamburger-menu-items {
+  padding: 10px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  width: 80%;
+  height: 80%;
+  background-color: var(--background-color);
+  z-index: 1000;
+}
+
+.hamburger-menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+
+.hamburger-controls {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+}
+
+.hamburger-controls button {
+  font-size: 1.5rem;
+  font-weight: 1000;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-controls button.active {
+  color: var(--active-text-color);
+}
+
+.hamburger-controls button:hover {
+  transform: scale(1.1);
 }
 </style>

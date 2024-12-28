@@ -12,11 +12,9 @@ export default {
         return { loading: true };
     },
     mounted() {
-        setTimeout(() => (this.loading = false), 1000); // Simulate fetch delay
+        setTimeout(() => (this.loading = false), 1000);
     },
 };
 </script>
 
-<style scoped>
-/* Add your styles here */
-</style>
+<style scoped></style>
