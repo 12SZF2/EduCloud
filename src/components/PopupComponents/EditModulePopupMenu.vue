@@ -23,7 +23,7 @@
 
       <div class="form-row">
         <div class="select-container">
-          <select v-model="module.gradeId">
+          <select v-model="module.grades[0].id">
             <option value="" disabled hidden>Osztály</option>
             <option v-for="grade in store.grades" :key="grade.id" :value="grade.id">
               {{ grade.gradeName }}
@@ -32,7 +32,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="module.categoryId">
+          <select v-model="module.categories[0].id">
             <option value="" disabled hidden>Kategória</option>
             <option v-for="category in store.categories" :key="category.id" :value="category.id">
               {{ category.categoryName }}
@@ -41,7 +41,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="module.professionId">
+          <select v-model="module.professions[0].id">
             <option value="" disabled hidden>Szakma</option>
             <option v-for="profession in store.professions" :key="profession.id" :value="profession.id">
               {{ profession.professionName }}
@@ -49,7 +49,6 @@
           </select>
         </div>
       </div>
-
       <div class="file-buttons">
         <label class="upload-btn">
           Fájl feltöltése
@@ -83,23 +82,29 @@ const moduleStore = useModuleStore();
 
 const showEditorPopup = ref(false);
 
-const module = ref({
-  name: "",
-  content: "",
-  description: "",
-  gradeId: "",
-  categoryId: "",
-  professionId: "",
-});
+const props = defineProps<{
+  moduleProp: {
+    id: string;
+    name: string;
+    content: string;
+    description: string;
+    grades: string;
+    categories: string;
+    professions: string;
+  };
+}>();
+
+const module = ref(props.moduleProp);
 
 const clearSelections = () => {
   module.value = {
+    id: "",
     name: "",
     content: "",
     description: "",
-    gradeId: "",
-    categoryId: "",
-    professionId: "",
+    grades: [{id: "", gradeName: ""}],
+    categories: [{id: '', categoryName: ''}],
+    professions: [{id: '', professionName: ''}],
   };
 };
 
@@ -124,7 +129,7 @@ const handleFileChange = (event) => {
 
 async function handleModuleSave() {
   try {
-    await moduleStore.uploadModule(module.value);
+    await moduleStore.updateModule(module.value);
   } catch (e) {
     console.error(e);
   }

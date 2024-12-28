@@ -11,23 +11,26 @@
     </div>
 </template>
 
-<script>
-import CategoryNavbarElement from "./CategoryNavbarElement.vue";
-export default {
-    components: { CategoryNavbarElement },
-    props: ["category", "modules"],
-    data() {
-        return { expanded: false };
-    },
-    methods: {
-        toggleExpand() {
-            this.expanded = !this.expanded;
-        },
-        emitModuleSelected(module) {
-            this.$emit("moduleSelected", module);
-        },
-    },
-};
+<script setup lang="ts">
+import {ref} from 'vue';
+import CategoryNavbarElement from './CategoryNavbarElement.vue';
+
+defineProps({
+  category: String,
+  modules: Array
+});
+
+const emit = defineEmits(['moduleSelected']);
+
+const expanded = ref(false);
+
+function toggleExpand() {
+  expanded.value = !expanded.value;
+}
+
+function emitModuleSelected(module) {
+  emit('moduleSelected', module);
+}
 </script>
 
 <style scoped>

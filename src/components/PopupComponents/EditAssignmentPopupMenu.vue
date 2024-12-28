@@ -23,7 +23,7 @@
 
       <div class="form-row">
         <div class="select-container">
-          <select v-model="assignment.gradeId">
+          <select v-model="assignment.grades[0].id">
             <option value="" disabled hidden>Osztály</option>
             <option v-for="grade in store.grades" :key="grade.id" :value="grade.id">
               {{ grade.gradeName }}
@@ -32,7 +32,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="assignment.categoryId">
+          <select v-model="assignment.categories[0].id">
             <option value="" disabled hidden>Kategória</option>
             <option v-for="category in store.categories" :key="category.id" :value="category.id">
               {{ category.categoryName }}
@@ -41,7 +41,7 @@
         </div>
 
         <div class="select-container">
-          <select v-model="assignment.professionId">
+          <select v-model="assignment.professions[0].id">
             <option value="" disabled hidden>Szakma</option>
             <option v-for="profession in store.professions" :key="profession.id" :value="profession.id">
               {{ profession.professionName }}
@@ -83,23 +83,30 @@ const assignmentStore = useAssignmentStore();
 
 const showEditorPopup = ref(false);
 
-const assignment = ref({
-  name: "",
-  content: "",
-  description: "",
-  gradeId: "",
-  categoryId: "",
-  professionId: "",
-});
+const props = defineProps<{
+  assignmentProp: {
+    id: string;
+    name: string;
+    content: string;
+    description: string;
+    grades: string;
+    categories: string;
+    professions: string;
+  };
+}>();
+
+
+const assignment = ref(props.assignmentProp);
 
 const clearSelections = () => {
   assignment.value = {
+    id: "",
     name: "",
     content: "",
     description: "",
-    gradeId: "",
-    categoryId: "",
-    professionId: "",
+    grades: [{id: "", gradeName: ""}],
+    categories: [{id: '', categoryName: ''}],
+    professions: [{id: '', professionName: ''}],
   };
 };
 
@@ -124,7 +131,7 @@ const handleFileChange = (event) => {
 
 async function handleAssignmentSave() {
   try {
-    await assignmentStore.uploadAssignment(assignment.value);
+    await assignmentStore.updateAssignment(assignment.value);
   } catch (e) {
     console.error(e);
   }

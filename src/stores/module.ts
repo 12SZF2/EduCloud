@@ -5,7 +5,14 @@ export const useModuleStore = defineStore('module', () => {
     const logger = serviceLogger('popupStore')
     const url = import.meta.env.VITE_API_URL;
 
-    async function uploadModule({name, content, description, gradeId, categoryId, professionId}: {name: string, content: string, description: string, gradeId: string, categoryId: string, professionId: string}) {
+    async function uploadModule({name, content, description, gradeId, categoryId, professionId}: {
+        name: string,
+        content: string,
+        description: string,
+        gradeId: string,
+        categoryId: string,
+        professionId: string
+    }) {
         try {
             const response = await fetch(`${url}/api/admin/module/create`, {
                 method: 'POST',
@@ -85,15 +92,24 @@ export const useModuleStore = defineStore('module', () => {
         }
     }
 
-    async function updateModule({id, name, content, description, gradeId, categoryId, professionId}: {id: string, name: string, content: string, description: string, gradeId: string, categoryId: string, professionId: string}) {
+    async function updateModule({id, name, content, description, grades, categories, professions}: {
+        id: string,
+        name: string,
+        content: string,
+        description: string,
+        grades: { id: string, gradeName: string }[],
+        categories: { id: string, categoryName: string }[],
+        professions: { id: string, professionName: string }[],
+    }) {
         try {
-            const response = await fetch(`${url}/api/admin/module/update`, {
+            const response = await fetch(`${url}/api/admin/module/update-by-id?id=${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({id, name, content, description, gradeId, categoryId, professionId}),
+                // FIXME this is a hack, i just dont want to change the backend rn
+                body: JSON.stringify({name, content, description, gradeId: grades[0].id, categoryId: categories[0].id, professionId: professions[0].id}),
             });
             const data = await response.json();
             logger.debug(`Updated module: ${JSON.stringify(data)}`);

@@ -2,13 +2,13 @@
   <div class="view-page" v-if="isSizeCompatible">
     <div class="view-page-content">
       <div v-if="isSizeEnough" class="sidebar">
-        <navbar />
+        <navbar/>
         <div class="sidebar-controls">
           <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
-          <button :class="{ active: viewType === 'tasks' }" @click="setViewType('tasks')">Feladatok</button>
+          <button :class="{ active: viewType === 'assignments' }" @click="setViewType('assignments')">Feladatok</button>
         </div>
         <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
-          :modules="category.items" @moduleSelected="updateContent" />
+                         :modules="category.items" @moduleSelected="updateContent"/>
       </div>
 
       <div v-else class="hamburger-menu">
@@ -17,24 +17,35 @@
           <span v-else>☰</span>
         </button>
         <div v-if="menuOpen" class="hamburger-menu-items">
-          <navbar />
+          <navbar/>
           <div class="sidebar-controls">
             <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
-            <button :class="{ active: viewType === 'tasks' }" @click="setViewType('tasks')">Feladatok</button>
+            <button :class="{ active: viewType === 'assignments' }" @click="setViewType('assignments')">Feladatok
+            </button>
           </div>
           <div class="categories">
             <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
-              :modules="category.items" @moduleSelected="updateContent" />
+                             :modules="category.items" @moduleSelected="updateContent"/>
           </div>
         </div>
       </div>
 
       <div class="main-content">
         <content v-if="selectedModule" :moduleTitle="selectedModule.name"
-          :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content" :author="'N/A'"
-          :publishedDate="selectedModule.createdAt" :updatedDate="selectedModule.updatedAt" />
+                 :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content"
+                 :author="'N/A'"
+                 :publishedDate="selectedModule.createdAt" :updatedDate="selectedModule.updatedAt"/>
       </div>
     </div>
+    <PopupModal :isOpen="showEditModulePopup" @close="showEditModulePopup = false">
+      <EditModulePopupMenu :module-prop="selectedModule"/>
+    </PopupModal>
+    <PopupModal :isOpen="showEditAssignmentPopup" @close="showEditAssignmentPopup = false">
+      <EditAssignmentPopupMenu :assignment-prop="selectedModule"/>
+    </PopupModal>
+    <PopupModal :isOpen="showEditorPopup" @close="showEditorPopup = false">
+      <EditorPopupMenu :content='selectedModule.content' />
+    </PopupModal>
   </div>
   <div class="size-error" v-else>
     <p>Ekkora méretben az oldal nem megtekinthető</p>
@@ -42,204 +53,102 @@
 </template>
 
 
-<script>
-import Navbar from "../../Components/ViewPageComponents/Navbar.vue";
-import CategoryNavbar from "../../Components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue";
-import Content from "../../Components/ViewPageComponents/Content/Content.vue";
+<script setup lang="ts">
+import {computed, onBeforeUnmount, onMounted, ref} from 'vue';
+import Navbar from '../../Components/ViewPageComponents/Navbar.vue';
+import CategoryNavbar from '../../Components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue';
+import Content from '../../Components/ViewPageComponents/Content/Content.vue';
+import {useViewStore} from "@/stores/view";
+import PopupModal from "@/components/PopupComponents/PopupModal.vue";
+import EditModulePopupMenu from "@/components/PopupComponents/EditModulePopupMenu.vue";
+import EditAssignmentPopupMenu from "@/components/PopupComponents/EditAssignmentPopupMenu.vue";
+import EditorPopupMenu from "@/components/PopupComponents/EditorPopupMenu.vue";
+import {on, emit} from "@/utils/eventBus.util";
 
-export default {
-  components: {
-    Navbar,
-    CategoryNavbar,
-    Content,
-  },
-  data() {
-    return {
-      viewType: "modules",
-      backendData: [],
-      selectedModule: null,
-      isSizeEnough: true,
-      isSizeCompatible: true,
-      menuOpen: false,
-    };
-  },
-  computed: {
-    filteredCategories() {
-      const groupedByCategory = {};
+const store = useViewStore();
 
-      this.backendData.forEach((item) => {
-        item.categories.forEach((category) => {
-          if (!groupedByCategory[category.categoryName]) {
-            groupedByCategory[category.categoryName] = { name: category.categoryName, items: [] };
-          }
-          groupedByCategory[category.categoryName].items.push(item);
-        });
+const showEditModulePopup = ref(false);
+const showEditAssignmentPopup = ref(false);
+const showEditorPopup = ref(false);
+
+const viewType = ref('modules');
+const selectedModule = ref(null);
+const selectedCategory = ref('');
+const isSizeEnough = ref(true);
+const isSizeCompatible = ref(true);
+const menuOpen = ref(false);
+
+const filteredCategories = computed(() => {
+  const groupedByCategory = {};
+
+  if (viewType.value == 'modules') {
+    store.modules.forEach((item) => {
+      item.categories.forEach((category) => {
+        if (!groupedByCategory[category.categoryName]) {
+          groupedByCategory[category.categoryName] = {name: category.categoryName, items: []};
+        }
+        groupedByCategory[category.categoryName].items.push(item);
       });
-
-      return Object.values(groupedByCategory);
-    },
-  },
-  methods: {
-    setViewType(type) {
-      this.viewType = type;
-      this.fetchData(type);
-    },
-    fetchData(type) {
-      if (type === "modules") {
-        this.backendData = [
-          {
-            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
-            name: "NestJS alapok",
-            content: "Ez itt a nestjs alapok cucca HAHAHAHA",
-            description: "Description for Module 1",
-            createdAt: "2024-12-27T21:54:35.600Z",
-            updatedAt: "2024-12-27T21:54:35.600Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-          {
-            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
-            name: "NODE alapok",
-            content: "EZ ITT A NODE ALAPOK LOL",
-            description: "Description for Module 1",
-            createdAt: "2024-12-27T21:54:35.600Z",
-            updatedAt: "2024-12-27T21:54:35.600Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-          {
-            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
-            name: "Vue alapok",
-            content: "Ez itt a vue alapok cucca HAHAHAHAH",
-            description: "Description for Module 1",
-            createdAt: "2024-12-27T21:54:35.600Z",
-            updatedAt: "2024-12-27T21:54:35.600Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Frontend" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-          {
-            id: "d0c41a1c-7e23-4855-b2e8-b0055986c0ef",
-            name: "SQL alapok",
-            content: "Ez itt a SQL alapok cucca HAHAHAHAH",
-            description: "Description for Module 1",
-            createdAt: "2024-12-27T21:54:35.600Z",
-            updatedAt: "2024-12-27T21:54:35.600Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Database" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-        ];
-      } else if (type === "tasks") {
-        this.backendData = [
-          {
-            id: "0fab0f69-f5a3-4881-a7e5-148f08cd6823",
-            name: "NestJS gyakorlatok",
-            content: "Ezek itt a nestjs gyakorlatok HAHAHA",
-            description: "Description for Task 1",
-            createdAt: "2024-12-27T21:54:51.943Z",
-            updatedAt: "2024-12-27T21:54:51.943Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-          {
-            id: "0fab0f69-f5a3-4881-a7e5-148f08cd6823",
-            name: "Express gyakorlatok",
-            content: "Ezek itt a Express gyakorlatok HAHAHA",
-            description: "Description for Task 1",
-            createdAt: "2024-12-27T21:54:51.943Z",
-            updatedAt: "2024-12-27T21:54:51.943Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "Backend" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-          {
-            id: "0fab0f69-f5a3-4881-a7e5-148f08cd6823",
-            name: "Vue gyakorlatok",
-            content: "Ezek itt a vue gyarkolatok HAHAH",
-            description: "Description for Task 1",
-            createdAt: "2024-12-27T21:54:51.943Z",
-            updatedAt: "2024-12-27T21:54:51.943Z",
-            categories: [
-              { id: "19b3f2b9-3813-4d0d-8a68-fbed274b3e82", categoryName: "C#" },
-            ],
-            professions: [
-              { id: "2da0f86f-e3b7-4d05-990f-1bed78d2fd2c", professionName: "Profession 1" },
-            ],
-            grades: [
-              { id: "723b4baf-ba4e-496c-9d75-5594260e83bb", gradeName: "Grade 1" },
-            ],
-          },
-        ];
-      }
-    },
-    updateContent(module) {
-      this.selectedModule = module;
-      this.selectedCategory = this.filteredCategories.find((cat) =>
-        cat.items.some((item) => item.id === module.id)
-      )?.name || "Unknown";
-    },
-    checkSize() {
-      if (window.innerWidth < 300 || window.innerHeight < 350) {
-        this.isSizeCompatible = false;
-      } else {
-        this.isSizeCompatible = true;
-      }
-      this.isSizeEnough = window.innerWidth > 1300;
-    },
-    toggleMenu() {
-      this.menuOpen = !this.menuOpen;
-    }
-  },
-  mounted() {
-    this.fetchData(this.viewType);
-    this.checkSize();
-    window.addEventListener("resize", this.checkSize);
-  },
-  beforeDestroy() {
-    window.removeEventListener("resize", this.checkSize);
+    });
+  } else if (viewType.value == 'assignments') {
+    store.assignments.forEach((item) => {
+      item.categories.forEach((category) => {
+        if (!groupedByCategory[category.categoryName]) {
+          groupedByCategory[category.categoryName] = {name: category.categoryName, items: []};
+        }
+        groupedByCategory[category.categoryName].items.push(item);
+      });
+    });
   }
-};
+  return Object.values(groupedByCategory);
+});
+
+function setViewType(type) {
+  viewType.value = type;
+}
+
+
+function updateContent(module) {
+  selectedModule.value = module;
+  selectedCategory.value = filteredCategories.value.find((cat) =>
+      cat.items.some((item) => item.id === module.id)
+  )?.name || 'Unknown';
+}
+
+function checkSize() {
+  if (window.innerWidth < 300 || window.innerHeight < 350) {
+    isSizeCompatible.value = false;
+  } else {
+    isSizeCompatible.value = true;
+  }
+  isSizeEnough.value = window.innerWidth > 1300;
+}
+
+function toggleMenu() {
+  menuOpen.value = !menuOpen.value;
+}
+
+onMounted(() => {
+  checkSize();
+  window.addEventListener('resize', checkSize);
+  on('editContent', () => {
+    if (viewType.value === 'modules') {
+      showEditModulePopup.value = true;
+    } else {
+      showEditAssignmentPopup.value = true;
+    }
+  });
+  on('closeEditContent', () => {
+    showEditModulePopup.value = false;
+    showEditAssignmentPopup.value = false;
+  });
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkSize);
+});
 </script>
+
 
 <style scoped>
 .size-error {

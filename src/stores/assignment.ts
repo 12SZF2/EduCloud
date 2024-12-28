@@ -5,7 +5,14 @@ export const useAssignmentStore = defineStore('assignment', () => {
     const logger = serviceLogger('popupStore')
     const url = import.meta.env.VITE_API_URL;
 
-    async function uploadAssignment({name, content, description, gradeId, categoryId, professionId}: {name: string, content: string, description: string, gradeId: string, categoryId: string, professionId: string}) {
+    async function uploadAssignment({name, content, description, gradeId, categoryId, professionId}: {
+        name: string,
+        content: string,
+        description: string,
+        gradeId: string,
+        categoryId: string,
+        professionId: string
+    }) {
         try {
             const response = await fetch(`${url}/api/admin/assignment/create`, {
                 method: 'POST',
@@ -85,15 +92,24 @@ export const useAssignmentStore = defineStore('assignment', () => {
         }
     }
 
-    async function updateAssignment({id, name, content, description, gradeId, categoryId, professionId}: {id: string, name: string, content: string, description: string, gradeId: string, categoryId: string, professionId: string}) {
+    async function updateAssignment({id, name, content, description, grades, categories, professions}: {
+        id: string,
+        name: string,
+        content: string,
+        description: string,
+        grades: { id: string, gradeName: string }[],
+        categories: { id: string, categoryName: string }[],
+        professions: { id: string, professionName: string }[],
+    }) {
         try {
-            const response = await fetch(`${url}/api/admin/assignment/update`, {
+            const response = await fetch(`${url}/api/admin/assignment/update-by-id?id=${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 credentials: 'include',
-                body: JSON.stringify({id, name, content, description, gradeId, categoryId, professionId}),
+                // FIXME this is a hack, i just dont want to change the backend rn
+                body: JSON.stringify({name, content, description, gradeId: grades[0].id, categoryId: categories[0].id, professionId: professions[0].id}),
             });
             const data = await response.json();
             logger.debug(`Updated assignment: ${JSON.stringify(data)}`);

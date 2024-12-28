@@ -1,39 +1,43 @@
 <template>
-    <header>
-        <h1>{{ category }}</h1>
-        <h1>{{ title }}</h1>
-        <SvgIcon type="mdi" :path="iconPath" class="icon" />
-    </header>
+  <header>
+    <h1>{{ category }}</h1>
+    <h1>{{ title }}</h1>
+    <SvgIcon type="mdi" :path="iconPath" class="icon" @click="openEditPopup"/>
+  </header>
 </template>
 
-<script>
-import { mdiPencilOutline } from "@mdi/js";
-import SvgIcon from "@jamescoyle/vue-icon";
+<script setup lang="ts">
+import {ref} from 'vue';
+import {mdiPencilOutline} from '@mdi/js';
+import SvgIcon from '@jamescoyle/vue-icon';
+import {emit} from "@/utils/eventBus.util";
 
-export default {
-    components: {
-        SvgIcon
-    },
-    data() {
-        return { iconPath: mdiPencilOutline };
-    },
-    props: ["title", "category"],
-};
+const iconPath = ref(mdiPencilOutline);
+
+defineProps({
+  title: String,
+  category: String
+});
+
+function openEditPopup() {
+  emit('editContent');
+  console.log('Edit popup opened');
+}
 </script>
 
 <style scoped>
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 2px solid #585858;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 2px solid #585858;
 }
 
 h1 {
-    font-size: clamp(1rem, 5vw, 2rem);
-    flex-shrink: 0;
-    margin: 0;
+  font-size: clamp(1rem, 5vw, 2rem);
+  flex-shrink: 0;
+  margin: 0;
 }
 
 .icon {
@@ -48,19 +52,19 @@ h1 {
 }
 
 .icon:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 @media (max-width: 500px) {
-    .icon {
-        width: 30px;
-        height: 30px;
-    }
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
 }
 
 @media (max-height: 500px) {
-    header {
-        padding-bottom: 25px;
-    }
+  header {
+    padding-bottom: 25px;
+  }
 }
 </style>
