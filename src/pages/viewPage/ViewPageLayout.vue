@@ -231,21 +231,21 @@ export default {
 
 .sidebar-controls button {
   flex: 1;
+  font-size: 1.5rem;
+  font-weight: 1000;
   margin: 0 5px;
-  padding: 10px;
   border: none;
-  background-color: #ddd;
+  background-color: transparent;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: transform 0.3s ease;
 }
 
 .sidebar-controls button.active {
-  background-color: #444;
-  color: #fff;
+  color: var(--active-text-color);
 }
 
 .sidebar-controls button:hover {
-  background-color: #bbb;
+  transform: scale(1.1);
 }
 
 .main-content {

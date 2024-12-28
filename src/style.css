@@ -8,6 +8,7 @@
   /*basic config*/
   --background-color: white;
   --text-color: black;
+  --active-text-color: #363636;
   --border-color: black;
   --selected-theme-border-color: orange;
   --background-image: url('./assets/light.jpg');
@@ -45,6 +46,7 @@
 [data-theme="Dark"] {
   --background-color: black;
   --text-color: white;
+  --active-text-color: #c4c4c4;
   --border-color: white;
   --selected-theme-border-color: yellow;
   --background-image: url('./assets/dark.jpg');
@@ -53,6 +55,7 @@
 [data-theme="Light-Western"] {
   --background-color: white;
   --text-color: black;
+  --active-text-color: #363636;
   --border-color: black;
   --selected-theme-border-color: orange;
   --background-image: url('./assets/light-western.jpg');
@@ -61,6 +64,7 @@
 [data-theme="Dark-Western"] {
   --background-color: black;
   --text-color: white;
+  --active-text-color: #c4c4c4;
   --border-color: white;
   --selected-theme-border-color: yellow;
   --background-image: url('./assets/dark-western.jpg');

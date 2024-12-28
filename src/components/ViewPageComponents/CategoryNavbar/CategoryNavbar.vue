@@ -32,11 +32,16 @@ export default {
 
 <style>
 h2 {
-    font-size: 1.5rem;
+    padding-left: 5px;
+    font-size: 1.7rem;
     display: inline-flex;
     align-items: center;
     border-bottom: 2px solid #585858;
     cursor: pointer;
+}
+
+h2:hover {
+    color: var(--active-text-color);
 }
 
 .expand-icon {

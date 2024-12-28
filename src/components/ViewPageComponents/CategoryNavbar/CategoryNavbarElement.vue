@@ -20,7 +20,12 @@ li {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    padding-left: 10px;
+}
+
+li:hover {
+    color: var(--active-text-color);
 }
 
 .list-dot {
