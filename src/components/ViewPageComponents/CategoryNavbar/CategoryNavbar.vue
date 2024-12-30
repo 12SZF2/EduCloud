@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from 'vue';
+import { ref } from 'vue';
 import CategoryNavbarElement from './CategoryNavbarElement.vue';
 
 defineProps({
-  category: String,
-  modules: Array
+    category: String,
+    modules: Array
 });
 
 const emit = defineEmits(['moduleSelected']);
@@ -25,11 +25,11 @@ const emit = defineEmits(['moduleSelected']);
 const expanded = ref(false);
 
 function toggleExpand() {
-  expanded.value = !expanded.value;
+    expanded.value = !expanded.value;
 }
 
 function emitModuleSelected(module) {
-  emit('moduleSelected', module);
+    emit('moduleSelected', module);
 }
 </script>
 

@@ -2,22 +2,18 @@
   <div class="view-page" v-if="isSizeCompatible">
     <div class="view-page-content">
       <div v-if="isSizeEnough" class="sidebar">
-        <navbar/>
+        <navbar />
         <div class="sidebar-controls">
           <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
           <button :class="{ active: viewType === 'assignments' }" @click="setViewType('assignments')">Feladatok</button>
         </div>
         <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
-                         :modules="category.items" @moduleSelected="updateContent"/>
+          :modules="category.items" @moduleSelected="updateContent" />
       </div>
 
       <div v-else class="hamburger-menu">
-        <button @click="toggleMenu" class="hamburger-icon">
-          <span v-if="menuOpen">X</span>
-          <span v-else>☰</span>
-        </button>
         <div v-if="menuOpen" class="hamburger-menu-items">
-          <navbar/>
+          <navbar />
           <div class="sidebar-controls">
             <button :class="{ active: viewType === 'modules' }" @click="setViewType('modules')">Modulok</button>
             <button :class="{ active: viewType === 'assignments' }" @click="setViewType('assignments')">Feladatok
@@ -25,23 +21,22 @@
           </div>
           <div class="categories">
             <category-navbar v-for="(category, index) in filteredCategories" :key="index" :category="category.name"
-                             :modules="category.items" @moduleSelected="updateContent"/>
+              :modules="category.items" @moduleSelected="updateContent" />
           </div>
         </div>
       </div>
 
       <div class="main-content">
         <content v-if="selectedModule" :moduleTitle="selectedModule.name"
-                 :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content"
-                 :author="'N/A'"
-                 :publishedDate="selectedModule.createdAt" :updatedDate="selectedModule.updatedAt"/>
+          :categoryTitle="selectedModule.categories[0].categoryName" :content="selectedModule.content" :author="'N/A'"
+          :publishedDate="selectedModule.createdAt" :updatedDate="selectedModule.updatedAt" />
       </div>
     </div>
     <PopupModal :isOpen="showEditModulePopup" @close="showEditModulePopup = false">
-      <EditModulePopupMenu :module-prop="selectedModule"/>
+      <EditModulePopupMenu :module-prop="selectedModule" />
     </PopupModal>
     <PopupModal :isOpen="showEditAssignmentPopup" @close="showEditAssignmentPopup = false">
-      <EditAssignmentPopupMenu :assignment-prop="selectedModule"/>
+      <EditAssignmentPopupMenu :assignment-prop="selectedModule" />
     </PopupModal>
     <PopupModal :isOpen="showEditorPopup" @close="showEditorPopup = false">
       <EditorPopupMenu :content='selectedModule.content' />
@@ -54,16 +49,16 @@
 
 
 <script setup lang="ts">
-import {computed, onBeforeUnmount, onMounted, ref} from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import Navbar from '../../Components/ViewPageComponents/Navbar.vue';
 import CategoryNavbar from '../../Components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue';
 import Content from '../../Components/ViewPageComponents/Content/Content.vue';
-import {useViewStore} from "@/stores/view";
+import { useViewStore } from "@/stores/view";
 import PopupModal from "@/components/PopupComponents/PopupModal.vue";
 import EditModulePopupMenu from "@/components/PopupComponents/EditModulePopupMenu.vue";
 import EditAssignmentPopupMenu from "@/components/PopupComponents/EditAssignmentPopupMenu.vue";
 import EditorPopupMenu from "@/components/PopupComponents/EditorPopupMenu.vue";
-import {on, emit} from "@/utils/eventBus.util";
+import { on, emit } from "@/utils/eventBus.util";
 
 const store = useViewStore();
 
@@ -72,7 +67,17 @@ const showEditAssignmentPopup = ref(false);
 const showEditorPopup = ref(false);
 
 const viewType = ref('modules');
-const selectedModule = ref(null);
+const selectedModule = ref({
+  name: 'None',
+  content: 'None',
+  createdAt: 'None',
+  updatedAt: 'None',
+  categories: [
+    {
+      categoryName: 'None',
+    }
+  ]
+});
 const selectedCategory = ref('');
 const isSizeEnough = ref(true);
 const isSizeCompatible = ref(true);
@@ -85,7 +90,7 @@ const filteredCategories = computed(() => {
     store.modules.forEach((item) => {
       item.categories.forEach((category) => {
         if (!groupedByCategory[category.categoryName]) {
-          groupedByCategory[category.categoryName] = {name: category.categoryName, items: []};
+          groupedByCategory[category.categoryName] = { name: category.categoryName, items: [] };
         }
         groupedByCategory[category.categoryName].items.push(item);
       });
@@ -94,7 +99,7 @@ const filteredCategories = computed(() => {
     store.assignments.forEach((item) => {
       item.categories.forEach((category) => {
         if (!groupedByCategory[category.categoryName]) {
-          groupedByCategory[category.categoryName] = {name: category.categoryName, items: []};
+          groupedByCategory[category.categoryName] = { name: category.categoryName, items: [] };
         }
         groupedByCategory[category.categoryName].items.push(item);
       });
@@ -111,7 +116,7 @@ function setViewType(type) {
 function updateContent(module) {
   selectedModule.value = module;
   selectedCategory.value = filteredCategories.value.find((cat) =>
-      cat.items.some((item) => item.id === module.id)
+    cat.items.some((item) => item.id === module.id)
   )?.name || 'Unknown';
 }
 
@@ -141,6 +146,22 @@ onMounted(() => {
   on('closeEditContent', () => {
     showEditModulePopup.value = false;
     showEditAssignmentPopup.value = false;
+  });
+  on('openPopup', () => {
+    const hMenu = document.querySelectorAll('.hamburger-menu');
+    hMenu.forEach(menu => {
+      (menu as HTMLElement).style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+    });
+    toggleMenu()
+    emit('removezindex')
+  });
+  on('closePopup', () => {
+    const hMenu = document.querySelectorAll('.hamburger-menu');
+    hMenu.forEach(menu => {
+      (menu as HTMLElement).style.backgroundColor = 'transparent';
+    });
+    toggleMenu()
+    emit('addzindex')
   });
 });
 
@@ -214,6 +235,7 @@ onBeforeUnmount(() => {
 }
 
 .hamburger-menu {
+  background-color: transparent;
   position: fixed;
   top: 0;
   left: 0;
@@ -223,33 +245,18 @@ onBeforeUnmount(() => {
   justify-content: center;
   align-items: center;
   z-index: 10;
-}
-
-.hamburger-icon {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  color: var(--text-color);
-  cursor: pointer;
-  background-color: var(--background-color);
-  border-radius: 0 30px 30px 0;
-  padding: 10px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  border-left: unset;
 }
 
 .hamburger-menu-items {
+  border-radius: 10px;
   padding: 10px;
   overflow-y: auto;
   scrollbar-width: none;
-  width: 80%;
-  height: 80%;
-  background-color: var(--background-color);
-  z-index: 1000;
+  width: 98%;
+  height: 98%;
+  background-color: var(--background-color-transparent);
+  backdrop-filter: blur(3000px);
 }
 
 .hamburger-menu-content {

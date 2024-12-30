@@ -1,6 +1,6 @@
 <template>
     <nav>
-        <SvgIcon type="mdi" :path="iconPath" class="icon-back" @click="goBack" />
+        <SvgIcon type="mdi" :path="iconPath" class="icon-back" @click="handleIconClick" />
         <input type="text" placeholder="Kereső" v-model="searchQuery" />
         <user-icon />
     </nav>
@@ -8,18 +8,44 @@
 
 <script>
 import UserIcon from "../userIconComponents/UserIcon.vue";
-import { mdiArrowLeft } from "@mdi/js";
+import { mdiArrowLeft, mdiClose } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
+import { emit } from "@/utils/eventBus.util";
 
 export default {
     components: { UserIcon, SvgIcon },
     data() {
-        return { searchQuery: "", iconPath: mdiArrowLeft };
+        return {
+            searchQuery: "",
+            iconPath: mdiArrowLeft,
+            isSmallScreen: false,
+        };
     },
     methods: {
         goBack() {
             this.$router.go(-1);
         },
+        close() {
+            emit('closePopup');
+        },
+        handleResize() {
+            this.isSmallScreen = window.innerWidth < 1300;
+            this.iconPath = this.isSmallScreen ? mdiClose : mdiArrowLeft;
+        },
+        handleIconClick() {
+            if (this.isSmallScreen) {
+                this.close();
+            } else {
+                this.goBack();
+            }
+        },
+    },
+    mounted() {
+        this.handleResize();
+        window.addEventListener("resize", this.handleResize);
+    },
+    beforeDestroy() {
+        window.removeEventListener("resize", this.handleResize);
     },
 };
 </script>
