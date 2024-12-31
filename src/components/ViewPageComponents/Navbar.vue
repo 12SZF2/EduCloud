@@ -1,14 +1,17 @@
 <template>
     <nav>
         <SvgIcon type="mdi" :path="iconPath" class="icon-back" @click="handleIconClick" />
-        <input type="text" placeholder="Kereső" v-model="searchQuery" />
+        <div class="search-container">
+            <input type="text" placeholder="Kereső" v-model="searchQuery" />
+            <SvgIcon type="mdi" :path="mdiMagnify" class="icon-search" />
+        </div>
         <user-icon />
     </nav>
 </template>
 
 <script>
 import UserIcon from "../userIconComponents/UserIcon.vue";
-import { mdiArrowLeft, mdiClose } from "@mdi/js";
+import { mdiArrowLeft, mdiClose, mdiMagnify } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { emit } from "@/utils/eventBus.util";
 
@@ -19,6 +22,7 @@ export default {
             searchQuery: "",
             iconPath: mdiArrowLeft,
             isSmallScreen: false,
+            mdiMagnify,
         };
     },
     methods: {
@@ -26,7 +30,7 @@ export default {
             this.$router.go(-1);
         },
         close() {
-            emit('closePopup');
+            emit("closePopup");
         },
         handleResize() {
             this.isSmallScreen = window.innerWidth < 1300;
@@ -59,19 +63,26 @@ nav {
     margin-bottom: 10px;
 }
 
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    flex-grow: 1;
+}
+
 input {
     border-radius: 50px;
-    min-width: 100px;
+    width: 100%;
     flex-grow: 1;
     flex-shrink: 1;
-
+    max-width: 100%;
     text-align: center;
-
     box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.5);
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(30px);
     color: var(--text-color);
     padding: 8px;
+    padding-right: 40px;
 }
 
 input:hover {
@@ -95,9 +106,24 @@ input::placeholder {
     cursor: pointer;
     transition: transform 0.3s ease;
     flex-shrink: 0;
+}
 
-    &:hover {
-        transform: scale(1.2);
+.icon-search {
+    position: absolute;
+    right: 10px;
+    font-size: 24px;
+    color: var(--text-color);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    input {
+        width: 50px;
+    }
+
+    .icon-back {
+        width: 40px;
+        height: 40px;
     }
 }
 </style>
