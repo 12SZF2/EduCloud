@@ -50,9 +50,9 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import Navbar from '../../Components/ViewPageComponents/Navbar.vue';
-import CategoryNavbar from '../../Components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue';
-import Content from '../../Components/ViewPageComponents/Content/Content.vue';
+import Navbar from '@/components/ViewPageComponents/Navbar.vue';
+import CategoryNavbar from '@/components/ViewPageComponents/CategoryNavbar/CategoryNavbar.vue';
+import Content from '@/components/ViewPageComponents/Content/Content.vue';
 import { useViewStore } from "@/stores/view";
 import PopupModal from "@/components/PopupComponents/PopupModal.vue";
 import EditModulePopupMenu from "@/components/PopupComponents/EditModulePopupMenu.vue";
