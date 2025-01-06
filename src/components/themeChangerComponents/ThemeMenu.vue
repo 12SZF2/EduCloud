@@ -1,6 +1,5 @@
 <template>
     <div class="theme-menu">
-
         <div class="header" @click="toggleMenu">
             <SvgIcon type="mdi" :path="mdiPalette" class="icon" />
             <p>Themes</p>
@@ -11,7 +10,11 @@
                 <div v-if="menuVisible" class="menu-container" @click.stop>
                     <div v-for="theme in themes" :key="theme" @click="changeTheme(theme)" class="theme-option"
                         :class="{ selected: theme === currentTheme }">
-                        <img :src="getThemeImage(theme)" :alt="`${theme} theme`" />
+                        
+                        <!-- Show loading spinner if the theme image is still loading -->
+                        <div v-if="loading[theme]" class="spinner"></div>
+                        <img v-else :src="getThemeImage(theme)" :alt="`${theme} theme`" />
+                        
                         <span>{{ theme }}</span>
                     </div>
                 </div>
@@ -31,6 +34,10 @@ const themes = computed(() => themeStore.themes);
 const currentTheme = computed(() => themeStore.currentTheme);
 const menuVisible = ref(false);
 
+// Add a reactive loading state for each theme (tracks the loading state of each image)
+const loading = ref<{ [key: string]: boolean }>({});
+const loadedImages = ref<{ [key: string]: boolean }>({});
+
 const toggleMenu = () => {
     menuVisible.value = !menuVisible.value;
 };
@@ -40,8 +47,30 @@ const changeTheme = (theme: string) => {
     menuVisible.value = false;
 };
 
+// Function to get theme image with loading state management
 const getThemeImage = (theme: string): string => {
-    return new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
+    if (loadedImages.value[theme]) {
+        // If the image has already been loaded, skip reloading
+        return new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
+    }
+
+    // Set loading to true when image is being loaded
+    loading.value[theme] = true;
+
+    const imageUrl = new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
+    
+    // Preload the image and handle the loading state
+    const img = new Image();
+    img.src = imageUrl;
+    img.onload = () => {
+        loading.value[theme] = false;  // Image loaded, hide spinner
+        loadedImages.value[theme] = true;  // Mark the image as loaded
+    };
+    img.onerror = () => {
+        loading.value[theme] = false;  // In case of error, hide spinner
+    };
+    
+    return imageUrl;
 };
 
 onMounted(() => {
@@ -117,11 +146,12 @@ onMounted(() => {
     padding: 1rem;
     transition: border 0.3s, transform 0.3s;
     gap: 10px;
+    position: relative;
+}
 
-    &:hover {
-        transform: scale(1.05);
-        border-color: var(--border-color);
-    }
+.theme-option:hover {
+    transform: scale(1.05);
+    border-color: var(--border-color);
 }
 
 .theme-option img {
@@ -150,6 +180,24 @@ onMounted(() => {
 .fade-slide-leave-from {
     opacity: 1;
     transform: translateY(0);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgb(124, 124, 124);
+    border-top: 5px solid var(--text-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 @media (max-width: 500px) {
