@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+
 jobs:
   build-frontend:
     name: Build Frontend Docker Image 🏗️
