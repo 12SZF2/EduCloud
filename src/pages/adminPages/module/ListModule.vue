@@ -34,7 +34,7 @@ const nameSearchQuery = ref('');
 
 
 
-  const tableCols = ['ID','Name','Grade','Description','Category','Profession','CreatdAt','Edit','Delete'];
+  const tableCols = ['ID','Name','Grade','Description','Category','Profession','CreatedAt','Edit','Delete'];
 
 </script>
 
@@ -61,7 +61,7 @@ const nameSearchQuery = ref('');
       <div v-if="modules.length > 0" class="w-full overflow-x-auto rounded-md bg-gray-800">
         <table class="table-auto w-full text-center">
           <thead>
-          <tr class="bg-gray-900 text-[--text-color]">
+          <tr class="bg-[--table-bg-color] text-[--table-text-color]">
             <th v-for="content in tableCols" :key="content" class="px-4 py-2">
               {{ content }}
             </th>
@@ -71,7 +71,7 @@ const nameSearchQuery = ref('');
           <tr
               v-for="(module, index) in filteredModulesByName"
               :key="index"
-              class="odd:bg-gray-700 even:bg-gray-600"
+              class="odd:bg-[--table-tr-color-odd] even:bg-[--table-tr-color-even]"
           >
             <td class="px-4 py-2">{{ module.id }}</td>
             <td class="px-4 py-2">{{ module.name }}</td>

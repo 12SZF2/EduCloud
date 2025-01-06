@@ -124,50 +124,41 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
 </script>
 
 <template>
-
-  <section class="w-full h-full flex flex-col text-[--text-color]  items-center">
-
+  <section class="w-full h-full flex flex-col text-[--text-color] items-center">
     <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
       <span>Modulok</span>
     </div>
 
     <div class="mt-8 flex-nowrap flex flex-col items-center">
-
       <div class="h-full w-full flex justify-center items-center">
         <p>Válasszon egy modult amiben keresni szeretne.</p>
       </div>
 
       <router-view/>
 
-      <div v-if="assignments.length <= 0" >
+      <div v-if="assignments.length <= 0">
         <h1 class="form-title">Nincsenek elérhető modulok</h1>
       </div>
       <div v-if="assignments.length > 0" class="my-8 relative">
-        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent text-center focus:outline-none" />🔍
-        <hr class="absolute w-full h-[2px] bg-white shadow-2xl top-full" />
+        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent placeholder-gray-800 text-center focus:outline-none" />🔍
+        <hr class="absolute w-full h-[2px] bg-[--underline-color] shadow-2xl top-full" />
       </div>
 
-      <div v-if="assignments.length > 0" class="rounded-md bg-gray-800">
+      <div v-if="assignments.length > 0" class="rounded-md bg-[--table-bg-color]">
         <table class="min-w-[60dvw] border-black text-center">
           <thead>
-          <tr class="border-black">
+          <tr class="border-black text-[--table-text-color]">
             <th v-for="content in tableCols" :key="content" class="px-4">{{content}}</th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-gray-500 even:bg-gray-600">
+          <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-[--table-tr-color-odd] even:bg-[--table-tr-color-even]">
             <td>
               <button @click="handleItemClick(assignment)" class="text-[--text-color] hover:text-gray-600 active:text-gray-800">{{ assignment.name }}</button>
             </td>
-            <td>
-              {{ assignment.grade }}
-            </td>
-            <td>
-              {{ assignment.category }}
-            </td>
-            <td>
-              {{ assignment.profession }}
-            </td>
+            <td>{{ assignment.grade }}</td>
+            <td>{{ assignment.category }}</td>
+            <td>{{ assignment.profession }}</td>
             <td>
               <button @click="editAssignment(assignment.id)" class="delete-button">
                 ✎
@@ -187,5 +178,4 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
       </div>
     </div>
   </section>
-
 </template>

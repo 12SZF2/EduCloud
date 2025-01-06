@@ -9,7 +9,7 @@ const inputValuesSum = ref("");
 <template>
   <section class="w-full h-full">
     <!-- Header -->
-    <div class="flex w-full justify-center items-center text-lg sm:text-xl lg:text-2xl h-[3em] font-bold border-b border-b-white">
+    <div class="flex w-full justify-center items-center text-lg sm:text-xl lg:text-2xl h-[3em] font-bold border-b border-b-[--border-color]">
       <span>Modul kategória létrehozása</span>
     </div>
 
@@ -22,7 +22,7 @@ const inputValuesSum = ref("");
               v-model="inputValues[index]"
               type="text"
               :placeholder="'Modul címe ' + (index + 1)"
-              class="w-full py-2 px-4 text-[--text-color] placeholder-gray-400 border-none outline-none focus:ring-0 text-center bg-transparent"
+              class="w-full py-2 px-4 text-[--text-color] placeholder-gray-800 border-none outline-none focus:ring-0 text-center bg-transparent"
           />
           <hr class="absolute w-full h-[2px] bg-[--underline-color] shadow-2xl top-full" />
         </div>
