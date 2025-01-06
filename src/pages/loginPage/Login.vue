@@ -1,4 +1,5 @@
 <template>
+  <div class="view-page" v-if="isSizeCompatible">
     <div class="containerr">
       <RouterLink to="/">
         <Button icon="pi pi-arrow-left" class="custom-button" aria-label="Back" />
@@ -7,12 +8,12 @@
         <h2>Bejelentkezés</h2>
         <form @submit.prevent="handleLogin">
           <div class="user-box">
-            <input type="text" v-model="email" required="">
+            <input type="text" v-model="email" required=""/>
             <label>Felhasználónév</label>
           </div>
           <div class="line1"></div>
           <div class="user-box">
-            <input type="password" v-model="password" required="">
+            <input type="password" v-model="password" required=""/>
             <label>Jelszó</label>
           </div>
           <div class="line"></div>
@@ -30,33 +31,63 @@
         </form>
       </div>
     </div>
-    </template>
-    
-    
-    <script>
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      };
-    },
-    computed: {
-      isFormValid() {
-        return this.email.length > 0 && this.password.length > 0;
-      }
-    },
-    methods: {
-      handleLogin() {
-        console.log('Email:', this.email);
-        console.log('Jelszó:', this.password);
-      }
+  </div>
+  <div class="size-error" v-else>
+    <p>Ekkora méretben az oldal nem megtekinthető</p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      isSizeCompatible: true 
+    };
+  },
+  computed: {
+    isFormValid() {
+      return this.email.length > 0 && this.password.length > 0;
     }
-  };
-    </script>
+  },
+  methods: {
+    handleLogin() {
+      console.log('Email:', this.email);
+      console.log('Jelszó:', this.password);
+    },
+    checkWindowSize() {
+      this.isSizeCompatible = window.innerWidth >= 344 && window.innerHeight >= 470;
+    }
+  },
+  mounted() {
+    this.checkWindowSize();
+
+    window.addEventListener('resize', this.checkWindowSize);
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.checkWindowSize);
+  }
+};
+</script>
     
     <style scoped>
-  
+    .size-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--text-color);
+    }
+
+    .view-page {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      color: var(--text-color)
+    }
   
     html {
       height: 100%;
@@ -89,15 +120,21 @@
         background-size: contain;
         }
     }
+    @media (max-width: 380px) {
+    .login-box {
+        height: 380px;
+        }
+    }
   
   
     .login-box {
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 380px;
-      padding: 40px;
+      width: 80dvw;
+      max-width: 400px;
       height: 420px;
+      padding: 40px;
       transform: translate(-50%, -50%);
       background: rgba(0, 0, 0, 0.726);
       box-sizing: border-box;
@@ -108,20 +145,27 @@
     }
     
     .login-box h2 {
-      margin: 10px 0 35px;
-      padding: 0;
+      margin: 10px auto 35px auto;
+      padding: max(1dvh, 8px) 0;
       color: #fff;
       text-align: center;
-      font-size: 40px;
+      font-size: min(8vw, 40px);
+      transition: .3s;
+      max-width: 300px;
+      height: 60px;
     }
     
     .login-box .user-box {
+      text-align: center;
       position: relative;
-      top: 15px;
+      top: min(3vh, 20px);
+      width: 60dvw;
+      max-width: 300px;
     }
     
     .login-box .user-box input {
-      width: 300px;
+      width: 60dvw;
+      max-width: 298px;
       padding: 10px 0;
       font-size: 16px;
       color: #ffffff;       
@@ -132,7 +176,8 @@
     }
   
     .line{
-      width: 300px;
+      width: 60dvw;
+      max-width: 300px;
       margin-bottom: 30px;
       border: none;
       border-bottom: 2px solid #CD90FB;
@@ -143,7 +188,8 @@
     }
   
     .line1{
-      width: 300px;      
+      width: 60dvw;
+      max-width: 300px;      
       margin-bottom: 30px;
       border: none;
       border-bottom: 2px solid #CD90FB;
@@ -166,7 +212,7 @@
     
     .login-box .user-box input:focus ~ label,
     .login-box .user-box input:valid ~ label {
-      top: -20px;
+      top: -16px;
       left: 0;
       color: #785AEE;
       font-size: 12px;
