@@ -35,6 +35,8 @@ jobs:
           context: .
           platforms: linux/amd64
           file: ./Dockerfile
+          build-args: |
+            VITE_API_URL=https://api-educloud.pollak.info
           push: true
           tags: ghcr.io/pollak-projects/educloud/app:latest
           cache-from: type=gha
