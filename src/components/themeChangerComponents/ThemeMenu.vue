@@ -11,7 +11,6 @@
                     <div v-for="theme in themes" :key="theme" @click="changeTheme(theme)" class="theme-option"
                         :class="{ selected: theme === currentTheme }">
                         
-                        <!-- Show loading spinner if the theme image is still loading -->
                         <div v-if="loading[theme]" class="spinner"></div>
                         <img v-else :src="getThemeImage(theme)" :alt="`${theme} theme`" />
                         
@@ -34,7 +33,6 @@ const themes = computed(() => themeStore.themes);
 const currentTheme = computed(() => themeStore.currentTheme);
 const menuVisible = ref(false);
 
-// Add a reactive loading state for each theme (tracks the loading state of each image)
 const loading = ref<{ [key: string]: boolean }>({});
 const loadedImages = ref<{ [key: string]: boolean }>({});
 
@@ -47,27 +45,23 @@ const changeTheme = (theme: string) => {
     menuVisible.value = false;
 };
 
-// Function to get theme image with loading state management
 const getThemeImage = (theme: string): string => {
     if (loadedImages.value[theme]) {
-        // If the image has already been loaded, skip reloading
         return new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
     }
 
-    // Set loading to true when image is being loaded
     loading.value[theme] = true;
 
     const imageUrl = new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
     
-    // Preload the image and handle the loading state
     const img = new Image();
     img.src = imageUrl;
     img.onload = () => {
-        loading.value[theme] = false;  // Image loaded, hide spinner
-        loadedImages.value[theme] = true;  // Mark the image as loaded
+        loading.value[theme] = false; 
+        loadedImages.value[theme] = true;  
     };
     img.onerror = () => {
-        loading.value[theme] = false;  // In case of error, hide spinner
+        loading.value[theme] = false;
     };
     
     return imageUrl;
