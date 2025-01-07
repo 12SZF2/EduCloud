@@ -26,7 +26,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="view-page" v-if="isSizeCompatible">
     <section id="tranding">
-      <h1 class="text-center section-heading">Szakmák</h1>
+      <h1 class="section-heading">Szakmák</h1>
       <div class="containerr">
         <div class="container">
           <a href="/szoftverfejleszto" class="card">
@@ -247,7 +247,7 @@ h2{
 }
 .section-heading {
   font-size: 3rem;
-  color: #ffffff;
+  color: var(--text-color);
   text-shadow: rgb(0, 0, 0) 0px 0px 15px;
   padding: 2rem;
   font-weight: bold;
