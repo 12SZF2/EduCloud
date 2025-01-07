@@ -2,56 +2,100 @@
 const navigateToPage = (url: string) => {
   window.location.href = url;
 };
+import { ref, onMounted, onBeforeUnmount } from "vue";
+
+const isSizeCompatible = ref(true);
+
+const checkWindowSize = () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  isSizeCompatible.value = width >= 344 && height >= 470;
+};
+
+onMounted(() => {
+  checkWindowSize(); 
+  window.addEventListener("resize", checkWindowSize); 
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", checkWindowSize);
+});
 </script>
+
 <template>
-  <section id="tranding">
-    <h1 class="text-center section-heading">Szakmák</h1>
-    <div class="container">
-      <!-- Kártyák -->
-      <a href="/szoftverfejleszto" class="card">
-        <div class="images" id="szf">
-          <div class="card-content">
-            <h2 class="szakma-name">Szoftverfejlesztő és -tesztelő</h2>
-          </div>
-        </div>
-      </a>
+  <div class="view-page" v-if="isSizeCompatible">
+    <section id="tranding">
+      <h1 class="text-center section-heading">Szakmák</h1>
+      <div class="containerr">
+        <div class="container">
+          <a href="/szoftverfejleszto" class="card">
+            <div class="images" id="szf">
+              <div class="card-content">
+                <h2 class="szakma-name">Szoftverfejlesztő és -tesztelő</h2>
+              </div>
+            </div>
+          </a>
 
-      <a href="/Elektro Technikus" class="card">
-        <div class="images" id="autoT">
-        <div class="card-content">
-          <h2 class="szakma-name">Elektro Technikus</h2>
+          <a href="/Elektro Technikus" class="card">
+            <div class="images" id="autoT">
+              <div class="card-content">
+                <h2 class="szakma-name">Elektro Technikus</h2>
+              </div>
+            </div>
+          </a>
+
+          <a href="/Automatikai Technikus" class="card">
+            <div class="images" id="webf">
+              <div class="card-content">
+                <h2 class="szakma-name">Automatikai Technikus</h2>
+              </div>
+            </div>
+          </a>
+
+          <a href="/Rendszerüzemeltető" class="card">
+            <div class="images" id="redszerg">
+              <div class="card-content">
+                <h2 class="szakma-name">Rendszerüzemeltető</h2>
+              </div>
+            </div>
+          </a>
+
+          <a href="/Közismeret" class="card">
+            <div class="images" id="asd">
+              <div class="card-content">
+                <h2 class="szakma-name">Közismeret</h2>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
-      </a>
+    </section>
+  </div>
 
-      <a href="/Automatikai Technikus" class="card">
-        <div class="images" id="webf">
-        <div class="card-content">
-          <h2 class="szakma-name">Automatikai Technikus</h2>
-        </div>
-      </div>
-      </a>
-
-      <a href="/Rendszerüzemeltető" class="card">
-        <div class="images" id="redszerg">
-        <div class="card-content">
-          <h2 class="szakma-name">Rendszerüzemeltető</h2>
-        </div>
-      </div>
-      </a>
-
-      <a href="/Közismeret" class="card">
-        <div class="images" id="asd">
-        <div class="card-content">
-          <h2 class="szakma-name">Közismeret</h2>
-        </div>
-      </div>
-      </a>
-    </div>
-  </section>
+  <div class="size-error" v-else>
+    <p>Ekkora méretben az oldal nem megtekinthető</p>
+  </div>
 </template>
 
 <style scoped>
+.size-error {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--text-color);
+    }
+
+    .view-page {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      color: var(--text-color)
+    }
+
 :root {
   --primary: #ec994b;
   --white: #ffffff;
@@ -73,34 +117,69 @@ h2{
   color: white;
 }
 
-.container {
-  max-width: 100%;
+.containerr{
+  z-index: -1;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem 1.5rem ;
   display: flex;
-  flex-direction: column; 
-  gap: 2rem; 
-  overflow: auto;
+  overflow-y: auto; 
   max-width: 1000px;
   max-height: 80dvh; 
-  background-color: #ec994b;
+  scrollbar-width: thin;
+  border-radius: 25px;
+  background-color: rgba(124, 124, 124, 0.418);
+  scrollbar-color: var(--primary) #c94040;
+  backdrop-filter: blur(50px);
 }
 
-.card {
+.container {
+  margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
-  flex-direction: row; 
+  flex-direction: column;
+  gap: 1.2rem;
+  overflow-y: auto; 
+  max-width: 1000px;
+  max-height: 80dvh; 
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) #f5f5f5;
+}
+
+.containerr::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.containerr::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+.containerr::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #000000;
+}
+
+
+.card {
+  min-height: 15rem; 
+  display: flex;
+  flex-direction: row;
   border-radius: 1.5rem;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgb(0, 0, 0);
+  box-shadow: 0 8px 20px rgb(0, 0, 0);
   background-color: rgba(255, 255, 255, 0.219);
   backdrop-filter: blur(50px);
-  width: 100%; 
+  width: 100%;
   height: 15rem;
-  transition: transform 0.3s ease-in-out; 
+  transition: transform 0.3s ease-in-out;
 }
 
 .card:hover {
-  transform: scale(1.05); 
+  transform: scale(1.03);
 }
 
 .images {
@@ -168,7 +247,8 @@ h2{
 }
 .section-heading {
   font-size: 3rem;
-  color: #ff5825ea;
+  color: #ffffff;
+  text-shadow: rgb(0, 0, 0) 0px 0px 15px;
   padding: 2rem;
   font-weight: bold;
   text-transform: uppercase;
