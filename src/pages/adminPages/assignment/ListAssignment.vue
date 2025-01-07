@@ -126,12 +126,12 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
 <template>
   <section class="w-full h-full flex flex-col text-[--text-color] items-center">
     <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
-      <span>Modulok</span>
+      <span>Feladatok</span>
     </div>
 
     <div class="mt-8 flex-nowrap flex flex-col items-center">
       <div class="h-full w-full flex justify-center items-center">
-        <p>Válasszon egy modult amiben keresni szeretne.</p>
+        <p>Válasszon egy feladatot amiben keresni szeretne.</p>
       </div>
 
       <router-view/>
@@ -140,32 +140,41 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
         <h1 class="form-title">Nincsenek elérhető modulok</h1>
       </div>
       <div v-if="assignments.length > 0" class="my-8 relative">
-        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent placeholder-gray-800 text-center focus:outline-none" />🔍
-        <hr class="absolute w-full h-[2px] bg-[--underline-color] shadow-2xl top-full" />
+        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none" />🔍
+
       </div>
 
-      <div v-if="assignments.length > 0" class="rounded-md bg-[--table-bg-color]">
-        <table class="min-w-[60dvw] border-black text-center">
+      <!-- Assignment Table -->
+      <div v-if="assignments.length > 0" class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
+        <table class="table-auto w-full text-center">
           <thead>
-          <tr class="border-black text-[--table-text-color]">
-            <th v-for="content in tableCols" :key="content" class="px-4">{{content}}</th>
+          <tr class="bg-[--table-bg-color] text-[--table-text-color]">
+            <th v-for="content in tableCols" :key="content" class="px-4 py-1">
+              {{ content }}
+            </th>
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(assignment, index) in filteredAssignmentsByName" :key="index" class="odd:bg-[--table-tr-color-odd] even:bg-[--table-tr-color-even]">
-            <td>
-              <button @click="handleItemClick(assignment)" class="text-[--text-color] hover:text-gray-600 active:text-gray-800">{{ assignment.name }}</button>
+          <tr
+              v-for="(assignment, index) in filteredAssignmentsByName"
+              :key="index"
+              class="odd:bg-[--table-tr-color-odd] even:bg-[--table-tr-color-even]"
+          >
+            <td class="px-4 py-1">
+              <button @click="handleItemClick(assignment)" class="text-[--text-link-color] hover:text-[--text-link-hover-color] active:text-gray-800">
+                {{ assignment.name }}
+              </button>
             </td>
-            <td>{{ assignment.grade }}</td>
-            <td>{{ assignment.category }}</td>
-            <td>{{ assignment.profession }}</td>
-            <td>
-              <button @click="editAssignment(assignment.id)" class="delete-button">
+            <td class="px-4 py-1">{{ assignment.grade }}</td>
+            <td class="px-4 py-1">{{ assignment.category }}</td>
+            <td class="px-4 py-1">{{ assignment.profession }}</td>
+            <td class="px-4 py-1">
+              <button @click="editAssignment(assignment.id)" class="bg-blue-600 hover:bg-blue-500 text-[--text-color] py-1 px-4 rounded">
                 ✎
               </button>
             </td>
-            <td>
-              <button @click="deleteAssignment(assignment.id)" class="delete-button">
+            <td class="px-4 py-1">
+              <button @click="deleteAssignment(assignment.id)" class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded">
                 Törlés
               </button>
             </td>

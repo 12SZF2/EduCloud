@@ -34,7 +34,7 @@ const nameSearchQuery = ref('');
 
 
 
-  const tableCols = ['ID','Name','Grade','Description','Category','Profession','CreatedAt','Edit','Delete'];
+  const tableCols = ['Name','Grade','Description','Category','Profession','CreatedAt','Edit','Delete'];
 
 </script>
 
@@ -48,21 +48,21 @@ const nameSearchQuery = ref('');
     <div class="mt-8 w-full px-4 flex flex-col items-center">
 
       <!-- Search -->
-      <div v-if="modules.length > 0" class="my-8 w-full max-w-md relative">
+      <div v-if="modules.length > 0" class="my-8 w-full max-w-md flex justify-center ">
         <input
             v-model="nameSearchQuery"
             type="text"
             placeholder="Keresés"
-            class="w-full text-[--search-text-color] bg-transparent placeholder-[--placeholder-color] text-center border-b border-[--search-border-color] focus:outline-none"
-        />
+            class="w-[10dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none"
+        />🔍
       </div>
 
       <!-- Modules Table -->
-      <div v-if="modules.length > 0" class="w-full overflow-x-auto rounded-md bg-gray-800">
+      <div v-if="modules.length > 0" class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
         <table class="table-auto w-full text-center">
           <thead>
           <tr class="bg-[--table-bg-color] text-[--table-text-color]">
-            <th v-for="content in tableCols" :key="content" class="px-4 py-2">
+            <th v-for="content in tableCols" :key="content" class="px-4 py-1">
               {{ content }}
             </th>
           </tr>
@@ -73,21 +73,20 @@ const nameSearchQuery = ref('');
               :key="index"
               class="odd:bg-[--table-tr-color-odd] even:bg-[--table-tr-color-even]"
           >
-            <td class="px-4 py-2">{{ module.id }}</td>
-            <td class="px-4 py-2">{{ module.name }}</td>
-            <td class="px-4 py-2">{{ module.grade }}</td>
-            <td class="px-4 py-2">{{ module.description }}</td>
-            <td class="px-4 py-2">{{ module.categoryName }}</td>
-            <td class="px-4 py-2">{{ module.professionName }}</td>
-            <td class="px-4 py-2">{{ module.createdAt }}</td>
-            <td class="px-4 py-2">
+            <td class="px-4 py-1">{{ module.name }}</td>
+            <td class="px-4 py-1">{{ module.grade }}</td>
+            <td class="px-4 py-1">{{ module.description }}</td>
+            <td class="px-4 py-1">{{ module.categoryName }}</td>
+            <td class="px-4 py-1">{{ module.professionName }}</td>
+            <td class="px-4 py-1">{{ module.createdAt }}</td>
+            <td class="px-4 py-1">
               <button
                   class="bg-blue-600 hover:bg-blue-500 text-[--text-color] py-1 px-4 rounded"
               >
                 ✎
               </button>
             </td>
-            <td class="px-4 py-2">
+            <td class="px-4 py-1">
               <button
                   @click="deleteModule(module.id)"
                   class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded"
