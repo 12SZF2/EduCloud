@@ -1,185 +1,57 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
-
-const swiperCss = document.createElement('link');
-swiperCss.rel = 'stylesheet';
-swiperCss.href = 'https://unpkg.com/swiper@8/swiper-bundle.min.css';
-document.head.appendChild(swiperCss);
-
-onMounted(() => {
-
-  const ioniconsScript = document.createElement('script');
-  ioniconsScript.type = 'module';
-  ioniconsScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js';
-  document.head.appendChild(ioniconsScript);
-
-  const ioniconsNomoduleScript = document.createElement('script');
-  ioniconsNomoduleScript.noModule = true;
-  ioniconsNomoduleScript.src = 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js';
-  document.head.appendChild(ioniconsNomoduleScript);
-
-  const swiperScript = document.createElement('script');
-  swiperScript.src = 'https://unpkg.com/swiper@8/swiper-bundle.min.js';
-  document.head.appendChild(swiperScript);
-
-  swiperScript.onload = () => {
-
-    new Swiper('.tranding-slider', {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      loop: true,
-      slidesPerView: 'auto',
-      coverflowEffect: {
-        rotate: 0,
-        stretch: 0,
-        depth: 100,
-        modifier: 2.5,
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      }
-    });
-  };
-});
-
-// Function to navigate to different pages
 const navigateToPage = (url: string) => {
   window.location.href = url;
 };
 </script>
-
 <template>
   <section id="tranding">
+    <h1 class="text-center section-heading">Szakmák</h1>
     <div class="container">
-      <h1 class="text-center section-heading">Szakmák</h1>
-    </div>
-    <div class="container">
-      <div class="swiper tranding-slider">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide tranding-slide">
-            <div class="tranding-slide-img">
-              <img src="../../imgs/szoftver.jpg" alt="Tranding">
-            </div>
-            <div class="tranding-slide-content">
-              <h2 class="szakma-name">
-                Szoftverfejlesztő és -tesztelő
-              </h2><br>
-              <div class="button-container">
-                <button @click="navigateToPage('/szoftverfejleszto')">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide tranding-slide">
-            <div class="tranding-slide-img">
-              <img src="../../imgs/rendszeruzemelteto.jpg" alt="Tranding">
-            </div>
-            <div class="tranding-slide-content">
-              <h2 class="szakma-name">
-                Informatikai rendszer- és alkalmazás-üzemeltető technikus
-              </h2><br>
-              <div class="button-container">
-                <button @click="navigateToPage('/rendszeruzemelteto')">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide tranding-slide">
-            <div class="tranding-slide-img">
-              <img src="../../imgs/elektro.jpg" alt="Tranding">
-            </div>
-            <div class="tranding-slide-content">
-              <h2 class="szakma-name">
-                Erősáramú elektrotechnikus
-              </h2><br>
-              <div class="button-container">
-                <button @click="navigateToPage('/elektro')">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide tranding-slide">
-            <div class="tranding-slide-img">
-              <img src="../../imgs/automatikaiTechnikus.jpg" alt="Tranding">
-            </div>
-            <div class="tranding-slide-content">
-              <h2 class="szakma-name">
-                Automatikai technikus
-              </h2><br>
-              <div class="button-container">
-                <button @click="navigateToPage('/automatikai-technikus')">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div class="swiper-slide tranding-slide">
-            <div class="tranding-slide-img">
-              <img src="../../imgs/kozismeret.jpg" alt="Tranding">
-            </div>
-            <div class="tranding-slide-content">
-              <h2 class="szakma-name">
-                Közismeret
-              </h2><br>
-              <div class="button-container">
-                <button @click="navigateToPage('/kozismeret')">
-                  <ion-icon name="arrow-forward-outline"></ion-icon>
-                </button>
-              </div>
-            </div>
+      <!-- Kártyák -->
+      <a href="/szoftverfejleszto" class="card">
+        <div class="images" id="szf">
+          <div class="card-content">
+            <h2 class="szakma-name">Szoftverfejlesztő és -tesztelő</h2>
           </div>
         </div>
+      </a>
 
-        <div class="tranding-slider-control">
-          <div class="swiper-button-prev slider-arrow">
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-next slider-arrow">
-          </div>
+      <a href="/Elektro Technikus" class="card">
+        <div class="images" id="autoT">
+        <div class="card-content">
+          <h2 class="szakma-name">Elektro Technikus</h2>
         </div>
       </div>
+      </a>
+
+      <a href="/Automatikai Technikus" class="card">
+        <div class="images" id="webf">
+        <div class="card-content">
+          <h2 class="szakma-name">Automatikai Technikus</h2>
+        </div>
+      </div>
+      </a>
+
+      <a href="/Rendszerüzemeltető" class="card">
+        <div class="images" id="redszerg">
+        <div class="card-content">
+          <h2 class="szakma-name">Rendszerüzemeltető</h2>
+        </div>
+      </div>
+      </a>
+
+      <a href="/Közismeret" class="card">
+        <div class="images" id="asd">
+        <div class="card-content">
+          <h2 class="szakma-name">Közismeret</h2>
+        </div>
+      </div>
+      </a>
     </div>
   </section>
 </template>
 
 <style scoped>
-
-button {
-  width: 50px;
-  height: 50px;
-  background-color: #ec994b;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--white);
-  border: none;
-  cursor: pointer;
-  filter: drop-shadow(0px 0px 5px #ec994b);
-  transition: .3s;
-}
-
-button:hover{
-  filter: drop-shadow(0px 0px 15px #000000);
-}
-
-button ion-icon {
-  font-size: 1.5rem;
-}
-
 :root {
   --primary: #ec994b;
   --white: #ffffff;
@@ -197,116 +69,87 @@ button ion-icon {
   text-decoration: none;
 }
 
-html {
-  font-family: "Montserrat", sans-serif;
-}
-
-body {
-  font-size: 1.6rem;
-  background-color: var(--bg);
+h2{
+  color: white;
 }
 
 .container {
-  max-width: 124rem;
-  padding: 0 7.1rem;
+  max-width: 100%;
   margin: 0 auto;
-}
-
-.text-center {
-  text-align: center;
-}
-
-.section-heading {
-  font-size: 3rem;
-  color: #ff5825ea;
-  padding-bottom: 2rem;
-  font-weight: bold; 
-  text-transform: uppercase; 
-}
-
-#tranding {
-  padding: 4rem 0;
-  background-color: var(--slider-bg);
-  border-radius: 15px;
-}
-
-#tranding .tranding-slider {
-  height: 50rem;
-  padding: 1rem 0;
-  position: relative;
-  border-radius: 15px;
-}
-
-@media (max-width:500px) {
-  #tranding .tranding-slider {
-    height: 45rem;
-  }
-
-  .container {
-    padding: 0 5rem;
-  }
-
-  .tranding-slide {
-    width: 20rem !important;
-    height: 22rem !important;
-  }
-
-  .tranding-slide .tranding-slide-img img {
-    width: 20rem !important;
-    height: 22rem !important;
-  }
-
-  .szakma-name {
-    font-size: 1.5rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .tranding-slider {
-    height: 45rem;
-  }
-
-  .tranding-slide {
-    height: 25rem;
-    width: 22rem;
-  }
-}
-
-.tranding-slide .tranding-slide-img {
-  flex: 2; 
-}
-
-.tranding-slide .tranding-slide-img img {
-  width: 100%;
-  height: 100%; 
-  object-fit: cover;
-  border-radius: 1.5rem 1.5rem 0 0; 
-}
-
-.tranding-slide .tranding-slide-content {
-  flex: 1; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--white);
-  text-align: center;
-  border-radius: 0 0 1.5rem 1.5rem; 
   padding: 1rem;
-  position: relative;
+  display: flex;
+  flex-direction: column; 
+  gap: 2rem; 
+  overflow-y: auto; 
+  max-width: 600px; 
+  height: auto; 
 }
 
-.tranding-slide {
-  width: 30rem;
-  height: 32rem;
-  position: relative;
+.card {
+  display: flex;
+  flex-direction: row; 
   border-radius: 1.5rem;
   overflow: hidden;
   box-shadow: 0 10px 30px rgb(0, 0, 0);
   background-color: rgba(255, 255, 255, 0.219);
   backdrop-filter: blur(50px);
+  width: 100%; 
+  height: 15rem;
+}
+
+.images {
+  flex: 1; 
+  height: 100%;
+}
+
+#szf {
+  background-image: url("../../imgs/szoftver.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#autoT {
+  background-image: url("../../imgs/elektro.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#webf {
+  background-image: url("../../imgs/automatikaitechnikus.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#redszerg {
+  background-image: url("../../imgs/rendszeruzemelteto.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#asd {
+  background-image: url("../../imgs/kozismeret.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.images img {
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.card-content {
+  flex: 1; 
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.301) 0%, rgba(0,0,0,1) 76%);
   display: flex;
-  flex-direction: column; 
-  margin: 0 auto; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  color: var(--white);
+  text-align: right;
+  padding: 0 2rem;
+  height: 100%;
 }
 
 .szakma-name {
@@ -314,69 +157,30 @@ body {
   font-weight: bold;
 }
 
-.swiper-slide-shadow-left,
-.swiper-slide-shadow-right {
-  display: none;
-}
-
-.tranding-slider-control {
-  position: absolute;
-  bottom: 150px; 
-  display: flex;
-  justify-content: space-between; 
-  align-items: center;
-  width: 100%;
-  padding: 0 2rem; 
-}
-
-.swiper-pagination {
-  display: flex;
-  justify-content: center; 
-}
-
-.swiper-pagination .swiper-pagination-bullet {
-  width: 2rem;
-  height: 2rem;
-  background: var(--white);
-  opacity: 0.7;
-  transition: all 0.3s ease;
-}
-
-.swiper-pagination .swiper-pagination-bullet-active {
-  background: var(--primary);
-}
-
-.swiper-button-prev, 
-.swiper-button-next {
-  background-color: var(--primary);
-  color: var(--white);
-  padding: 10px;
-  border-radius: 50%;
-}
-
 .button-container {
-  position: absolute;
-  bottom: 10px; 
-  right: 10px;
+  margin-top: 1rem;
+}
+.section-heading {
+  font-size: 3rem;
+  color: #ff5825ea;
+  padding-bottom: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
 }
 
-.swiper-button-prev, 
-.swiper-button-next {
-  background-color: var(--primary);
-  color: var(--white);
-  padding: 10px;
-  border-radius: 50%;
-  position: absolute;
-  top: 50%; 
-  transform: translateY(-50%); 
-}
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column; /* Mobil nézetben a kártyák egy oszlopba kerülnek */
+  }
 
-.swiper-button-prev {
-  left: 10px; 
-}
+  .images {
+    width: 100%;
+    height: auto;
+  }
 
-.swiper-button-next {
-  right: 10px; 
+  .card-content {
+    width: 100%;
+  }
 }
-
 </style>
