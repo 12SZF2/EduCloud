@@ -76,13 +76,14 @@ h2{
 .container {
   max-width: 100%;
   margin: 0 auto;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column; 
   gap: 2rem; 
-  overflow-y: auto; 
-  max-width: 600px; 
-  height: auto; 
+  overflow: auto;
+  max-width: 1000px;
+  max-height: 80dvh; 
+  background-color: #ec994b;
 }
 
 .card {
@@ -95,6 +96,11 @@ h2{
   backdrop-filter: blur(50px);
   width: 100%; 
   height: 15rem;
+  transition: transform 0.3s ease-in-out; 
+}
+
+.card:hover {
+  transform: scale(1.05); 
 }
 
 .images {
@@ -163,7 +169,7 @@ h2{
 .section-heading {
   font-size: 3rem;
   color: #ff5825ea;
-  padding-bottom: 2rem;
+  padding: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -171,7 +177,7 @@ h2{
 
 @media (max-width: 768px) {
   .card {
-    flex-direction: column; /* Mobil nézetben a kártyák egy oszlopba kerülnek */
+    flex-direction: column; 
   }
 
   .images {
