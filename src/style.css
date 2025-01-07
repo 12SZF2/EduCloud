@@ -13,6 +13,7 @@
   --border-color: black;
   --selected-theme-border-color: orange;
   --background-image: url('./assets/light.jpg');
+  --active-page-link-color: theme(colors.blue.200);
 
   /*other colors*/
   --underline-color: theme(colors.white);
