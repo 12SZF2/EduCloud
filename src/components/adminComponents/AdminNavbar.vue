@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import {useRoute} from "vue-router";
 
 const showModulesDropdown = ref(false);
 const showAssignmentsDropdown = ref(false);
 const showUsersDropdown = ref(false);
 const clickedLink = ref<string | null>(null);
+
+const route = useRoute();
+
+clickedLink.value = route.path.split('/')[2];
 
 const handleLinkClick = (link: string) => {
   clickedLink.value = link;
