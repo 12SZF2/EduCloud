@@ -41,7 +41,7 @@ const nameSearchQuery = ref('');
 <template>
   <section class="w-full h-full flex flex-col items-center">
 
-    <div class="flex w-full justify-center items-center text-xl lg:text-2xl h-[3em] font-bold border-b border-[--border-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Modulok</span>
     </div>
 

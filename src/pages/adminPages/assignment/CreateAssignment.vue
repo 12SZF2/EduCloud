@@ -5,7 +5,7 @@
 
 <template>
   <section class="w-full h-full text-[--text-color]">
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Feladat létrehozása</span>
     </div>
 
@@ -25,7 +25,7 @@
         </div>
         <div class="flex gap-44  justify-center align-middle py-8" >
           <button
-              class="rounded-md py-1 px-12 border border-gray-300 text-center bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color]"
+              class="rounded-md py-1 px-12 shadow text-center bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color]"
           >Mentés</button>
         </div>
       </div>

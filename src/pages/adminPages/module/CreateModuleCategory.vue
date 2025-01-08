@@ -9,7 +9,7 @@ const inputValuesSum = ref("");
 <template>
   <section class="w-full h-full">
     <!-- Header -->
-    <div class="flex w-full justify-center items-center text-lg sm:text-xl lg:text-2xl h-[3em] font-bold border-b border-b-[--border-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Modul kategória létrehozása</span>
     </div>
 
@@ -42,7 +42,7 @@ const inputValuesSum = ref("");
       <div class="flex flex-col items-center py-8">
         <button
             @click="inputValuesSum = inputValues.join(', ')"
-            class="rounded-md w-full sm:w-auto py-2 px-6 text-center bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] text-[--button-submit-text-color]"
+            class="rounded-md w-full shadow sm:w-auto py-2 px-6 text-center bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] text-[--button-submit-text-color]"
         >
           Mentés
         </button>
