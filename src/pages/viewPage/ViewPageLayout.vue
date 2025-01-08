@@ -24,6 +24,7 @@
               :modules="category.items" @moduleSelected="updateContent" />
           </div>
         </div>
+
       </div>
 
       <div class="main-content">
