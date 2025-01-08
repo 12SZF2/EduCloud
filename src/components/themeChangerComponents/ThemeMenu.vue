@@ -47,12 +47,12 @@ const changeTheme = (theme: string) => {
 
 const getThemeImage = (theme: string): string => {
     if (loadedImages.value[theme]) {
-        return new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
+        return new URL(`../../../public/assets/${theme}.jpg`, import.meta.url).href;
     }
 
     loading.value[theme] = true;
 
-    const imageUrl = new URL(`../../assets/${theme}.jpg`, import.meta.url).href;
+    const imageUrl = new URL(`../../../public/assets/${theme}.jpg`, import.meta.url).href;
     
     const img = new Image();
     img.src = imageUrl;

@@ -14,7 +14,7 @@
   --active-text-color: #363636;
   --border-color: black;
   --selected-theme-border-color: orange;
-  --background-image: url('./assets/light.jpg');
+  --background-image: url('/imgs/light.jpg');
 
   /*other colors*/
   --underline-color: theme(colors.black);
@@ -58,7 +58,7 @@
   --active-text-color: #c4c4c4;
   --border-color: white;
   --selected-theme-border-color: yellow;
-  --background-image: url('./assets/dark.jpg');
+  --background-image: url('/imgs/dark.jpg');
 }
 
 [data-theme="Light-Western"] {
@@ -68,7 +68,7 @@
   --active-text-color: #363636;
   --border-color: black;
   --selected-theme-border-color: orange;
-  --background-image: url('./assets/light-western.jpg');
+  --background-image: url('/imgs/light-western.jpg');
 }
 
 [data-theme="Dark-Western"] {
@@ -78,7 +78,7 @@
   --active-text-color: #c4c4c4;
   --border-color: white;
   --selected-theme-border-color: yellow;
-  --background-image: url('./assets/dark-western.jpg');
+  --background-image: url('/imgs/dark-western.jpg');
 }
 
 body {
