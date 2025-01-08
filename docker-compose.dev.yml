@@ -1,0 +1,16 @@
+services:
+  educloud-frontend-dev:
+    container_name: educloud-frontend-dev
+    build:
+      dockerfile: Dockerfile
+      target: prod
+      args:
+        - VITE_API_URL=http://localhost:3300/api
+    restart: always
+    ports:
+      - "3000:80"
+    networks:
+      - educloud
+
+networks:
+  educloud:

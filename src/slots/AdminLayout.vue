@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="flex h-[100dvh] w-[100dvw] text-[--text-color]">
+  <div class="flex h-[100dvh] w-[100dvw] text-[--text-color] backdrop-blur-[30px] select-none">
 
     <div class="w-[22dvw] h-full border-r border-[--border-color] overflow-hidden">
       <slot name="left"/>

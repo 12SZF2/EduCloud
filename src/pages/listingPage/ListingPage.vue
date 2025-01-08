@@ -188,31 +188,31 @@ h2{
 }
 
 #szf {
-  background-image: url("../../imgs/szoftver.jpg");
+  background-image: url("../../../public/imgs/szoftver.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #autoT {
-  background-image: url("../../imgs/elektro.jpg");
+  background-image: url("../../../public/imgs/elektro.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #webf {
-  background-image: url("../../imgs/automatikaitechnikus.jpg");
+  background-image: url("../../../public/imgs/automatikaitechnikus.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #redszerg {
-  background-image: url("../../imgs/rendszeruzemelteto.jpg");
+  background-image: url("../../../public/imgs/rendszeruzemelteto.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #asd {
-  background-image: url("../../imgs/kozismeret.jpg");
+  background-image: url("../../../public/imgs/kozismeret.jpg");
   background-size: cover;
   background-position: center;
 }

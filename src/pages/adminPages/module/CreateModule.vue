@@ -12,7 +12,7 @@ height: 2rem;
 
 <template>
   <section class="w-full h-full text-[--text-color]">
-    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b border-[--border-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Modul létrehozása</span>
     </div>
 
@@ -126,7 +126,7 @@ height: 2rem;
 
       <div class="flex justify-center items-center py-8 w-full">
         <button
-            class="rounded-md w-full sm:w-auto py-2 px-6 text-center text-[--button-submit-text-color] bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] focus:bg-[--button-submit-focus-color]"
+            class="rounded-md shadow w-full sm:w-auto py-2 px-6 text-center text-[--button-submit-text-color] bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color] focus:bg-[--button-submit-focus-color]"
         >
           Mentés
         </button>

@@ -48,7 +48,7 @@ const tableCols = ['Name','Date of Registry','Email Address','Edit','Delete'];
     <div class="mt-8 w-full px-4 flex flex-col items-center">
 
       <!-- Search -->
-      <div v-if="users.length > 0" class="my-8 w-full  max-w-md flex justify-center ">
+      <div v-if="users.length > 0" class="my-8 w-full max-w-md flex justify-center ">
         <input
             v-model="nameSearchQuery"
             type="text"

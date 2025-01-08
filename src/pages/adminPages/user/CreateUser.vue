@@ -19,8 +19,8 @@ const handleDateChange = (event: Event) => {
 
 
 <template>
-  <section class="w-full h-full text-[--text-color] select-none">
-    <div class="flex w-full justify-center items-center text-2xl h-[7dvh] font-bold border-b-[1px] border-[--border-color]">
+  <section class="w-full h-full text-[--text-color]">
+    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Felhasználó létrehozása</span>
     </div>
 
