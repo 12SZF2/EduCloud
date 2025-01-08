@@ -113,14 +113,10 @@ onBeforeUnmount(() => {
   text-decoration: none;
 }
 
-h2{
-  color: white;
-}
-
 .containerr{
   z-index: -1;
   margin: 0 auto;
-  padding: 1rem 1.5rem ;
+  padding: 1.5rem 1.5rem ;
   display: flex;
   overflow-y: auto; 
   max-width: 1000px;
@@ -238,8 +234,10 @@ h2{
 }
 
 .szakma-name {
+  color: white;
   font-size: 1.8rem;
   font-weight: bold;
+  transition: .1s;
 }
 
 .button-container {
@@ -269,4 +267,11 @@ h2{
     width: 100%;
   }
 }
+
+@media (max-width: 465px){
+  .szakma-name{
+    font-size: 2.1dvh;
+  }
+}
+
 </style>
