@@ -119,34 +119,33 @@ const handleItemClick = (item) => {
 
 
 
-const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
+const tableCols = ['Név','Osztály','Kategória','Szakma','Módosítás','Törlés'];
 
 </script>
 
 <template>
   <section class="w-full h-full flex flex-col text-[--text-color] items-center">
-    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
+
+    <div class="flex w-full justify-center items-center text-2xl !h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Feladatok</span>
     </div>
 
-    <div class="mt-8 flex-nowrap flex flex-col items-center">
-      <div class="h-full w-full flex justify-center items-center">
-        <p>Válasszon egy feladatot amiben keresni szeretne.</p>
-      </div>
+    <div class="mt-8 flex flex-col items-center">
 
-      <router-view/>
+      <!-- Search -->
 
-      <div v-if="assignments.length <= 0">
-        <h1 class="form-title">Nincsenek elérhető modulok</h1>
-      </div>
-      <div v-if="assignments.length > 0" class="my-8 relative">
+      <div class="my-8">
         <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none" />🔍
-
       </div>
 
       <!-- Assignment Table -->
-      <div v-if="assignments.length > 0" class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
-        <table class="table-auto w-full text-center">
+      <div v-if="assignments.length <= 0">
+        <h1>Nincsenek elérhető modulok</h1>
+      </div>
+
+      <div v-else class="w-full max-w-[60dvw] overflow-x-scroll rounded-md bg-[--table-bg-color]">
+
+        <table class="table-auto max-h-[15em] w-full text-center">
           <thead>
           <tr class="bg-[--table-bg-color] text-[--table-text-color]">
             <th v-for="content in tableCols" :key="content" class="px-4 py-1">
@@ -174,17 +173,22 @@ const tableCols = ['Name','Grade','Category','Profession','Edit','Delete'];
               </button>
             </td>
             <td class="px-4 py-1">
-              <button @click="deleteAssignment(assignment.id)" class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded">
-                Törlés
+              <button @click="deleteAssignment(assignment.id)" class="bg-red-600 hover:bg-red-500 text-[--text-color] px-4 rounded">
+                <span class="text-2xl">
+                 🗑
+                </span>
               </button>
             </td>
           </tr>
           </tbody>
         </table>
+
       </div>
-      <div class="h-full w-full flex justify-center items-center">
+
+      <div class="w-full flex justify-center items-center">
         <ListShow :selectedItem="selectedItem" />
       </div>
+
     </div>
   </section>
 </template>

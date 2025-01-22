@@ -17,12 +17,8 @@ const routes = [
         path: '/admin',
         name:'AdminPage',
         component: () => import("../pages/adminPages/AdminPage.vue/"),
+        redirect:'admin/module-list',
         children: [
-            {
-                path: 'landing',
-                name: 'LandingPage',
-                component: () => import("../pages/landingPage/LandingPage.vue"),
-            },
             {
                 path: 'module-create',
                 name: 'CreateModule',

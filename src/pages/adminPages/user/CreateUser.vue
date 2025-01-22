@@ -36,7 +36,7 @@ const handleDateChange = (event: Event) => {
       <div class="flex flex-row gap-8">
         <input type="text" placeholder="Email"
         class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
-        <input type="text" placeholder="Jelszó"
+        <input type="password" placeholder="Jelszó"
         class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
       </div>
       <div @click="openDatePicker"

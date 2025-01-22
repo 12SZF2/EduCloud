@@ -33,7 +33,7 @@ function deleteUser(id: number) {
   })
 }
 
-const tableCols = ['Name','Date of Registry','Email Address','Edit','Delete'];
+const tableCols = ['Név','Regisztráció Ideje','Email Cím','Módosítás','Törlés'];
 
 
 </script>
@@ -87,9 +87,11 @@ const tableCols = ['Name','Date of Registry','Email Address','Edit','Delete'];
             <td class="px-4 py-1">
               <button
                   @click="deleteUser(user.id)"
-                  class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded"
+                  class="bg-red-600 hover:bg-red-500 text-[--text-color] px-4 rounded"
               >
-                Törlés
+                <span class="text-2xl">
+                  🗑
+                </span>
               </button>
             </td>
           </tr>

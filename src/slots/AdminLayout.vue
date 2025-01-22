@@ -1,5 +1,7 @@
 <script setup>
 
+document.title = "EduCloud | Admin";
+
 </script>
 
 <template>

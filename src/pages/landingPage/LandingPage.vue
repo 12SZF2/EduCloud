@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, Ref } from 'vue';
 
+document.title = 'EduCloud | Kezdőlap';
+
 const isRain = ref(false); // Az eső alapértelmezés szerint ne essen
 let counter = 0;
 

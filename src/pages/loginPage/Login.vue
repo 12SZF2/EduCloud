@@ -38,6 +38,8 @@
 </template>
 
 <script>
+document.title = "EduCloud | Bejelentkezés";
+
 export default {
   data() {
     return {

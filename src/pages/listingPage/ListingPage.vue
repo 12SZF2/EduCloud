@@ -1,4 +1,5 @@
 <script setup lang="ts">
+document.title = "EduCloud | Szakmák";
 const navigateToPage = (url: string) => {
   window.location.href = url;
 };

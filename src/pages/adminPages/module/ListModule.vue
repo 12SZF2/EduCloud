@@ -34,12 +34,12 @@ const nameSearchQuery = ref('');
 
 
 
-  const tableCols = ['Name','Grade','Description','Category','Profession','CreatedAt','Edit','Delete'];
+  const tableCols = ['Név','Osztály','Leírás','Kategória','Szakma','Létrehozva','Módosítás','Törlés'];
 
 </script>
 
 <template>
-  <section class="w-full h-full flex flex-col items-center">
+  <section class="w-full h-full flex flex-col text-[--text-color] items-center">
 
     <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Modulok</span>
@@ -48,7 +48,8 @@ const nameSearchQuery = ref('');
     <div class="mt-8 w-full px-4 flex flex-col items-center">
 
       <!-- Search -->
-      <div v-if="modules.length > 0" class="my-8 w-full max-w-md flex justify-center ">
+
+      <div class="my-8 w-full max-w-md flex justify-center ">
         <input
             v-model="nameSearchQuery"
             type="text"
@@ -58,8 +59,13 @@ const nameSearchQuery = ref('');
       </div>
 
       <!-- Modules Table -->
-      <div v-if="modules.length > 0" class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
-        <table class="table-auto w-full text-center">
+      <div v-if="modules.length <= 0">
+        <h1 class="form-title">Nincsenek elérhető feladatok</h1>
+      </div>
+
+      <div v-else class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
+
+        <table class="table-auto max-h-[15em] w-full text-center">
           <thead>
           <tr class="bg-[--table-bg-color] text-[--table-text-color]">
             <th v-for="content in tableCols" :key="content" class="px-4 py-1">
@@ -89,20 +95,19 @@ const nameSearchQuery = ref('');
             <td class="px-4 py-1">
               <button
                   @click="deleteModule(module.id)"
-                  class="bg-red-600 hover:bg-red-500 text-[--text-color] py-1 px-4 rounded"
+                  class="bg-red-600 hover:bg-red-500 text-[--text-color] px-4 rounded"
               >
-                Törlés
+                <span class="text-2xl">
+                  🗑
+                </span>
               </button>
             </td>
           </tr>
           </tbody>
         </table>
+
       </div>
 
-      <!-- No Modules Message -->
-      <div v-if="modules.length <= 0">
-        <h1 class="text-lg font-semibold text-gray-700">Nincsenek elérhető modulok</h1>
-      </div>
     </div>
   </section>
 </template>
