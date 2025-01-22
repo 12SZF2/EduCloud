@@ -13,8 +13,7 @@ const openDatePicker = () => {
 const handleDateChange = (event: Event) => {
   const input = event.target as HTMLInputElement;
   dateValue.value = input.value; // Update the date value
-};
-//kurwa mać date picker
+}
 </script>
 
 

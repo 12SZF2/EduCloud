@@ -244,7 +244,7 @@ watch(isRain, (newVal) => {
     </header>
 
     <div class="fixed-bottom-right">
-      <button class="rain-button" @click="toggleRain"><img src="../../assets/cloud-icon.png"
+      <button class="rain-button" @click="toggleRain"><img src="../../../public/assets/cloud-icon.png"
           alt="Button Image" /></button>
     </div>
 
