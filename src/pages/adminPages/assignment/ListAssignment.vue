@@ -135,7 +135,7 @@ const tableCols = ['Név','Osztály','Kategória','Szakma','Módosítás','Törl
       <!-- Search -->
 
       <div class="my-8">
-        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[10dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none" />🔍
+        <input v-model="nameSearchQuery" type="text" placeholder="Keresés" class="w-[40dvw] lg:w-[20dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none" />🔍
       </div>
 
       <!-- Assignment Table -->
@@ -143,7 +143,7 @@ const tableCols = ['Név','Osztály','Kategória','Szakma','Módosítás','Törl
         <h1>Nincsenek elérhető modulok</h1>
       </div>
 
-      <div v-else class="w-full max-w-[60dvw] overflow-x-scroll rounded-md bg-[--table-bg-color]">
+      <div v-else class="w-full max-w-[80dvw] lg:max-w-[60dvw] overflow-x-scroll rounded-md bg-[--table-bg-color]">
 
         <table class="table-auto max-h-[15em] w-full text-center">
           <thead>

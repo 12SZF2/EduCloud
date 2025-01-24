@@ -5,7 +5,7 @@
     <!-- Table displaying the selected item's properties -->
     <div class="rounded-md bg-gray-800">
 
-      <table class="min-w-[30dvw] border-black border-solid  text-center">
+      <table class="w-full min-w-[30dvw] border-black border-solid  text-center">
         <thead>
         <tr class="text-[--table-text-color]">
           <th class="px-4 ">Név</th>

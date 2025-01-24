@@ -125,9 +125,9 @@ height: 2rem;
         </button>
       </div>
 
-      <div class="flex justify-center items-center py-8 w-full">
+      <div class="w-full flex justify-center items-center py-8">
         <button
-            class="rounded-md shadow w-full sm:w-auto py-2 px-6 text-center text-[--button-submit-text-color] bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color]"
+            class="rounded-md max-w-xs shadow w-full sm:w-auto py-2 px-6 text-center text-[--button-submit-text-color] bg-[--button-submit-base-color] hover:bg-[--button-submit-hover-color] active:bg-[--button-submit-active-color]"
         >
           Mentés
         </button>

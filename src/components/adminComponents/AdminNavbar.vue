@@ -44,11 +44,10 @@ const handleLinkClick = (link: string) => {
               @click="showModulesDropdown = !showModulesDropdown"
               class="w-full px-4 text-left flex items-center "
           >
-
-                <span :class="{'rotate-90': showModulesDropdown}" class="mr-2 transition-transform  duration-200">
-                 <FontAwesomeIcon :icon="faArrowRight" />
-                </span>
-            <span class="hover:text-[--text-link-hover-color] transition-colors duration-100">
+            <span :class="{'rotate-90': showModulesDropdown}" class="mr-2 transition-transform  duration-200">
+              <FontAwesomeIcon :icon="faArrowRight" />
+            </span>
+            <span class="hover:text-[--text-color-invert] transition-colors duration-100">
               Modulok
             </span>
           </button>
@@ -56,7 +55,7 @@ const handleLinkClick = (link: string) => {
             <ul class="list-disc list-inside pl-1">
               <RouterLink
                   to="/admin/module-create"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'module-create' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('module-create')"
               >
@@ -64,7 +63,7 @@ const handleLinkClick = (link: string) => {
               </RouterLink>
               <RouterLink
                   to="/admin/module-list"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'module-list' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('module-list')"
               >
@@ -72,7 +71,7 @@ const handleLinkClick = (link: string) => {
               </RouterLink>
               <RouterLink
                   to="/admin/module-category-create"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'module-category-create' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('module-category-create')"
               >
@@ -91,7 +90,7 @@ const handleLinkClick = (link: string) => {
             <span :class="{'rotate-90': showAssignmentsDropdown}" class="mr-2 transition-transform  duration-200">
               <FontAwesomeIcon :icon="faArrowRight" />
             </span>
-            <span class="hover:text-[--text-link-hover-color] transition-colors duration-100">
+            <span class="hover:text-[--text-color-invert] transition-colors duration-100">
               Feladatok
             </span>
           </button>
@@ -99,7 +98,7 @@ const handleLinkClick = (link: string) => {
             <ul class="list-disc list-inside">
               <RouterLink
                   to="/admin/assignment-create"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'assignment-create' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('assignment-create')"
               >
@@ -107,7 +106,7 @@ const handleLinkClick = (link: string) => {
               </RouterLink>
               <RouterLink
                   to="/admin/assignment-list"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'assignment-list' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('assignment-list')"
               >
@@ -124,9 +123,9 @@ const handleLinkClick = (link: string) => {
               class="w-full px-4 text-left flex items-center"
           >
             <span :class="{'rotate-90': showUsersDropdown}" class="mr-2 transition-transform  duration-200">
-               <FontAwesomeIcon :icon="faArrowRight" />
+              <FontAwesomeIcon :icon="faArrowRight" />
             </span>
-            <span class="hover:text-[--text-link-hover-color] transition-colors duration-100">
+            <span class="hover:text-[--text-color-invert] transition-colors duration-100">
               Felhasználók
             </span>
           </button>
@@ -134,7 +133,7 @@ const handleLinkClick = (link: string) => {
             <ul class="list-disc list-inside">
               <RouterLink
                   to="/admin/user-create"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'user-create' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('user-create')"
               >
@@ -142,7 +141,7 @@ const handleLinkClick = (link: string) => {
               </RouterLink>
               <RouterLink
                   to="/admin/user-list"
-                  class="block px-4 text-lg hover:text-[--text-link-hover-color] transition-colors duration-100"
+                  class="block px-4 text-lg hover:text-[--text-color-invert] transition-colors duration-100"
                   :style="{ color: clickedLink === 'user-list' ? 'var(--active-page-link-color)' : '' }"
                   @click="handleLinkClick('user-list')"
               >

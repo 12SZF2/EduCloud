@@ -54,7 +54,7 @@ const nameSearchQuery = ref('');
             v-model="nameSearchQuery"
             type="text"
             placeholder="Keresés"
-            class="w-[10dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none"
+            class="w-[40dvw] lg:w-[20dvw] bg-transparent placeholder-gray-800 text-center border-b border-[--border-color] focus:outline-none"
         />🔍
       </div>
 
@@ -63,9 +63,9 @@ const nameSearchQuery = ref('');
         <h1 class="form-title">Nincsenek elérhető feladatok</h1>
       </div>
 
-      <div v-else class="w-full max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
+      <div v-else class="w-full max-w-[80dvw] lg:max-w-[60dvw] overflow-x-auto rounded-md bg-[--table-bg-color]">
 
-        <table class="table-auto max-h-[15em] w-full text-center">
+        <table class="table-auto  max-h-[15em] w-full text-center">
           <thead>
           <tr class="bg-[--table-bg-color] text-[--table-text-color]">
             <th v-for="content in tableCols" :key="content" class="px-4 py-1">

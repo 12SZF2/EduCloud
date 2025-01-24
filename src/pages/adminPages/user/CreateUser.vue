@@ -24,19 +24,19 @@ const handleDateChange = (event: Event) => {
     </div>
 
     <!-- Main part of the page -->
-    <div class="flex flex-col justify-center items-center mt-[23vh] gap-14 w-full">
+    <div class="flex flex-col justify-center flex-wrap px-2 items-center mt-[23vh] gap-14 w-full">
 
-      <div class="flex flex-row gap-8 ">
+      <div class="w-full  flex flex-wrap justify-center items-center flex-row gap-8 ">
         <input type="text" placeholder="Felhasználónév"
-        class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
+        class="w-[40dvw] lg:max-w-[20dvw] bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
         <input type="text" placeholder="Név"
-        class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
+        class="w-[40dvw] lg:max-w-[20dvw] bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
       </div>
-      <div class="flex flex-row gap-8">
+      <div class="flex flex-wrap justify-center items-center flex-row gap-8">
         <input type="text" placeholder="Email"
-        class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
+        class="w-[40dvw] lg:max-w-[20dvw] bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
         <input type="password" placeholder="Jelszó"
-        class="bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
+        class="w-[40dvw] lg:max-w-[20dvw] bg-transparent outline-none text-center border-b border-[--underline-color] placeholder-[--placeholder-color]">
       </div>
       <div @click="openDatePicker"
            class="flex flex-col items-center border  shadow-xl rounded-md bg-[--button-base-color] active:bg-[--button-active-color] hover:bg-[--button-hover-color]">

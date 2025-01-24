@@ -4,6 +4,8 @@ import { ref } from "vue";
 const inputValues = ref(["", "", ""]);
 
 const inputValuesSum = ref("");
+
+const categoryCreateValues = ["Évfolyam", "Kategória", "Szakma"];
 </script>
 
 <template>
@@ -13,15 +15,14 @@ const inputValuesSum = ref("");
       <span>Modul kategória létrehozása</span>
     </div>
 
-    <!-- Form Section -->
     <div class="flex flex-col justify-center items-center mt-[15vh] sm:mt-[20vh] w-full">
       <!-- Input Fields -->
-      <div class="flex flex-wrap gap-4 justify-center items-center py-8 w-full">
+      <div class="flex flex-wrap gap-4 justify-center items-center p-8 w-full">
         <div v-for="(value, index) in inputValues" :key="index" class="relative w-full sm:w-auto max-w-md">
           <input
               v-model="inputValues[index]"
               type="text"
-              :placeholder="'Modul címe ' + (index + 1)"
+              :placeholder="`${categoryCreateValues[index]}`"
               class="w-full py-2 px-4 text-[--text-color] placeholder-gray-800 border-none outline-none focus:ring-0 text-center bg-transparent"
           />
           <hr class="absolute w-full h-[2px] bg-[--underline-color] shadow-2xl top-full" />
@@ -32,7 +33,7 @@ const inputValuesSum = ref("");
       <div class="w-full flex justify-center items-center">
         <button
             @click="inputValues.fill('')"
-            class="w-full sm:w-auto max-w-[14dvw] py-2 px-6 bg-[--button-delete-base-color] text-[--button-delete-text-color] font-semibold rounded-lg hover:bg-[--button-delete-hover-color] active:bg-[--button-delete-active-color]"
+            class="w-full max-w-[80dvw] lg:max-w-[20dvw] py-2 px-6 bg-[--button-delete-base-color] text-[--button-delete-text-color] font-semibold rounded-lg hover:bg-[--button-delete-hover-color] active:bg-[--button-delete-active-color]"
         >
           Válaszok törlése
         </button>
