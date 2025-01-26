@@ -70,7 +70,94 @@ const showEditorPopup = ref(false);
 const viewType = ref('modules');
 const selectedModule = ref({
   name: 'None',
-  content: 'None',
+  // content: 'None',
+  content: `
+  # Markdown Teszt
+
+  Ez egy **félkövér** és egy *dőlt* szöveg.
+
+  ## Lista
+
+  - Első pont
+  - Második pont
+    - Alpont
+    - Még egy alpont
+
+  ## Kód blokk
+
+  \`\`\`javascript
+  console.log("Hello, World!");
+  \`\`\`
+
+  ## Link és kép
+
+  [OpenAI](https://openai.com)
+
+  # Markdown Teszt
+
+  Ez egy **félkövér** és egy *dőlt* szöveg.
+
+  ## Lista
+
+  - Első pont
+  - Második pont
+    - Alpont
+    - Még egy alpont
+
+  ## Kód blokk
+
+  \`\`\`javascript
+  console.log("Hello, World!");
+  \`\`\`
+
+  ## Link és kép
+
+  [OpenAI](https://openai.com)
+
+  # Markdown Teszt
+
+  Ez egy **félkövér** és egy *dőlt* szöveg.
+
+  ## Lista
+
+  - Első pont
+  - Második pont
+    - Alpont
+    - Még egy alpont
+
+  ## Kód blokk
+
+  \`\`\`javascript
+  console.log("Hello, World!");
+  \`\`\`
+
+  ## Link és kép
+
+  [OpenAI](https://openai.com)
+
+  # Markdown Teszt
+
+  Ez egy **félkövér** és egy *dőlt* szöveg.
+
+  ## Lista
+
+  - Első pont
+  - Második pont
+    - Alpont
+    - Még egy alpont
+
+  ## Kód blokk
+
+  \`\`\`javascript
+  console.log("Hello, World!");
+  \`\`\`
+
+  ## Link és kép
+
+  [OpenAI](https://openai.com)
+
+  ![Kép példája](https://i.redd.it/hpf5dtom6qbd1.jpeg)
+  `,
   createdAt: 'None',
   updatedAt: 'None',
   categories: [
@@ -152,6 +239,7 @@ onMounted(() => {
     const hMenu = document.querySelectorAll('.hamburger-menu');
     hMenu.forEach(menu => {
       (menu as HTMLElement).style.backgroundColor = 'rgba(0, 0, 0, 0.2)';
+      (menu as HTMLElement).style.zIndex = '1';
     });
     toggleMenu()
     emit('removezindex')
@@ -160,6 +248,7 @@ onMounted(() => {
     const hMenu = document.querySelectorAll('.hamburger-menu');
     hMenu.forEach(menu => {
       (menu as HTMLElement).style.backgroundColor = 'transparent';
+      (menu as HTMLElement).style.zIndex = '-1';
     });
     toggleMenu()
     emit('addzindex')
@@ -245,7 +334,7 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: -1;
   border-left: unset;
 }
 
