@@ -2,7 +2,7 @@
   <div class="view-page" v-if="isSizeCompatible">
     <div class="containerr">
       <RouterLink to="/">
-        <Button icon="pi pi-arrow-left" class="custom-button" aria-label="Back"/>
+        <FontAwesomeIcon class="text-4xl hover:invert absolute left-4 top-4" :icon="faArrowLeft"/>
       </RouterLink>
       <div class="login-box">
         <h2>Bejelentkezés</h2>
@@ -37,40 +37,39 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
+import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+
 document.title = "EduCloud | Bejelentkezés";
 
-export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-      isSizeCompatible: true
-    };
-  },
-  computed: {
-    isFormValid() {
-      return this.email.length > 0 && this.password.length > 0;
-    }
-  },
-  methods: {
-    handleLogin() {
-      console.log('Email:', this.email);
-      console.log('Jelszó:', this.password);
-    },
-    checkWindowSize() {
-      this.isSizeCompatible = window.innerWidth >= 344 && window.innerHeight >= 470;
-    }
-  },
-  mounted() {
-    this.checkWindowSize();
+const email = ref('');
+const password = ref('');
+const isSizeCompatible = ref(true);
 
-    window.addEventListener('resize', this.checkWindowSize);
-  },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.checkWindowSize);
-  }
+const isFormValid = computed(() => {
+  return email.value.length > 0 && password.value.length > 0;
+});
+
+const handleLogin = () => {
+  console.log('Email:', email.value);
+  console.log('Jelszó:', password.value);
 };
+
+const checkWindowSize = () => {
+  isSizeCompatible.value = window.innerWidth >= 344 && window.innerHeight >= 470;
+};
+
+onMounted(() => {
+  checkWindowSize();
+  window.addEventListener('resize', checkWindowSize);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkWindowSize);
+});
 </script>
 
 <style scoped>
