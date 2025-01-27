@@ -10,10 +10,10 @@
                 <div v-if="menuVisible" class="menu-container" @click.stop>
                     <div v-for="theme in themes" :key="theme" @click="changeTheme(theme)" class="theme-option"
                         :class="{ selected: theme === currentTheme }">
-                        
+
                         <div v-if="loading[theme]" class="spinner"></div>
                         <img v-else :src="getThemeImage(theme)" :alt="`${theme} theme`" />
-                        
+
                         <span>{{ theme }}</span>
                     </div>
                 </div>
@@ -53,17 +53,17 @@ const getThemeImage = (theme: string): string => {
     loading.value[theme] = true;
 
     const imageUrl = new URL(`../../../public/assets/${theme}.jpg`, import.meta.url).href;
-    
+
     const img = new Image();
     img.src = imageUrl;
     img.onload = () => {
-        loading.value[theme] = false; 
-        loadedImages.value[theme] = true;  
+        loading.value[theme] = false;
+        loadedImages.value[theme] = true;
     };
     img.onerror = () => {
         loading.value[theme] = false;
     };
-    
+
     return imageUrl;
 };
 
@@ -189,6 +189,7 @@ onMounted(() => {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
