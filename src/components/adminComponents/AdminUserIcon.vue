@@ -21,14 +21,22 @@ import { useThemeStore } from '@/stores/themeStore';
 import ThemeMenu from '@/components/themeChangerComponents/ThemeMenu.vue';
 import { mdiAccountOutline, mdiSecurity, mdiLogout } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
+import {emit} from "@/utils/eventBus.util";
 
 const isDropdownVisible = ref(false);
 const userIcon = ref<HTMLElement | null>(null);
 const dropdownPosition = ref<{ top: string, left: string }>({ top: '0px', left: '0px' });
 
+
+const emitValue = () => {
+  emit('value', isDropdownVisible.value);
+};
+
+
 function toggleDropdown() {
   isDropdownVisible.value = !isDropdownVisible.value;
   updateDropdownPosition();
+
 }
 
 function closeDropdown() {
@@ -52,7 +60,7 @@ function updateDropdownPosition() {
 
       dropdownPosition.value = {
         top: `${iconRect.bottom + window.scrollY}px`,
-        left: `${-142}px`,
+        left: `${-149}px`,
       };
 
     }

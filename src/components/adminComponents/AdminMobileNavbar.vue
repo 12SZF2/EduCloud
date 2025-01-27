@@ -60,6 +60,7 @@ onMounted(() => {
 onBeforeUnmount(() => {
   document.removeEventListener('click', handleOutsideClick);
 });
+
 </script>
 
 <template>
@@ -73,7 +74,7 @@ onBeforeUnmount(() => {
       </button>
     </div>
     <div v-if="isDropdownVisible">
-      <div class="mt-[15px] ml-1 flex flex-col z-[9999] absolute text-[--text-color] sm:text-xl md:text-1xl bg-[--background-color] rounded-lg"
+      <div class="mt-[14px] w-[96dvw] ml-1 flex flex-col z-[9999] absolute text-[--text-color] sm:text-xl md:text-1xl bg-[--background-color] rounded-lg"
         ref="dropdownRef">
         <!-- Modules Dropdown -->
         <div class="ml-1">
@@ -92,7 +93,10 @@ onBeforeUnmount(() => {
                     to="/admin/module-create"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'module-create' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('module-create')"
+                    @click="()=>{
+                      handleLinkClick('module-create')
+                      closeDropdown()
+                    }"
                 >
                   <li>Létrehozás</li>
                 </RouterLink>
@@ -100,7 +104,10 @@ onBeforeUnmount(() => {
                     to="/admin/module-list"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'module-list' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('module-list')"
+                    @click="() => {
+                      handleLinkClick('module-list')
+                      closeDropdown()
+                    }"
                 >
                   <li>Listázás</li>
                 </RouterLink>
@@ -108,7 +115,10 @@ onBeforeUnmount(() => {
                     to="/admin/module-category-create"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'module-category-create' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('module-category-create')"
+                    @click="() => {
+                      handleLinkClick('module-category-create')
+                      closeDropdown()
+                    }"
                 >
                   <li>Kategória létrehozása</li>
                 </RouterLink>
@@ -132,7 +142,10 @@ onBeforeUnmount(() => {
                     to="/admin/assignment-create"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'assignment-create' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('assignment-create')"
+                    @click="() =>{
+                      handleLinkClick('assignment-create')
+                      closeDropdown()
+                    }"
                 >
                   <li>Létrehozás</li>
                 </RouterLink>
@@ -140,7 +153,10 @@ onBeforeUnmount(() => {
                     to="/admin/assignment-list"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'assignment-list' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('assignment-list')"
+                    @click="() => {
+                      handleLinkClick('assignment-list')
+                      closeDropdown()
+                    }"
                 >
                   <li>Listázás</li>
                 </RouterLink>
@@ -164,7 +180,10 @@ onBeforeUnmount(() => {
                     to="/admin/user-create"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'user-create' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('user-create')"
+                    @click="() => {
+                      handleLinkClick('user-create')
+                      closeDropdown()
+                    }"
                 >
                   <li>Létrehozás</li>
                 </RouterLink>
@@ -172,7 +191,10 @@ onBeforeUnmount(() => {
                     to="/admin/user-list"
                     class="block px-4 text-lg hover:text-[--text-link-hover-color-mobile] transition-colors duration-100"
                     :style="{ color: clickedLink === 'user-list' ? 'var(--active-page-link-color-mobile)' : '' }"
-                    @click="handleLinkClick('user-list')"
+                    @click="() => {
+                      handleLinkClick('user-list')
+                      closeDropdown()
+                    }"
                 >
                   <li>Listázás</li>
                 </RouterLink>

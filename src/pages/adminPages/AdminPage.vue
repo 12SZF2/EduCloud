@@ -33,7 +33,6 @@ onUnmounted(() => {
 });
 
 
-
 </script>
 
 <template>
@@ -51,7 +50,7 @@ onUnmounted(() => {
     </template>
     <template #right>
       <section class="w-full h-full relative">
-        <div v-if="!isLargeScreen" class="absolute top-[1.1em] left-2">
+        <div v-if="!isLargeScreen"  class="absolute top-[1.1em] left-2">
           <AdminMobileNavbar/>
         </div>
         <div v-if="!isLargeScreen" class="absolute top-[0.7em] right-2">
