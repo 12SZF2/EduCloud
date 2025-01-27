@@ -1,9 +1,14 @@
 <script setup lang="ts">
+
+import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+
 document.title = "EduCloud | Szakmák";
 const navigateToPage = (url: string) => {
   window.location.href = url;
 };
 import { ref, onMounted, onBeforeUnmount } from "vue";
+import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const isSizeCompatible = ref(true);
 
@@ -27,6 +32,9 @@ onBeforeUnmount(() => {
 <template>
   <div class="view-page" v-if="isSizeCompatible">
     <section id="tranding">
+      <RouterLink to="/" class="absolute left-4 top-4">
+        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faArrowLeft"/>
+      </RouterLink>
       <h1 class="section-heading">Szakmák</h1>
       <div class="containerr">
         <div class="container">

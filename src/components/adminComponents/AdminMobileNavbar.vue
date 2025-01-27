@@ -2,8 +2,6 @@
 import { onBeforeUnmount, onMounted, ref } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faArrowDownShortWide } from "@fortawesome/free-solid-svg-icons/faArrowDownShortWide";
-import AdminNavbar from "./AdminNavbar.vue";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useRoute } from "vue-router";
 import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
 
@@ -67,7 +65,7 @@ onBeforeUnmount(() => {
   <section>
     <div class="w-full h-full flex flex-row gap-4">
       <RouterLink to="/">
-        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faHouse" />
+        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faHouse"/>
       </RouterLink>
       <button @click.stop="toggleDropdown">
       <FontAwesomeIcon class="text-4xl hover:invert"  :icon="faArrowDownShortWide"/>
