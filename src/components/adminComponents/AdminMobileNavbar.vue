@@ -64,9 +64,6 @@ onBeforeUnmount(() => {
 <template>
   <section>
     <div class="w-full h-full flex flex-row gap-4">
-      <RouterLink to="/">
-        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faHouse"/>
-      </RouterLink>
       <button @click.stop="toggleDropdown">
       <FontAwesomeIcon class="text-4xl hover:invert"  :icon="faArrowDownShortWide"/>
       </button>
@@ -74,6 +71,11 @@ onBeforeUnmount(() => {
     <div v-if="isDropdownVisible">
       <div class="mt-[14px] w-[96dvw] ml-1 flex flex-col z-[9999] absolute text-[--text-color] sm:text-xl md:text-1xl bg-[--background-color] rounded-lg"
         ref="dropdownRef">
+        <div class="pl-2 pt-2">
+          <RouterLink to="/">
+            Home
+          </RouterLink>
+        </div>
         <!-- Modules Dropdown -->
         <div class="ml-1">
           <div class="py-2 mt-2">

@@ -45,7 +45,7 @@ const tableCols = ['Név','Regisztráció Ideje','Email Cím','Módosítás','T�
       <span>Felhasználók</span>
     </div>
 
-    <div class="mt-8 w-full px-4 flex flex-col items-center">
+    <div class="mt-2 w-full px-4 flex flex-col items-center">
 
       <!-- Search -->
       <div v-if="users.length > 0" class="my-8 w-full max-w-md flex justify-center ">
