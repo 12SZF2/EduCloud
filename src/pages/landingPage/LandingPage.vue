@@ -258,6 +258,15 @@ watch(isRain, (newVal) => {
 </template>
 
 <style scoped>
+#menu-icon{ 
+  color: black;
+}
+
+#close-icon{
+  color: black;
+}
+
+
 .rain-button {
   background-color: transparent;
   border: none;
@@ -306,7 +315,7 @@ watch(isRain, (newVal) => {
 
 .navbar a {
   font-size: 1.15rem;
-  color: var(text-color);
+  color: black;
   text-decoration: none;
   transition: 0.3s;
   text-shadow: 0 0 2px #000000;
@@ -361,21 +370,21 @@ watch(isRain, (newVal) => {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    width: 30%;
+    left: 65%;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
   }
 
   #check:checked~.navbar {
-    height: 13.8rem;
+    height: 8.5rem;
   }
 
   .navbar a {
     display: block;
     font-size: 1.1rem;
     margin: .3rem 0;
-    text-align: center;
+    text-align: right;
     opacity: 0;
     transform: translateY(-50px);
     transition: all 0.13s ease;
