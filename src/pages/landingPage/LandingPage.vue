@@ -252,8 +252,7 @@ watch(isRain, (newVal) => {
 
   <div class="flex justify-end " id="rightSide">
     <div class="fixed-bottom-left font-semibold">
-      <h1>Pollák</h1>
-      <h1>Classroom</h1>
+      <h1>EduCloud</h1>
     </div>
   </div>
 </template>
@@ -307,7 +306,7 @@ watch(isRain, (newVal) => {
 
 .navbar a {
   font-size: 1.15rem;
-  color: rgb(0, 0, 0);
+  color: var(text-color);
   text-decoration: none;
   transition: 0.3s;
   text-shadow: 0 0 2px #000000;
@@ -403,7 +402,7 @@ h1 {
   margin: 0;
   line-height: 1;
   transition: 0.3s;
-  color: #000000;
+  color: var(text-color);
 }
 
 @media (max-width: 1000px) {
