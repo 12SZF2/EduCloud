@@ -136,69 +136,14 @@ height: 2rem;
   </section>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue';
+<script setup lang="ts">
+import {ref, computed, onMounted} from 'vue';
+import {useModuleStore} from "@/stores/module";
 
 // TODO: Gyula, refactor this.
-const grades = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-const categories = {
-  A: ['Math', 'Science'],
-  B: ['History', 'Geography', 'Math'],
-  C: ['Literature', 'Arts'],
-  D: ['Biology', 'Chemistry'],
-  E: ['Physics', 'Astronomy'],
-  F: ['Philosophy', 'Sociology'],
-  G: ['Law', 'Politics'],
-  H: ['Economics', 'Psychology'],
-};
-const professions = {
-  A: ['Engineer', 'Scientist'],
-  B: ['Teacher', 'Historian'],
-  C: ['Writer', 'Artist'],
-  D: ['Biologist', 'Chemist'],
-  E: ['Physicist', 'Astronomer'],
-  F: ['Philosopher', 'Sociologist'],
-  G: ['Lawyer', 'Politician'],
-  H: ['Economist', 'Psychologist'],
-};
+// FIXME no
 
-const categoryToGrades = {
-  Math: ['A', 'B'],
-  Science: ['A', 'D'],
-  History: ['B'],
-  Geography: ['B', 'C'],
-  Literature: ['C'],
-  Arts: ['C', 'D'],
-  Biology: ['D', 'E'],
-  Chemistry: ['D', 'E'],
-  Physics: ['E', 'F'],
-  Astronomy: ['E'],
-  Philosophy: ['F'],
-  Sociology: ['F'],
-  Law: ['G'],
-  Politics: ['G'],
-  Economics: ['H'],
-  Psychology: ['H'],
-};
-
-const professionToGrades = {
-  Engineer: ['A', 'B'],
-  Scientist: ['A'],
-  Teacher: ['B'],
-  Historian: ['B', 'C'],
-  Writer: ['C', 'D'],
-  Artist: ['C', 'D'],
-  Biologist: ['D', 'E'],
-  Chemist: ['D', 'E'],
-  Physicist: ['E'],
-  Astronomer: ['E'],
-  Philosopher: ['F'],
-  Sociologist: ['F'],
-  Lawyer: ['G'],
-  Politician: ['G'],
-  Economist: ['H'],
-  Psychologist: ['H'],
-};
+const store = useModuleStore();
 
 const selectedGrade = ref('');
 const selectedCategory = ref('');
@@ -259,4 +204,8 @@ const clearSelections = () => {
   selectedCategory.value = '';
   selectedProfession.value = '';
 };
+
+onMounted(async () => {
+
+});
 </script>

@@ -1,21 +1,12 @@
 <script setup lang="ts">
 
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
+import {useUserStore} from "@/stores/user";
+
+const store = useUserStore();
 
 const users = ref('')
 
-users.value = [
-  { id: 1, name: 'John Doe', registryDate: '2023-01-15', email: 'john.doe@example.com' },
-  { id: 2, name: 'Jane Smith', registryDate: '2023-02-20', email: 'jane.smith@example.com' },
-  { id: 3, name: 'Alice Johnson', registryDate: '2023-03-10', email: 'alice.johnson@example.com' },
-  { id: 4, name: 'Bob Brown', registryDate: '2023-04-05', email: 'bob.brown@example.com' },
-  { id: 5, name: 'Charlie Davis', registryDate: '2023-05-25', email: 'charlie.davis@example.com' },
-  { id: 6, name: 'Diana Evans', registryDate: '2023-06-30', email: 'diana.evans@example.com' },
-  { id: 7, name: 'Ethan Harris', registryDate: '2023-07-15', email: 'ethan.harris@example.com' },
-  { id: 8, name: 'Fiona Clark', registryDate: '2023-08-20', email: 'fiona.clark@example.com' },
-  { id: 9, name: 'George Lewis', registryDate: '2023-09-10', email: 'george.lewis@example.com' },
-  { id: 10, name: 'Hannah Walker', registryDate: '2023-10-05', email: 'hannah.walker@example.com' }
-];
 const nameSearchQuery = ref('');
 
 const filteredUsersByName = computed(() => {
@@ -25,7 +16,8 @@ const filteredUsersByName = computed(() => {
 });
 
 //delete function
-function deleteUser(id: number) {
+async function deleteUser(id: string) {
+  await store.deleteUserById(id)
   users.value.map((value:any, index)=>{
     if(id == value.id) {
       users.value.splice(index, 1)
@@ -35,6 +27,13 @@ function deleteUser(id: number) {
 
 const tableCols = ['Név','Regisztráció Ideje','Email Cím','Módosítás','Törlés'];
 
+onMounted(async () => {
+  try {
+    users.value = await store.fetchAllUsers();
+  } catch (e) {
+    console.error(e);
+  }
+});
 
 </script>
 

@@ -1,47 +1,46 @@
 <script setup lang="ts">
+import {computed, onMounted, ref} from "vue";
+import {useModuleStore} from "@/stores/module";
 
-import {computed, ref} from "vue";
+const store = useModuleStore();
 
-  const modules = ref('')
-
-
-  modules.value = [
-   { id: 1, name: 'Express alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 2, name: 'Java alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 3, name: 'C# alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 4, name: 'HTML alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 5, name: 'CSS alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 6, name: 'PHP alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
-   { id: 7, name: 'Random alapok', description: 'almavagyok', grade: '13', createdAt: '2024.06.25 12:00:00', categoryName: 'Backend', professionName: 'Szoftverfejleszto' },
- ];
+const modules = ref('')
 
 const nameSearchQuery = ref('');
 
-  const filteredModulesByName = computed(() => {
-    return modules.value.filter(module =>
-        module.name.toLowerCase().includes(nameSearchQuery.value.toLowerCase())
-    );
-  });
+const filteredModulesByName = computed(() => {
+  return modules.value.filter(module =>
+      module.name.toLowerCase().includes(nameSearchQuery.value.toLowerCase())
+  );
+});
 
-  //delete function
-  function deleteModule(id: number) {
-    modules.value.map((value:any, index)=>{
-      if(id == value.id) {
-        modules.value.splice(index, 1)
-      }
-    })
+//delete function
+function deleteModule(id: string) {
+  store.deleteModuleById(id)
+  modules.value.map((value: any, index) => {
+    if (id == value.id) {
+      modules.value.splice(index, 1)
+    }
+  })
+}
+
+onMounted(async () => {
+  try {
+    modules.value = await store.fetchAllModules();
+  } catch (e) {
+    console.error(e);
   }
+});
 
-
-
-  const tableCols = ['Név','Osztály','Leírás','Kategória','Szakma','Létrehozva','Módosítás','Törlés'];
+const tableCols = ['Név', 'Osztály', 'Leírás', 'Kategória', 'Szakma', 'Létrehozva', 'Módosítás', 'Törlés'];
 
 </script>
 
 <template>
   <section class="w-full h-full flex flex-col text-[--text-color] items-center">
 
-    <div class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
+    <div
+        class="flex w-full justify-center items-center text-2xl h-[3em] font-bold border-b-[1px] border-[--border-color]">
       <span>Modulok</span>
     </div>
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import {useUserStore} from "@/stores/user";
+
+const store = useUserStore();
 
 const dateValue = ref('');
 const dateInput = ref<HTMLInputElement | null>(null);

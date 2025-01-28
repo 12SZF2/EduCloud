@@ -9,6 +9,9 @@ textarea {
 }
 </style>
 <script setup lang="ts">
+import {useAdminAssignmentStore} from "@/stores/adminAssignment";
+import {usePopupStore} from "@/stores/popup";
+import {useAssignmentStore} from "@/stores/assignment";
 
 </script>
 
@@ -141,6 +144,8 @@ textarea {
 
 </template>
 
+const store = useAssignmentStore();
+const popupStore = usePopupStore();
 
 <script setup lang="ts">
 // TODO: Gyula, refactor this.
