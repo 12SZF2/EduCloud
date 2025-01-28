@@ -231,7 +231,7 @@ watch(isRain, (newVal) => {
 
       <nav class="navbar flex flex-col float-right md:flex-row mr-5 mt-5 md:space-x-4">
         <a>
-          <router-link style="--i:0" to="listing" class="asd text-white hover:underline">Megtekintés</router-link>
+          <router-link style="--i:0" to="listing" class="asd text-white hover:underline">Szakmák</router-link>
         </a>
         <a>
           <router-link style="--i:1" to="login" class="text-white hover:underline">Bejelentkezés</router-link>
