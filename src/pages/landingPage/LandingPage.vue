@@ -136,11 +136,6 @@ onBeforeUnmount(() => {
   display: none;
 }
 
-@media (max-width: 992px) {
-  .header {
-    padding: 1.3rem 5%;
-  }
-}
 
 @media (max-width: 910px) {
   .icons {
@@ -164,8 +159,7 @@ onBeforeUnmount(() => {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    width: 55%;
-    left: 38%;
+    right: 20px;
     transition: all 0.3s ease-in-out;
   }
 
@@ -174,13 +168,12 @@ onBeforeUnmount(() => {
   }
 
   .navbar a {
-    z-index: 100;
     display: block;
     font-size: 1.1rem;
     margin: .3rem -3px;
     text-align: right;
     opacity: 0;
-    transform: translateY(-50px);
+    transform: translatex(200px);
     transition: all 0.13s ease;
   }
 
@@ -196,7 +189,7 @@ onBeforeUnmount(() => {
   position: fixed;
   bottom: 0;
   left: 0;
-  margin: 3%;
+  margin: 30px;
 }
 
 h1 {
