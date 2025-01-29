@@ -45,7 +45,10 @@ onBeforeUnmount(() => {
             <router-link style="--i:1" to="login" class="text-white hover:underline">Bejelentkezés</router-link>
           </a>
           <a>
-            <router-link style="--i:2" to="admin" class="text-white hover:underline">Admin</router-link>
+            <router-link style="--i:2" to="" class="text-white hover:underline">Theme</router-link>
+          </a>
+          <a>
+            <router-link style="--i:3" to="admin" class="text-white hover:underline">Admin</router-link>
           </a>
         </nav>
 
