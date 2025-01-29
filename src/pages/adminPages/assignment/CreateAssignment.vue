@@ -8,12 +8,6 @@ textarea {
   height: 2rem;
 }
 </style>
-<script setup lang="ts">
-import {useAdminAssignmentStore} from "@/stores/adminAssignment";
-import {usePopupStore} from "@/stores/popup";
-import {useAssignmentStore} from "@/stores/assignment";
-
-</script>
 
 <template>
   <section class="w-full h-full text-[--text-color]">
@@ -148,7 +142,11 @@ const store = useAssignmentStore();
 const popupStore = usePopupStore();
 
 <script setup lang="ts">
+
 // TODO: Gyula, refactor this.
+import {usePopupStore} from "@/stores/popup";
+import {useAssignmentStore} from "@/stores/assignment";
+
 const grades = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
 const categories = {
   A: ['Math', 'Science'],
