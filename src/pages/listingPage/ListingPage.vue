@@ -24,23 +24,7 @@ onBeforeUnmount(() => {
 });
 
 const saveCardToCookie = (name: string) => {
-  let savedCards = getSavedCards();
-  if (!savedCards.includes(name)) {
-    savedCards.push(name);
-    document.cookie = `selected_profession=${JSON.stringify(
-      savedCards
-    )}; path=/; max-age=31536000`;
-  }
-};
-
-const getSavedCards = (): string[] => {
-  const cookies = document.cookie.split("; ");
-  for (let cookie of cookies) {
-    if (cookie.startsWith("selected_profession=")) {
-      return JSON.parse(cookie.split("=")[1]);
-    }
-  }
-  return [];
+  document.cookie = `selected_profession=${name}; path=/; max-age=31536000; SameSite=Lax`;
 };
 </script>
 
@@ -48,60 +32,40 @@ const getSavedCards = (): string[] => {
   <div class="view-page" v-if="isSizeCompatible">
     <section id="tranding">
       <RouterLink to="/" class="absolute left-4 top-4">
-        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faArrowLeft" />
+        <FontAwesomeIcon class="text-4xl hover:invert" :icon="faArrowLeft"/>
       </RouterLink>
       <h1 class="section-heading">Szakmák</h1>
       <div class="containerr">
         <div class="container">
-          <a
-            href="/view/SzoftverFejlesztő-tesztelő"
-            class="card"
-            @click="saveCardToCookie('Szoftverfejlesztő és -tesztelő')"
-          >
+          <a href="/view" class="card" @click="() => saveCardToCookie('Szoftverfejlesztő és -tesztelő')">
             <div class="images" id="szoftverF">
               <div class="card-content">
                 <h2 class="szakma-name">Szoftverfejlesztő és -tesztelő</h2>
               </div>
             </div>
           </a>
-          <a
-            href="/view/ElektroTechnikus"
-            class="card"
-            @click="saveCardToCookie('Elektro Technikus')"
-          >
+          <a href="/view" class="card" @click="() => saveCardToCookie('Elektro Technikus')">
             <div class="images" id="elektroT">
               <div class="card-content">
                 <h2 class="szakma-name">Elektro Technikus</h2>
               </div>
             </div>
           </a>
-          <a
-            href="/view/AutomatikaiTechnikus"
-            class="card"
-            @click="saveCardToCookie('Automatikai Technikus')"
-          >
+          <a href="/view" class="card" @click="() => saveCardToCookie('Automatikai Technikus')">
             <div class="images" id="autoT">
               <div class="card-content">
                 <h2 class="szakma-name">Automatikai Technikus</h2>
               </div>
             </div>
           </a>
-          <a
-            href="/view/Rendszerüzemeltető"
-            class="card"
-            @click="saveCardToCookie('Rendszerüzemeltető')"
-          >
+          <a href="/view" class="card" @click="() => saveCardToCookie('Rendszerüzemeltető')">
             <div class="images" id="redszerU">
               <div class="card-content">
                 <h2 class="szakma-name">Rendszerüzemeltető</h2>
               </div>
             </div>
           </a>
-          <a
-            href="/view/Közismeret"
-            class="card"
-            @click="saveCardToCookie('Közismeret')"
-          >
+          <a href="/view" class="card" @click="() => saveCardToCookie('Közismeret')">
             <div class="images" id="kozismeret">
               <div class="card-content">
                 <h2 class="szakma-name">Közismeret</h2>
@@ -119,21 +83,21 @@ const getSavedCards = (): string[] => {
 
 <style scoped>
 .size-error {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  color: var(--text-color);
-}
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: var(--text-color);
+    }
 
-.view-page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  color: var(--text-color);
-}
+    .view-page {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      color: var(--text-color)
+    }
 
 :root {
   --primary: #ec994b;
@@ -152,14 +116,14 @@ const getSavedCards = (): string[] => {
   text-decoration: none;
 }
 
-.containerr {
+.containerr{
   z-index: -1;
   margin: 0 auto;
-  padding: 1.5rem 1.5rem;
+  padding: 1.5rem 1.5rem ;
   display: flex;
-  overflow-y: auto;
+  overflow-y: auto; 
   max-width: 1000px;
-  max-height: 80dvh;
+  max-height: 80dvh; 
   scrollbar-width: thin;
   border-radius: 25px;
   background-color: rgba(124, 124, 124, 0.418);
@@ -169,34 +133,38 @@ const getSavedCards = (): string[] => {
 
 .container {
   margin: 0 auto;
-  padding: 2.5rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  overflow-y: auto;
+  overflow-y: auto; 
   max-width: 1000px;
-  max-height: 80dvh;
+  max-height: 80dvh; 
   scrollbar-width: thin;
   scrollbar-color: var(--primary) #f5f5f5;
 }
 
-.containerr::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #f5f5f5;
+.containerr::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
 }
 
-.containerr::-webkit-scrollbar {
-  width: 10px;
-  background-color: #f5f5f5;
+.containerr::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
 }
 
-.containerr::-webkit-scrollbar-thumb {
-  background-color: #000000;
-  border: 2px solid #000000;
+.containerr::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+	border: 2px solid #000000;
 }
+
 
 .card {
-  min-height: 15.5rem;
+  min-height: 15rem; 
   display: flex;
   flex-direction: row;
   border-radius: 1.5rem;
@@ -214,7 +182,7 @@ const getSavedCards = (): string[] => {
 }
 
 .images {
-  flex: 1;
+  flex: 1; 
   height: 100%;
 }
 
@@ -250,18 +218,14 @@ const getSavedCards = (): string[] => {
 
 .images img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: 100%; 
+  object-fit: cover; 
 }
 
 .card-content {
-  flex: 1;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0.301) 0%,
-    rgba(0, 0, 0, 1) 76%
-  );
+  flex: 1; 
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.301) 0%, rgba(0,0,0,1) 76%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -276,7 +240,7 @@ const getSavedCards = (): string[] => {
   color: white;
   font-size: 1.8rem;
   font-weight: bold;
-  transition: 0.1s;
+  transition: .1s;
 }
 
 .button-container {
@@ -294,7 +258,7 @@ const getSavedCards = (): string[] => {
 
 @media (max-width: 768px) {
   .card {
-    flex-direction: column;
+    flex-direction: column; 
   }
 
   .images {
@@ -307,9 +271,10 @@ const getSavedCards = (): string[] => {
   }
 }
 
-@media (max-width: 465px) {
-  .szakma-name {
+@media (max-width: 465px){
+  .szakma-name{
     font-size: 2.1dvh;
   }
 }
+
 </style>
