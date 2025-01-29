@@ -259,11 +259,11 @@ watch(isRain, (newVal) => {
 
 <style scoped>
 #menu-icon{ 
-  color: black;
+  color: var(--text-color);
 }
 
 #close-icon{
-  color: black;
+  color: var(--text-color);
 }
 
 
@@ -315,7 +315,7 @@ watch(isRain, (newVal) => {
 
 .navbar a {
   font-size: 1.15rem;
-  color: black;
+  color: var(--text-color);
   text-decoration: none;
   transition: 0.3s;
   text-shadow: 0 0 2px #000000;
@@ -411,7 +411,7 @@ h1 {
   margin: 0;
   line-height: 1;
   transition: 0.3s;
-  color: var(text-color);
+  color: var(--text-color);
 }
 
 @media (max-width: 1000px) {
