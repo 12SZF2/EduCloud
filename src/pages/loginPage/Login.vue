@@ -18,10 +18,10 @@
           </div>
           <div class="line"></div>
           <a
-              href="#"
-              :class="['submit', { disabled: !isFormValid }]"
-              :disabled="!isFormValid"
-              @click="isFormValid && handleLogin"
+            href="#"
+            :class="['submit', { disabled: !isFormValid }]"
+            :disabled="!isFormValid"
+            @click="isFormValid && handleLogin"
           >
             Belépés
           </a>
@@ -39,9 +39,8 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 document.title = "EduCloud | Bejelentkezés";
 
@@ -127,7 +126,6 @@ html {
   }
 }
 
-
 .login-box {
   position: absolute;
   top: 50%;
@@ -159,7 +157,7 @@ html {
 .login-box .user-box {
   text-align: center;
   position: relative;
-  top: min(3vh, 20px);
+  top: min(1.5vh, 20px);
   width: 60dvw;
   max-width: 300px;
 }
@@ -170,7 +168,7 @@ html {
   padding: 10px 0;
   font-size: 16px;
   color: #ffffff;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   border: none;
   outline: none;
   background: transparent;
@@ -191,7 +189,7 @@ html {
 .line1 {
   width: 60dvw;
   max-width: 300px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
   border: none;
   border-bottom: 2px solid #CD90FB;
   outline: none;
@@ -236,7 +234,7 @@ html {
 
 .submit.disabled {
   cursor: not-allowed;
-  opacity: 0;
+  opacity: 0.3;
   pointer-events: none;
   transition: none;
 }
@@ -295,6 +293,7 @@ html {
 }
 
 .folyt {
+  width: 200px;
   text-decoration: underline;
   font-size: 13px;
   color: #fff;
@@ -303,4 +302,3 @@ html {
 }
 
 </style>
-  
