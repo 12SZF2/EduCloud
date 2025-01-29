@@ -113,6 +113,12 @@ html {
   }
 }
 
+@media (max-width: 500px) {
+  .login-box form .submit:hover {
+    max-width: 140px;
+  }
+}
+
 @media (max-width: 480px) {
   .containerr {
     background-position: top;
