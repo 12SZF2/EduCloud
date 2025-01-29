@@ -1,32 +1,45 @@
 <script setup lang="ts">
-
-import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import { ref, onMounted, onBeforeUnmount } from "vue";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faHouse } from "@fortawesome/free-solid-svg-icons/faHouse";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 document.title = "EduCloud | Szakmák";
-const navigateToPage = (url: string) => {
-  window.location.href = url;
-};
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const isSizeCompatible = ref(true);
 
 const checkWindowSize = () => {
   const width = window.innerWidth;
   const height = window.innerHeight;
-
   isSizeCompatible.value = width >= 344 && height >= 470;
 };
 
 onMounted(() => {
-  checkWindowSize(); 
-  window.addEventListener("resize", checkWindowSize); 
+  checkWindowSize();
+  window.addEventListener("resize", checkWindowSize);
 });
 
 onBeforeUnmount(() => {
   window.removeEventListener("resize", checkWindowSize);
 });
+
+const saveCardToCookie = (name: string) => {
+  let savedCards = getSavedCards();
+  if (!savedCards.includes(name)) {
+    savedCards.push(name);
+    document.cookie = `selected_profession=${JSON.stringify(savedCards)}; path=/; max-age=31536000`;
+  }
+};
+
+const getSavedCards = (): string[] => {
+  const cookies = document.cookie.split("; ");
+  for (let cookie of cookies) {
+    if (cookie.startsWith("selected_profession=")) {
+      return JSON.parse(cookie.split("=")[1]);
+    }
+  }
+  return [];
+};
 </script>
 
 <template>
@@ -38,40 +51,36 @@ onBeforeUnmount(() => {
       <h1 class="section-heading">Szakmák</h1>
       <div class="containerr">
         <div class="container">
-          <a href="/szoftverfejleszto" class="card">
-            <div class="images" id="szf">
+          <a href="/SzpftverFejlesztő-tesztelő" class="card" @click="saveCardToCookie('Szoftverfejlesztő és -tesztelő')">
+            <div class="images" id="szoftverF">
               <div class="card-content">
                 <h2 class="szakma-name">Szoftverfejlesztő és -tesztelő</h2>
               </div>
             </div>
           </a>
-
-          <a href="/Elektro Technikus" class="card">
-            <div class="images" id="autoT">
+          <a href="/ElektroTechnikus" class="card" @click="saveCardToCookie('Elektro Technikus')">
+            <div class="images" id="elektroT">
               <div class="card-content">
                 <h2 class="szakma-name">Elektro Technikus</h2>
               </div>
             </div>
           </a>
-
-          <a href="/Automatikai Technikus" class="card">
-            <div class="images" id="webf">
+          <a href="/AutomatikaiTechnikus" class="card" @click="saveCardToCookie('Automatikai Technikus')">
+            <div class="images" id="autoT">
               <div class="card-content">
                 <h2 class="szakma-name">Automatikai Technikus</h2>
               </div>
             </div>
           </a>
-
-          <a href="/Rendszerüzemeltető" class="card">
-            <div class="images" id="redszerg">
+          <a href="/Rendszerüzemeltető" class="card" @click="saveCardToCookie('Rendszerüzemeltető')">
+            <div class="images" id="redszerU">
               <div class="card-content">
                 <h2 class="szakma-name">Rendszerüzemeltető</h2>
               </div>
             </div>
           </a>
-
-          <a href="/Közismeret" class="card">
-            <div class="images" id="asd">
+          <a href="/Közismeret" class="card" @click="saveCardToCookie('Közismeret')">
+            <div class="images" id="kozismeret">
               <div class="card-content">
                 <h2 class="szakma-name">Közismeret</h2>
               </div>
@@ -81,7 +90,6 @@ onBeforeUnmount(() => {
       </div>
     </section>
   </div>
-
   <div class="size-error" v-else>
     <p>Ekkora méretben az oldal nem megtekinthető</p>
   </div>
@@ -192,31 +200,31 @@ onBeforeUnmount(() => {
   height: 100%;
 }
 
-#szf {
+#szoftverF {
   background-image: url("../../../public/imgs/szoftver.jpg");
   background-size: cover;
   background-position: center;
 }
 
-#autoT {
+#elektroT {
   background-image: url("../../../public/imgs/elektro.jpg");
   background-size: cover;
   background-position: center;
 }
 
-#webf {
+#autoT {
   background-image: url("../../../public/imgs/automatikaiTechnikus.jpg");
   background-size: cover;
   background-position: center;
 }
 
-#redszerg {
+#redszerU {
   background-image: url("../../../public/imgs/rendszeruzemelteto.jpg");
   background-size: cover;
   background-position: center;
 }
 
-#asd {
+#kozismeret {
   background-image: url("../../../public/imgs/kozismeret.jpg");
   background-size: cover;
   background-position: center;
