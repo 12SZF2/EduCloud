@@ -139,7 +139,7 @@ onBeforeUnmount(() => {
 
 .container {
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
@@ -205,7 +205,7 @@ onBeforeUnmount(() => {
 }
 
 #webf {
-  background-image: url("../../../public/imgs/automatikaitechnikus.jpg");
+  background-image: url("../../../public/imgs/automatikaiTechnikus.jpg");
   background-size: cover;
   background-position: center;
 }

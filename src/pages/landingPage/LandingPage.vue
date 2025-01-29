@@ -231,7 +231,7 @@ watch(isRain, (newVal) => {
 
       <nav class="navbar flex flex-col float-right md:flex-row mr-5 mt-5 md:space-x-4">
         <a>
-          <router-link style="--i:0" to="listing" class="asd text-white hover:underline">Megtekintés</router-link>
+          <router-link style="--i:0" to="listing" class="asd text-white hover:underline">Szakmák</router-link>
         </a>
         <a>
           <router-link style="--i:1" to="login" class="text-white hover:underline">Bejelentkezés</router-link>
@@ -258,6 +258,15 @@ watch(isRain, (newVal) => {
 </template>
 
 <style scoped>
+#menu-icon{ 
+  color: var(--text-color);
+}
+
+#close-icon{
+  color: var(--text-color);
+}
+
+
 .rain-button {
   background-color: transparent;
   border: none;
@@ -306,7 +315,7 @@ watch(isRain, (newVal) => {
 
 .navbar a {
   font-size: 1.15rem;
-  color: var(text-color);
+  color: var(--text-color);
   text-decoration: none;
   transition: 0.3s;
   text-shadow: 0 0 2px #000000;
@@ -361,21 +370,21 @@ watch(isRain, (newVal) => {
     flex-direction: column;
     position: absolute;
     top: 100%;
-    left: 0;
-    width: 100%;
+    width: 30%;
+    left: 65%;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
   }
 
   #check:checked~.navbar {
-    height: 13.8rem;
+    height: 8.5rem;
   }
 
   .navbar a {
     display: block;
     font-size: 1.1rem;
     margin: .3rem 0;
-    text-align: center;
+    text-align: right;
     opacity: 0;
     transform: translateY(-50px);
     transition: all 0.13s ease;
@@ -402,7 +411,7 @@ h1 {
   margin: 0;
   line-height: 1;
   transition: 0.3s;
-  color: var(text-color);
+  color: var(--text-color);
 }
 
 @media (max-width: 1000px) {
