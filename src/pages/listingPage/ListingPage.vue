@@ -205,7 +205,7 @@ onBeforeUnmount(() => {
 }
 
 #webf {
-  background-image: url("../../../public/imgs/automatikaitechnikus.jpg");
+  background-image: url("../../../public/imgs/automatikaiTechnikus.jpg");
   background-size: cover;
   background-position: center;
 }
