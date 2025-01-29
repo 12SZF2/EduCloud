@@ -179,7 +179,7 @@ html {
   max-width: 300px;
   margin-bottom: 30px;
   border: none;
-  border-bottom: 2px solid #CD90FB;
+  border-bottom: 2px solid var(--login-default-color);
   outline: none;
   position: absolute;
   bottom: 116px;
@@ -191,7 +191,7 @@ html {
   max-width: 300px;
   margin-bottom: 35px;
   border: none;
-  border-bottom: 2px solid #CD90FB;
+  border-bottom: 2px solid var(--login-default-color);
   outline: none;
   position: absolute;
   bottom: 190px;
@@ -204,7 +204,7 @@ html {
   left: 0;
   padding: 10px 5px;
   font-size: 16px;
-  color: #785AEE;
+  color: var(--login-text-color);
   pointer-events: none;
   transition: .3s;
 }
@@ -213,7 +213,7 @@ html {
 .login-box .user-box input:valid ~ label {
   top: -16px;
   left: 0;
-  color: #785AEE;
+  color: var(--login-default-color);
   font-size: 12px;
   padding: 10px 0px;
 }
@@ -225,7 +225,7 @@ html {
 }
 
 .submit {
-  background-color: #CD90FB;
+  background-color: var(--login-default-color);
   color: rgb(0, 0, 0);
   border: none;
   cursor: pointer;
@@ -263,26 +263,26 @@ html {
 
 @keyframes shadows {
   0% {
-    box-shadow: 0px 0px 50px 1px #CD90FB;
+    box-shadow: 0px 0px 50px 1px var(--login-default-color);
   }
   50% {
     box-shadow: 0px 0px 40px 1px rgba(94, 94, 94, 0.5);
   }
   100% {
-    box-shadow: 0px 0px 50px 1px #CD90FB;
+    box-shadow: 0px 0px 50px 1px var(--login-default-color);
   }
 }
 
 .login-box form .submit:hover {
   width: 300px;
-  background: #CD90FB;
+  background: var(--login-default-color);
   color: black;
   border: 1px solid rgba(255, 255, 255, 0);
   animation: none;
-  box-shadow: 0 0 5px #CD90FB,
-  0 0 25px #CD90FB,
-  0 0 50px #CD90FB,
-  0 0 100px #CD90FB;
+  box-shadow: 0 0 5px var(--login-default-color),
+  0 0 25px var(--login-default-color),
+  0 0 50px var(--login-default-color),
+  0 0 100px var(--login-default-color);
 }
 
 .folytdiv {
