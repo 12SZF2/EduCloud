@@ -1,6 +1,11 @@
 <template>
   <div class="nav-bar">
-    <button class="back-button">←</button>
+       <RouterLink to="/">
+      <FontAwesomeIcon
+        class="text-4xl hover:invert absolute left-4 top-4"
+        :icon="faArrowLeft"
+      />
+    </RouterLink>
     <span class="title">Szerkesztés</span>
     <UserIcon />
   </div>
@@ -13,6 +18,8 @@
 <script setup lang="ts">
 import Editor from "../../components/EditorPageComponents/Editor.vue";
 import UserIcon from "@/components/userIconComponents/UserIcon.vue";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 </script>
 
 <style scoped>
