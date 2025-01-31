@@ -1,14 +1,21 @@
 import {defineStore} from "pinia";
 import serviceLogger from "@/utils/logger.custom.util";
+import Cookies from "js-cookie";
 
 export const useUserStore = defineStore('adminUser', () => {
     const logger = serviceLogger('adminUserStore')
     const url = import.meta.env.VITE_API_URL;
 
+    const getAuthHeader = () => {
+        const token = Cookies.get('access_token');
+        return token ? {Authorization: `Bearer ${token}`} : {};
+    }
+
     async function fetchAllUsers() {
         try {
             const response = await fetch(`${url}/api/admin/user/get-all`, {
                 credentials: 'include',
+                headers: getAuthHeader(),
             });
             const data = await response.json();
             logger.debug(`Fetched users: ${JSON.stringify(data)}`);
@@ -28,6 +35,7 @@ export const useUserStore = defineStore('adminUser', () => {
         try {
             const response = await fetch(`${url}/api/admin/user/get-by-id?id=${id}`, {
                 credentials: 'include',
+                headers: getAuthHeader(),
             });
             const data = await response.json();
             logger.debug(`Fetched user: ${JSON.stringify(data)}`);
@@ -56,8 +64,10 @@ export const useUserStore = defineStore('adminUser', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    ...getAuthHeader()
                 },
                 credentials: 'include',
+
                 body: JSON.stringify({username, password, displayName, email, birthDate, roles}),
             });
             const data = await response.json();
@@ -87,6 +97,7 @@ export const useUserStore = defineStore('adminUser', () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    ...getAuthHeader(),
                 },
                 credentials: 'include',
                 body: JSON.stringify({username, password, displayName, email, birthDate, roles}),
@@ -109,6 +120,7 @@ export const useUserStore = defineStore('adminUser', () => {
             const response = await fetch(`${url}/api/admin/user/delete?id=${id}`, {
                 method: 'DELETE',
                 credentials: 'include',
+                headers: getAuthHeader(),
             });
             const data = await response.json();
             logger.debug(`Deleted user: ${JSON.stringify(data)}`);

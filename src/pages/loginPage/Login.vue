@@ -6,25 +6,18 @@
       </RouterLink>
       <div class="login-box">
         <h2>Bejelentkezés</h2>
-        <form @submit.prevent="handleLogin">
+        <form @submit.prevent="login">
           <div class="user-box">
-            <input type="text" v-model="email" required=""/>
+            <input type="text" v-model="email" required/>
             <label>Felhasználónév</label>
           </div>
           <div class="line1"></div>
           <div class="user-box">
-            <input type="password" v-model="password" required=""/>
+            <input type="password" v-model="password" required/>
             <label>Jelszó</label>
           </div>
           <div class="line"></div>
-          <a
-              href="#"
-              :class="['submit', { disabled: !isFormValid }]"
-              :disabled="!isFormValid"
-              @click="isFormValid && handleLogin"
-          >
-            Belépés
-          </a>
+          <button type="submit" class="submit">Login</button>
           <router-link to="/listing">
             <div class="folytdiv"><a class="folyt">Folytatás bejelentkezés nélkül</a></div>
           </router-link>
@@ -37,25 +30,49 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import {faHouse} from "@fortawesome/free-solid-svg-icons/faHouse";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
+import Cookies from 'js-cookie';
+import {useRouter} from 'vue-router';
+const router = useRouter();
 
 document.title = "EduCloud | Bejelentkezés";
 
 const email = ref('');
 const password = ref('');
 const isSizeCompatible = ref(true);
+const errorMessage = ref('');
 
 const isFormValid = computed(() => {
   return email.value.length > 0 && password.value.length > 0;
 });
 
-const handleLogin = () => {
-  console.log('Email:', email.value);
-  console.log('Jelszó:', password.value);
+const login = async () => {
+  try{
+
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    })
+    const data = await response.json();
+    if (response.ok) {
+      Cookies.set('access_token', data.access_token, { expires: 7 }); // 7 days mfs
+      await router.push('/listing');
+    } else {
+      errorMessage.value = data.message;
+    }
+  } catch (error) {
+    errorMessage.value = "Hiba történt a bejelentkezés során";
+  }
 };
 
 const checkWindowSize = () => {
