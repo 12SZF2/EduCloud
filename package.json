@@ -21,13 +21,15 @@
     "github-markdown-css": "^5.8.1",
     "highlight.js": "^11.11.1",
     "js-cookie": "^3.0.5",
+    "jwt-decode": "^4.0.0",
     "marker": "^0.1.2",
     "md-editor-v3": "^5.1.1",
     "pinia": "^2.3.0",
     "swagger-editor": "^4.14.1",
     "vite-plugin-vue-devtools": "^7.6.8",
     "vue-markdown-render": "^2.2.1",
-    "vue-router": "^4.5.0"
+    "vue-router": "^4.5.0",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@types/markdown-it": "^14.1.2",

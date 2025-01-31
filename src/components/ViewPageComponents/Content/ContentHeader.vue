@@ -3,7 +3,7 @@
     <h1 v-if="isLargeScreen">{{ category }}</h1>
     <SvgIcon v-else type="mdi" :path="mdiMenu" class="icon" @click="emitTogglePopup" />
     <h1>{{ title }}</h1>
-    <SvgIcon type="mdi" :path="iconPath" class="icon" @click="openEditPopup" />
+    <SvgIcon type="mdi" :path="iconPath" class="icon edit" @click="openEditPopup" />
   </header>
 </template>
 
@@ -12,6 +12,44 @@ import { ref, onMounted, onUnmounted } from 'vue';
 import { mdiPencilOutline, mdiMenu } from '@mdi/js';
 import SvgIcon from '@jamescoyle/vue-icon';
 import { on, emit } from "@/utils/eventBus.util";
+
+import { useCookies } from 'vue3-cookies';
+import { jwtDecode } from 'jwt-decode';
+
+const isAdmin = ref(false)
+const { cookies } = useCookies();
+
+const isJwtValid = (token: string | null): boolean => {
+  if (!token) return false;
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded && decoded.exp * 1000 > Date.now();
+  } catch (error) {
+    return false;
+  }
+};
+
+const checkRole = () => {
+  const jwtToken = cookies.get('access_token');
+  isAdmin.value = isJwtValid(jwtToken);
+};
+
+const hideEdit = () => {
+  checkRole();
+  const icons = document.querySelectorAll<HTMLButtonElement>('.edit');
+
+  icons.forEach(icon => {
+    if (!isAdmin.value) {
+      icon.style.opacity = '0';
+      icon.style.cursor = 'default';
+      icon.disabled = true;
+    } else {
+      icon.style.opacity = '1';
+      icon.style.cursor = 'pointer';
+      icon.disabled = false;
+    }
+  });
+}
 
 const iconPath = ref(mdiPencilOutline);
 const isLargeScreen = ref(window.innerWidth >= 1300);
@@ -35,6 +73,7 @@ function handleResize() {
 }
 
 onMounted(() => {
+  hideEdit()
   window.addEventListener('resize', handleResize);
   on('removezindex', () => {
     const icons = document.querySelectorAll('.icon');
@@ -56,6 +95,10 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+.edit {
+  opacity: 100;
+}
+
 header {
   display: flex;
   justify-content: space-between;

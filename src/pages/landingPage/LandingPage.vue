@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount, watch, Ref } from 'vue';
+import { useCookies } from 'vue3-cookies';
+import { jwtDecode } from 'jwt-decode';
 
 document.title = 'EduCloud | Kezdőlap';
 
@@ -11,8 +13,27 @@ const checkWindowSize = () => {
   isSizeCompatible.value = width >= 344 && height >= 470;
 };
 
+const isAdmin = ref(false)
+const { cookies } = useCookies();
+
+const isJwtValid = (token: string | null): boolean => {
+  if (!token) return false;
+  try {
+    const decoded: any = jwtDecode(token);
+    return decoded && decoded.exp * 1000 > Date.now();
+  } catch (error) {
+    return false;
+  }
+};
+
+const checkRole = () => {
+  const jwtToken = cookies.get('access_token');
+  isAdmin.value = isJwtValid(jwtToken);
+};
+
 onMounted(() => {
   checkWindowSize();
+  checkRole()
   window.addEventListener("resize", checkWindowSize);
 });
 
@@ -47,7 +68,7 @@ onBeforeUnmount(() => {
           <a>
             <router-link style="--i:2" to="" class="text-white hover:underline">Theme</router-link>
           </a>
-          <a>
+          <a v-if="isAdmin">
             <router-link style="--i:3" to="admin" class="text-white hover:underline">Admin</router-link>
           </a>
         </nav>
@@ -67,21 +88,20 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
-
 .size-error {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: var(--text-color);
-    }
-
-#menu-icon{ 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
   color: var(--text-color);
 }
 
-#close-icon{
+#menu-icon {
+  color: var(--text-color);
+}
+
+#close-icon {
   color: var(--text-color);
 }
 

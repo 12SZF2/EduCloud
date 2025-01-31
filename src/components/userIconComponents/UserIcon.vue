@@ -2,15 +2,15 @@
     <div class="user-icon" ref="userIcon" @click.stop="toggleDropdown">
         <SvgIcon type="mdi" :path="mdiAccountOutline" class="icon" />
         <div v-if="isDropdownVisible" class="dropdown-menu" :style="dropdownPosition">
-            <div class="dropdown-item" @click="admin">
+            <div v-if="isAdmin" class="dropdown-item" @click="admin">
                 <SvgIcon type="mdi" :path="mdiSecurity" />
                 <p>Admin</p>
             </div>
             <div class="dropdown-item" @click="logout">
                 <SvgIcon type="mdi" :path="mdiLogout" />
                 <p @click.once="() => {
-                      Cookies.remove('access_token');
-                    }">Kijelentkezés</p>
+                    Cookies.remove('access_token');
+                }">Kijelentkezés</p>
             </div>
             <!-- Add click.stop here -->
             <ThemeMenu class="dropdown-item" @click.stop />
@@ -25,6 +25,26 @@ import ThemeMenu from '@/components/themeChangerComponents/ThemeMenu.vue';
 import { mdiAccountOutline, mdiSecurity, mdiLogout } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 import Cookies from "js-cookie";
+import { useCookies } from 'vue3-cookies';
+import { jwtDecode } from 'jwt-decode';
+
+const isAdmin = ref(false)
+const { cookies } = useCookies();
+
+const isJwtValid = (token: string | null): boolean => {
+    if (!token) return false;
+    try {
+        const decoded: any = jwtDecode(token);
+        return decoded && decoded.exp * 1000 > Date.now();
+    } catch (error) {
+        return false;
+    }
+};
+
+const checkRole = () => {
+    const jwtToken = cookies.get('access_token');
+    isAdmin.value = isJwtValid(jwtToken);
+};
 
 const isDropdownVisible = ref(false);
 const userIcon = ref<HTMLElement | null>(null);
@@ -91,6 +111,7 @@ function handleOutsideClick(event: MouseEvent) {
 }
 
 onMounted(() => {
+    checkRole()
     window.addEventListener('resize', updateDropdownPosition);
     document.addEventListener('click', handleOutsideClick);
 });
