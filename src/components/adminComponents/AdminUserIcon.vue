@@ -8,7 +8,9 @@
       </div>
       <div class="flex items-center gap-4 p-1 w-44 h-8 text-lg rounded-lg text-[var(--text-color)] cursor-pointer hover:bg-white hover:bg-opacity-10" @click="logout">
         <SvgIcon type="mdi" :path="mdiLogout" />
-        <p>Logout</p>
+        <p @click.once="() => {
+          Cookies.remove('access_token');
+        }">Logout</p>
       </div>
       <ThemeMenu class="flex items-center gap-4 p-1 w-44 h-8 text-lg rounded-lg text-[var(--text-color)] cursor-pointer hover:bg-white hover:bg-opacity-10" @click.stop />
     </div>
@@ -22,6 +24,7 @@ import ThemeMenu from '@/components/themeChangerComponents/ThemeMenu.vue';
 import { mdiAccountOutline, mdiSecurity, mdiLogout } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 import {emit} from "@/utils/eventBus.util";
+import Cookies from "js-cookie";
 
 const isDropdownVisible = ref(false);
 const userIcon = ref<HTMLElement | null>(null);

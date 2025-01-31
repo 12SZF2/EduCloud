@@ -8,7 +8,9 @@
             </div>
             <div class="dropdown-item" @click="logout">
                 <SvgIcon type="mdi" :path="mdiLogout" />
-                <p>Kijelentkezés</p>
+                <p @click.once="() => {
+                      Cookies.remove('access_token');
+                    }">Kijelentkezés</p>
             </div>
             <!-- Add click.stop here -->
             <ThemeMenu class="dropdown-item" @click.stop />
@@ -22,6 +24,7 @@ import { useThemeStore } from '@/stores/themeStore';
 import ThemeMenu from '@/components/themeChangerComponents/ThemeMenu.vue';
 import { mdiAccountOutline, mdiSecurity, mdiLogout } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
+import Cookies from "js-cookie";
 
 const isDropdownVisible = ref(false);
 const userIcon = ref<HTMLElement | null>(null);
