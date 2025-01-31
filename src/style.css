@@ -53,6 +53,11 @@
   --table-text-color: theme(colors.white);
   --table-tr-color-odd: theme(colors.gray.500);
   --table-tr-color-even: theme(colors.gray.400);
+
+  /*login colors*/
+
+  --login-default-color: #CD90FB;
+  --login-text-color: #785AEE;
 }
 
 [data-theme="Dark"] {
@@ -63,6 +68,12 @@
   --border-color: white;
   --selected-theme-border-color: yellow;
   --background-image: url('../public/assets/Dark.jpg');
+
+  
+  /*login colors*/
+
+  --login-default-color: #CD90FB;
+  --login-text-color: #785AEE;
 }
 
 [data-theme="Light-Western"] {
@@ -114,6 +125,13 @@
   --table-text-color: theme(colors.white);
   --table-tr-color-odd: theme(colors.gray.500);
   --table-tr-color-even: theme(colors.gray.400);
+
+
+  /*login colors*/
+
+  --login-default-color: #ffbf8a;
+  --login-text-color: #856705;
+
 }
 
 [data-theme="Dark-Western"] {
@@ -124,6 +142,11 @@
   --border-color: white;
   --selected-theme-border-color: yellow;
   --background-image: url('../public/assets/Dark-Western.jpg');
+
+  /*login colors*/
+
+  --login-default-color: #90e2fb;
+  --login-text-color: #32a3ee;
 }
 
 body {

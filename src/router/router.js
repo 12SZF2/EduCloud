@@ -61,12 +61,42 @@ const routes = [
             }
         ]},
 ]
-
-
-
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
-})
+});
+router.beforeResolve((to, from, next) => {
+  const cookies = document.cookie.split("; ").reduce((acc, cookie) => {
+    const [name, value] = cookie.split("=");
+    acc[name] = value;
+    return acc;
+  }, {});
+
+  const jwtToken = cookies.token;
+
+  if (!jwtToken) {
+    if (to.path === "/admin") {
+      return next("/login");
+    }
+    return next();
+  }
+
+  try {
+    const payload = JSON.parse(atob(jwtToken.split(".")[1]));
+
+    if (to.path === "/login") {
+      return next("/");
+    }
+
+    next();
+  } catch (error) {
+    console.error("Hibás token:", error);
+    return next("/login");
+  }
+});
+
+router.isReady().then(() => {
+  localStorage.removeItem("vuetify:dynamic-reload");
+});
 
 export default router;
