@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ThemeButton from '@/components/themeButtonComponents/ThemeButton.vue'; 
 import { ref, onMounted, onBeforeUnmount, watch, Ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import { jwtDecode } from 'jwt-decode';
@@ -66,7 +67,7 @@ onBeforeUnmount(() => {
             <router-link style="--i:1" to="login" class="text-white hover:underline">Bejelentkezés</router-link>
           </a>
           <a>
-            <router-link style="--i:2" to="" class="text-white hover:underline">Theme</router-link>
+            <router-link style="--i:2" to="" ></router-link>
           </a>
           <a v-if="isAdmin">
             <router-link style="--i:3" to="admin" class="text-white hover:underline">Admin</router-link>
@@ -79,6 +80,7 @@ onBeforeUnmount(() => {
     <div class="flex justify-end " id="rightSide">
       <div class="fixed-bottom-left font-semibold">
         <h1>EduCloud</h1>
+        <ThemeButton></ThemeButton>
       </div>
     </div>
   </div>
