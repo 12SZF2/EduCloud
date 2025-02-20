@@ -104,7 +104,6 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom: 2px solid #585858;
 }
 
 h1 {

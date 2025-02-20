@@ -1,5 +1,5 @@
 <template>
-    <div class="user-icon" ref="userIcon" @click.stop="toggleDropdown">
+    <div class="user-icon absolute top-0 right-0 size-16 mr-4 mt-2" ref="userIcon" @click.stop="toggleDropdown">
         <SvgIcon type="mdi" :path="mdiAccountOutline" class="icon" />
         <div v-if="isDropdownVisible" class="dropdown-menu" :style="dropdownPosition">
             <div v-if="isAdmin" class="dropdown-item" @click="admin">
