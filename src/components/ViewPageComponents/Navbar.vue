@@ -1,9 +1,6 @@
 <template class="absolute bottom-0 left-0 size-16">
         <SvgIcon type="mdi" :path="iconPath" class="icon-back" @click="handleIconClick" />
-        <div class="search-container ">
-            <input type="text" placeholder="Kereső" v-model="searchQuery" />
-            <SvgIcon type="mdi" :path="mdiMagnify" class="icon-search" />
-        </div>
+        
         <user-icon />
 
 </template>

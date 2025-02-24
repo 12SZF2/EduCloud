@@ -18,6 +18,15 @@
           :modules="category.items"
           @moduleSelected="updateContent"
         />
+        <div class="search-container">
+          <input
+            class="imput"
+            type="text"
+            placeholder="Keresés"
+            v-model="searchQuery"
+          />
+          <SvgIcon type="mdi" :path="mdiMagnify" class="icon-search" />
+        </div>
       </div>
 
       <div v-else class="hamburger-menu">
@@ -45,6 +54,7 @@
               :modules="category.items"
               @moduleSelected="updateContent"
             />
+            asd
           </div>
         </div>
       </div>
@@ -418,5 +428,61 @@ onBeforeUnmount(() => {
 
 .hamburger-controls button:hover {
   transform: scale(1.1);
+}
+
+.imput {
+  border-radius: 50px;
+  width: 100%;
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 100%;
+  text-align: center;
+  box-shadow: 0 5px 5px 3px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(30px);
+  color: var(--text-color);
+  padding: 8px;
+  padding-right: 40px;
+}
+
+.imput:hover {
+  outline: var(--text-color) solid 1px;
+}
+
+.imput:focus {
+  border: none;
+  outline: var(--text-color) solid 3px;
+}
+
+.imput::placeholder {
+  color: var(--text-color);
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  flex-grow: 1;
+  bottom: 25px;
+  left: 3.5%;
+}
+
+.icon-search {
+  position: absolute;
+  right: 10px;
+  font-size: 24px;
+  color: var(--text-color);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .imput {
+    width: 50px;
+  }
+
+  .icon-back {
+    width: 40px;
+    height: 40px;
+  }
 }
 </style>
