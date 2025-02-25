@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Anta&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@700&family=Oi&family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -57,6 +57,7 @@
 
   --login-default-color: #cd90fb;
   --login-text-color: #785aee;
+  --nav-button-text: white;
 }
 
 [data-theme="Dark"] {
@@ -67,6 +68,7 @@
   --border-color: white;
   --selected-theme-border-color: yellow;
   --background-image: url("../public/assets/Dark.jpg");
+  --nav-button-text: white;
 
   /*login colors*/
 
@@ -79,7 +81,8 @@
   --background-color: white;
   --background-color-transparent: rgba(255, 255, 255, 0.85);
   --text-color: black;
-  --text-color-invert: white;
+  --nav-button-text: white;
+  --text-color-invert: rgb(255, 255, 255);
   --text-link-color: theme(colors.blue.900);
   --text-link-hover-color: theme(colors.blue.200);
   --text-link-hover-color-mobile: theme(colors.blue.400);
@@ -127,6 +130,7 @@
 
   --login-default-color: #ffbf8a;
   --login-text-color: #856705;
+  --nav-button-text: black;
 }
 
 [data-theme="Dark-Western"] {
@@ -142,13 +146,21 @@
 
   --login-default-color: #90e2fb;
   --login-text-color: #32a3ee;
+  --nav-button-text: white;
 }
 
 body {
   margin: 0;
-  font-family: "Anta";
+  font-family: "Jura", serif;
+  font-weight: 700;
   color: var(--text-color);
   background: var(--background-image) no-repeat center center fixed;
   background-size: cover;
   user-select: none;
+}
+@layer {
+  .scrollbar::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
 }
