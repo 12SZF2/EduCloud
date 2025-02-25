@@ -442,7 +442,6 @@ onBeforeUnmount(() => {
   backdrop-filter: blur(30px);
   color: var(--text-color);
   padding: 8px;
-  padding-right: 40px;
 }
 
 .imput:hover {
@@ -462,9 +461,10 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   position: absolute;
+  justify-content: center;
   flex-grow: 1;
   bottom: 25px;
-  left: 3.5%;
+  width: 19%;
 }
 
 .icon-search {
